@@ -8,8 +8,23 @@ def solve(instance: Instance) -> Solution:
     """
     numbers = instance.numbers
     model = cp_model.CpModel()
+    
+    first = [model.NewBoolVar(f"first_{i}") for i in range(len(numbers))]
+    second = [model.NewBoolVar(f"second_{i}") for i in range(len(numbers))]
+    
+    model.Add(sum(f * 1 for f in first) == 1)
+    model.Add(sum(s * 1 for s in second) == 1)
+    
+    
+    model.Maximize(sum(f * number for f, number in zip(first, numbers)) - sum(s * number for s, number in zip(second, numbers)))
+    
+    solver = cp_model.CpSolver()
+    status = solver.Solve(model)
+    
+    assert( status == cp_model.OPTIMAL)
+    
     return Solution(
-        number_a=numbers[0],
-        number_b=numbers[-1],
-        distance=abs(numbers[0] - numbers[-1]),
+        number_a = sum(solver.Value(f) * number for f, number in zip(first, numbers)),
+        number_b = sum(solver.Value(s) * number for s, number in zip(second, numbers)),
+        distance=sum(solver.Value(f) * number for f, number in zip(first, numbers)) - sum(solver.Value(s) * number for s, number in zip(second, numbers)),
     )

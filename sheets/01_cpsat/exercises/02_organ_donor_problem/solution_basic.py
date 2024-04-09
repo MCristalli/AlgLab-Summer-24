@@ -16,35 +16,56 @@ class CrossoverTransplantSolver:
         
         self.model = CpModel()
         
+        self.compatible_recipients = {}
+        for donor in self.database.get_all_donors():
+        	self.compatible_recipients[donor] = self.database.get_compatible_recipients(donor)
+        	
+        self.compatible_donors = {}
+        for recipient in self.database.get_all_recipients():
+                self.compatible_donors[recipient] = self.database.get_compatible_donors(recipient)
+        
+        
         self.donates = {}
         for donor in self.database.get_all_donors():
-                for recipient in self.database.get_all_recipients():
+                for recipient in self.compatible_recipients[donor]:
                         self.donates[donor.id, recipient.id] = self.model.NewBoolVar(f"donates_{donor.id}_{recipient.id}")
                         
-        self.receives = {}
-        for recipient in self.database.get_all_recipients():
-                for donor in self.database.get_all_donors():
-                        self.receives[recipient.id, donor.id] = self.model.NewBoolVar(f"receives_{recipient.id}_{donor.id}")
                         
         for donor in self.database.get_all_donors():
         	# maximum of 1 donation per donor
-                self.model.Add(sum(self.donates[donor.id, recipient.id] for recipient in self.database.get_all_recipients()) <= 1)
+                self.model.Add(sum(self.donates[donor.id, recipient.id] for recipient in self.compatible_recipients[donor]) <= 1)
+                
                 
                 # donor cannot donate to incompatible recipient
-                self.model.Add(sum(self.donates[donor.id, recipient.id] for recipient in [item for item in self.database.get_all_recipients() if item not in self.database.get_compatible_recipients(donor)]) == 0)
+                #self.model.Add(sum(self.donates[donor.id, recipient.id] for recipient in [item for item in self.database.get_all_recipients() if item not in self.database.get_compatible_recipients(donor)]) == 0)
                 
         for recipient in self.database.get_all_recipients():
         	# every recipient receives a maximum of 1 organ
-                self.model.Add(sum(self.receives[recipient.id, donor.id] for donor in self.database.get_all_donors()) <= 1)
+                self.model.Add(sum(self.donates[donor.id, recipient.id] for donor in self.compatible_donors[recipient]) <= 1)
                 
                 # recipients can't get an organ from incompatible donor
-                self.model.Add(sum(self.donates[donor.id, recipient.id] for donor in [item for item in self.database.get_all_donors() if item not in self.database.get_compatible_donors(recipient)]) == 0)
+                #self.model.Add(sum(self.donates[donor.id, recipient.id] for donor in [item for item in self.database.get_all_donors() if item not in self.database.get_compatible_donors(recipient)]) == 0)
+                
+                #self.model.Add(sum(self.donates[donor.id, recipient.id] for donor in self.database.get_partner_donors(recipient)) <=1)
                 
                 # organs received - organs donated for a recipient schould be 0
-                self.model.Add(sum(self.receives[recipient.id, donor.id] for donor in self.database.get_compatible_donors(recipient)) - sum(self.donates[donor.id, rec.id] for donor, rec in zip(self.database.get_partner_donors(recipient), self.database.get_all_recipients())) == 0)
+                number_received = sum(self.donates[donor.id, recipient.id] for donor in self.compatible_donors[recipient])
+                number_donated = 0
+                
+                for donor in self.database.get_partner_donors(recipient):
+                        for rec in self.compatible_recipients[donor]:
+                                number_donated += self.donates[donor.id, rec.id]
+                self.model.Add(number_received - number_donated == 0)
+                
+        #for donor, recipient in zip(self.database.get_all_donors(), self.database.get_all_recipients()):
+        	#self.model.Add(self.donates[donor.id, recipient.id] == self.receives[recipient.id, donor.id])
                 
         # maximize number of donations
-        self.model.Maximize(sum(self.donates[donator.id, recipient.id] for donator, recipient in zip(self.database.get_all_donors(), self.database.get_all_recipients())))       
+        summe = 0
+        for donor in self.database.get_all_donors():
+                for recipient in self.compatible_recipients[donor]:
+                        summe += self.donates[donor.id, recipient.id]
+        self.model.Maximize(summe)       
         
 
         self.solver = CpSolver()
@@ -70,9 +91,11 @@ class CrossoverTransplantSolver:
         donator = 0
         recipient = 0
         for don in self.database.get_all_donors():
-                for rec in self.database.get_all_recipients():
+                for rec in self.compatible_recipients[don]:
                         if self.solver.Value(self.donates[don.id, rec.id]) == 1:
                                 donation = Donation(donor=don, recipient=rec)
                                 donations.append(donation)
+                                print(donation)
                                 
+
         return Solution(donations=donations)

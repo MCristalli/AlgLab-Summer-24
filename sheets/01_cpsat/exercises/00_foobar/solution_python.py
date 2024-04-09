@@ -6,8 +6,7 @@ def solve(instance: Instance) -> Solution:
     Implement your solver for the problem here!
     """
     numbers = instance.numbers
-    numbers = numbers.sort()
-    #print(numbers.sort())
+    numbers.sort()
     return Solution(
         number_a=numbers[0],
         number_b=numbers[-1],

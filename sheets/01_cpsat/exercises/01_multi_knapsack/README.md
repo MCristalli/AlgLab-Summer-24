@@ -42,10 +42,14 @@ item $i$ that indicates whether the item is in the knapsack ($x_i=1$) or not
    the objective? What are the constraints? Assume that $k$ is the number of
    Knapsacks $K$, and $C_i$ is the capacity of Knapsack $i\in K$.
 
-_You can write your answer directly in this markdown file or refer to a separate
-file here._
 
-<!-- ADD YOUR ANSWER HERE -->
+$$\max \sum_{k \in K} \sum_{i \in I} v_i x^k_i$$
+
+$$\text{s.t.} \forall i \in I: \sum_{k \in K} x^k_i \leq 1 $$
+
+$$\forall k\in K: \sum_{i \in I} w_i x^k_i \leq C_k$$
+
+$$\forall i\in I: \forall k\in K: x^k_i \in \{0,1\}$$
 
 ### Implementation of a Solver in CP-SAT
 

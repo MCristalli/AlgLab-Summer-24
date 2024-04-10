@@ -31,7 +31,20 @@ class MultiKnapsackSolver:
         self.model = CpModel()
         self.solver = CpSolver()
         self.solver.parameters.log_search_progress = True
-        # TODO: Implement me!
+        
+        # Variable for each knapsack for each item, that should land in that knapsack
+        self.x = [[self.model.NewBoolVar(f"x_{i}{k}") for k in range(len(self.capacities))] for i in range(len(self.items))]
+
+        # Each items can only be in at most 1 knapsack
+        for knapsacks in self.x:
+            self.model.Add(sum(knapsacks) <= 1)
+            
+        # capacity constraint for each knapsack
+        for k, capacity in enumerate(self.capacities):
+           self.model.Add(sum(x[k] * i.weight for x, i in zip(self.x, self.items)) <= capacity)
+
+        # Maximize the value of all the knapsacks
+        self.model.Maximize(sum(x * i.value for x_k, i in zip(self.x, self.items) for x in x_k ))
 
 
 
@@ -50,5 +63,7 @@ class MultiKnapsackSolver:
             return Solution(knapsacks=[])  # empty solution
         elif timelimit < math.inf:
             self.solver.parameters.max_time_in_seconds = timelimit
-        # TODO: Implement me!
-        return Solution(knapsacks=[])  # empty solution
+
+        status = self.solver.Solve(self.model)
+        assert status == OPTIMAL
+        return Solution(knapsacks=[[i for x, i in zip(self.x, self.items) if self.solver.Value(x[k])] for k in range(len(self.capacities))])

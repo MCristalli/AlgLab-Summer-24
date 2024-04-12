@@ -70,7 +70,21 @@ Boolean variables and linear constraints.
 _You can write your answer directly in this markdown file or refer to a separate
 file here._
 
-<!-- ADD YOUR ANSWER HERE -->
+Let $G = (V, E)$ a Graph with $V = R$ and $ E = \bigcup_{(d,r) \in \{(d_1, r_1), (d_2, r_2), \ldots, (d_n, r_n)\}} \{ (r,s) \in R \times R | f(d,s) = 1 \} $
+
+In $E$ there is an edge from each recipiant to all the other recipiants, who are compatible with their donors. Those edges are also the Decision variables, for if we make that donation.
+
+
+$$\max \sum_{e \in E} x_e$$
+
+$$\text{s.t.} \sum_{e \in \{(u,v) \in E | u = v\} } x_e = 0 $$
+
+$$\forall_{r \in R}: \sum_{e \in \{(u,v) \in E | u = r\} } x_e \leq 1 $$
+        
+$$\forall_{r \in R}: \sum_{e \in \{(u,v) \in E | v = r\} } x_e = \sum_{e \in \{(u,v) \in E | u = r\} } x_e $$
+
+$$\forall e\in E: x_e \in \{0,1\}$$
+
 
 ### Implementation of a Solver in CP-SAT
 

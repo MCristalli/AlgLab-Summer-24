@@ -16,7 +16,7 @@ class CycleLimitingCrossoverTransplantSolver:
 
         self.database = database
         recipients = self.database.get_all_recipients()
-        max_cycles = len(recipients)
+        max_cycles = (len(recipients) + 1) // 2 # each cycles needs at least 2 nodes
 
         self.model = CpModel()
         self.solver = CpSolver()

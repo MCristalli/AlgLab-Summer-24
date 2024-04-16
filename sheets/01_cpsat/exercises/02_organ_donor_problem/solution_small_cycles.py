@@ -45,30 +45,22 @@ class CycleLimitingCrossoverTransplantSolver:
         for recipient in recipients:
             self.model.Add(sum([donoation for (i, j), (_, _, donoation) in self.donations.items() if j == recipient.id]) == sum([donoation for (i, j), (_, _, donoation) in self.donations.items() if i == recipient.id]))
 
+        # Pre process for cycle constraints.
+        # G = the Graph induced by the donations.
+        G = nx.DiGraph(self.donations.keys())
 
-        # cycles - c_{c}_{r} describes, if the recipient r is on cycles c.
-        self.cycles = {r.id: [self.model.NewBoolVar(f"c_{r}_{c}") for c in range(max_cycles)] for r in recipients}
+        # cycles - the cycle and a boolean variable for each cyle Graph G denoted by the donations.
+        #          equals 1 if cycle c_i is slected.
+        #          Also the cycle
+        self.cycles = [(cycle, self.model.NewBoolVar(f"c_{i}")) for i, cycle in enumerate(nx.simple_cycles(G, 3))]
 
-        # a recipient can lie on at most one cycle (optional: covered by the condition below)
+        # A recipient can only occour in at most one cycle
         for recipient in recipients:
-            self.model.Add(sum(self.cycles[recipient.id]) <= 1)
+            self.model.Add(sum([cycle_var for cycle, cycle_var in self.cycles if recipient.id in cycle]) <= 1)
 
-        # A recipient must lie on a cycle, if someone donates to him
-        for recipient in recipients:
-            self.model.Add(sum([donoation for (i, j), (_, _, donoation) in self.donations.items() if j == recipient.id]) == sum(self.cycles[recipient.id]))
-
-        # recipients are on the same cycle, if there is a donation between those 2
-        for recipient1 in recipients:
-            for recipient2 in recipients:
-                donation = self.donations.get((recipient1.id, recipient2.id))
-                if donation is not None:
-                    for c1, c2 in zip(self.cycles[recipient1.id], self.cycles[recipient2.id]):
-                        self.model.Add(c1 == c2).OnlyEnforceIf(donation[2])
-
-        # each cycle can contain at most 3 donations
-        for cycle in range(max_cycles):
-            self.model.Add(sum([self.cycles[recipient.id][cycle] for recipient in recipients]) <= 3)
-
+        # A donation must correspond to a cycle.
+        for (i, j), (_, _, donoation) in self.donations.items():
+            self.model.Add(sum([cycle_var for cycle, cycle_var in self.cycles if (i in cycle) and (j in cycle) ]) == donoation)
 
         # Maximize the length of the cycle aka the ammount of donations
         self.model.Maximize(sum(donoation for (_, _, donoation) in self.donations.values()))

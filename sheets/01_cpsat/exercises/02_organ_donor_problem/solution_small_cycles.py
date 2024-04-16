@@ -25,25 +25,7 @@ class CycleLimitingCrossoverTransplantSolver:
         # donations - (Donor, Recipient, e_{i, j})
         #   e_{i, j}     - if the donor is making a donation for recipiant i to recipiant j
         #                  aka if the edge (i, j) is on the cycle
-        self.donations = {(src.id, dst.id): (donor, dst, self.model.NewBoolVar(f"e_{src.id}_{dst.id}")) for src in recipients for donor in self.database.get_partner_donors(src) for dst in self.database.get_compatible_recipients(donor) }
-
-        # No self loops allowed (optional: the problem alredy states, that a recipiants donor are all incompatible)
-        for (i, j), (_, _, donoation) in self.donations.items():
-            if i == j:
-                self.model.Add(donoation == 0)
-        
-        # at most 1 donation for each recpiants partner donors
-        for src in recipients:
-            self.model.Add(sum([donoation for (i, j), (_, _, donoation) in self.donations.items() if i == src.id]) <= 1)
-
-        # at most 1 donation for each recpiant (optional: covered by the constraint below)
-        for src in recipients:
-            self.model.Add(sum([donoation for (i, j), (_, _, donoation) in self.donations.items() if j == src.id]) <= 1)
-
-        # if a recpiant recives a donation the partner donors have to donate.
-        # the recieved amount of donations must equal the outgoing ammount of donations.
-        for recipient in recipients:
-            self.model.Add(sum([donoation for (i, j), (_, _, donoation) in self.donations.items() if j == recipient.id]) == sum([donoation for (i, j), (_, _, donoation) in self.donations.items() if i == recipient.id]))
+        self.donations = {(src.id, dst.id): (donor, dst) for src in recipients for donor in self.database.get_partner_donors(src) for dst in self.database.get_compatible_recipients(donor) }
 
         # Pre process for cycle constraints.
         # G = the Graph induced by the donations.
@@ -58,12 +40,8 @@ class CycleLimitingCrossoverTransplantSolver:
         for recipient in recipients:
             self.model.Add(sum([cycle_var for cycle, cycle_var in self.cycles if recipient.id in cycle]) <= 1)
 
-        # A donation must correspond to a cycle.
-        for (i, j), (_, _, donoation) in self.donations.items():
-            self.model.Add(sum([cycle_var for cycle, cycle_var in self.cycles if (i in cycle) and (j in cycle) ]) == donoation)
-
         # Maximize the length of the cycle aka the ammount of donations
-        self.model.Maximize(sum(donoation for (_, _, donoation) in self.donations.values()))
+        self.model.Maximize(sum(len(cycle) * cycle_var for cycle, cycle_var in self.cycles))
 
 
     def optimize(self, timelimit: float = math.inf) -> Solution:
@@ -75,5 +53,5 @@ class CycleLimitingCrossoverTransplantSolver:
         status = self.solver.Solve(self.model)
         assert status == OPTIMAL
 
-        return Solution(donations=[Donation(donor=donor, recipient=recipient) for (donor, recipient, donation) in self.donations.values() if self.solver.Value(donation) ])
+        return Solution(donations=[Donation(donor=self.donations.get((src, dst))[0], recipient=self.donations.get((src, dst))[1]) for cycle, cycle_var in self.cycles if self.solver.Value(cycle_var) for (src, dst) in zip(cycle, cycle[1:] + cycle[:1])  ] )
 

@@ -46,7 +46,11 @@ coding.
 _You can write your answer directly in this markdown file or refer to a separate
 file here._
 
-<!-- ADD YOUR ANSWER HERE -->
+$$\text{minimize} \quad c$$
+$$\text{s.t.}\quad  \forall_{v \in V}: \exists_{k \in C}: k \in R_v $$
+$$\quad |C| \leq k$$
+$$\quad C \subseteq V$$
+$$\quad R_v := \{\,u \; | \; d_{vu} < c \} $$
 
 ### Task 2: Implementation of a Solver using a card-SAT-solver
 

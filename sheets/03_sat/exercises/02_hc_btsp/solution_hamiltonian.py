@@ -52,14 +52,11 @@ class HamiltonianCycleModel:
 
         # Setup initial constraints, since they will not change
         for node in self.graph.nodes:
-            # for any 3 edges per node, select at most 2
-            for subset in combinations(self.graph.edges(node), r = 3):
-                self.solver.add_clause([self.edge_vars.not_x(edge) for edge in subset])
-            # alternative: at most 2 edges connected per node
-            # self.solver.add_atmost([self.edge_vars.x(edge) for edge in self.graph.edges(node)], 2)
-
+            # at most 2 edges connected per node
+            self.solver.add_atmost([self.edge_vars.x(edge) for edge in self.graph.edges(node)], 2)
             # at least 1 (incomming) edge per node
             self.solver.add_clause([self.edge_vars.x((u, v)) for (u, v) in self.graph.edges(node)])
+
             for incomming_edge in self.graph.edges(node):
                 # for each incomming edge, that is selected, there exists an outgoing edge.
                 self.solver.add_clause([self.edge_vars.not_x(incomming_edge)] + [self.edge_vars.x(edge) for edge in self.graph.edges(node) if edge != incomming_edge])

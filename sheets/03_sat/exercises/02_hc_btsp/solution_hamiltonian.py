@@ -1,7 +1,9 @@
-from itertools import *
+import logging
+import math
 from typing import Optional, Any, Tuple, List
 
 import networkx as nx
+from _timer import Timer
 from pysat.solvers import Solver as SATSolver
 
 class _EdgeVars:
@@ -44,7 +46,8 @@ class _EdgeVars:
 
 
 class HamiltonianCycleModel:
-    def __init__(self, graph: nx.Graph) -> None:
+    def __init__(self, graph: nx.Graph, logger: Optional[logging.Logger] = None) -> None:
+        self._logger = logger or logging.getLogger("HamiltonianCycle-Solver")
         self.graph = graph
         # Decision Variable for each edge
         self.edge_vars = _EdgeVars(graph)
@@ -61,7 +64,7 @@ class HamiltonianCycleModel:
                 # for each incomming edge, that is selected, there exists an outgoing edge.
                 self.solver.add_clause([self.edge_vars.not_x(incomming_edge)] + [self.edge_vars.x(edge) for edge in self.graph.edges(node) if edge != incomming_edge])
 
-    def solve(self) -> Optional[List[Tuple[int, int]]]:
+    def solve(self, time_limit: float =  math.inf) -> Optional[List[Tuple[int, int]]]:
         """
         Solves the Hamiltonian Cycle Problem. If a HC is found,
         its edges are returned as a list.
@@ -78,18 +81,23 @@ class HamiltonianCycleModel:
         subgraph_edges = self.edge_vars.get_edge_selection(model)
         subgraph = self.graph.edge_subgraph(subgraph_edges)
 
+        timer = Timer(time_limit)
+        try:
+            while not nx.is_connected(subgraph):
+                timer.check()  # throws TimeoutError if time is up
 
-        while not nx.is_connected(subgraph):
-            for component in nx.connected_components(subgraph):
-                # for each component aka cycle, discard one edge
-                self.solver.add_clause([self.edge_vars.not_x((u, v)) for (u, v) in subgraph.edges if u in component and v in component ])
+                for component in nx.connected_components(subgraph):
+                    # for each component aka cycle, discard one edge
+                    self.solver.add_clause([self.edge_vars.not_x((u, v)) for (u, v) in subgraph.edges if u in component and v in component ])
 
-            if self.solver.solve():
-                model = self.solver.get_model()
-                assert model is not None
-                subgraph_edges = self.edge_vars.get_edge_selection(model)
-                subgraph = self.graph.edge_subgraph(subgraph_edges)
-            else:
-                return None # A Hamiltonian Cycle doesnt exist
+                if self.solver.solve():
+                    model = self.solver.get_model()
+                    assert model is not None
+                    subgraph_edges = self.edge_vars.get_edge_selection(model)
+                    subgraph = self.graph.edge_subgraph(subgraph_edges)
+                else:
+                    return None # A Hamiltonian Cycle doesnt exist
+        except TimeoutError:
+            self._logger.info("Timeout reached.")
 
         return subgraph_edges

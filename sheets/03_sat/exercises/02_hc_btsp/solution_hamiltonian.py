@@ -58,11 +58,12 @@ class HamiltonianCycleModel:
             # at most 2 edges connected per node
             self.solver.add_atmost([self.edge_vars.x(edge) for edge in self.graph.edges(node)], 2)
             # at least 1 (incomming) edge per node
-            self.solver.add_clause([self.edge_vars.x((u, v)) for (u, v) in self.graph.edges(node)])
+            self.solver.add_atmost([self.edge_vars.not_x(edge) for edge in self.graph.edges(node)], len(self.graph.edges(node)) - 2)
+            #self.solver.add_clause([self.edge_vars.x((u, v)) for (u, v) in self.graph.edges(node)])
 
-            for incomming_edge in self.graph.edges(node):
-                # for each incomming edge, that is selected, there exists an outgoing edge.
-                self.solver.add_clause([self.edge_vars.not_x(incomming_edge)] + [self.edge_vars.x(edge) for edge in self.graph.edges(node) if edge != incomming_edge])
+            #for incomming_edge in self.graph.edges(node):
+            #    # for each incomming edge, that is selected, there exists an outgoing edge.
+            #    self.solver.add_clause([self.edge_vars.not_x(incomming_edge)] + [self.edge_vars.x(edge) for edge in self.graph.edges(node) if edge != incomming_edge])
 
     def solve(self, time_limit: float =  math.inf) -> Optional[List[Tuple[int, int]]]:
         """

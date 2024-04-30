@@ -57,13 +57,8 @@ class HamiltonianCycleModel:
         for node in self.graph.nodes:
             # at most 2 edges connected per node
             self.solver.add_atmost([self.edge_vars.x(edge) for edge in self.graph.edges(node)], 2)
-            # at least 1 (incomming) edge per node
+            # at least 2 edge per node
             self.solver.add_atmost([self.edge_vars.not_x(edge) for edge in self.graph.edges(node)], len(self.graph.edges(node)) - 2)
-            #self.solver.add_clause([self.edge_vars.x((u, v)) for (u, v) in self.graph.edges(node)])
-
-            #for incomming_edge in self.graph.edges(node):
-            #    # for each incomming edge, that is selected, there exists an outgoing edge.
-            #    self.solver.add_clause([self.edge_vars.not_x(incomming_edge)] + [self.edge_vars.x(edge) for edge in self.graph.edges(node) if edge != incomming_edge])
 
     def solve(self, time_limit: float =  math.inf) -> Optional[List[Tuple[int, int]]]:
         """
@@ -88,8 +83,10 @@ class HamiltonianCycleModel:
                 timer.check()  # throws TimeoutError if time is up
 
                 for component in nx.connected_components(subgraph):
-                    # for each component aka cycle, discard one edge
-                    self.solver.add_clause([self.edge_vars.not_x((u, v)) for (u, v) in subgraph.edges if u in component and v in component ])
+                    # Find all edges which are going outside of the component
+                    connecting_edges = [(u, v) for (u, v) in self.graph.edges(component) if v not in component ]
+                    # select at least one of those outgoing edges
+                    self.solver.add_clause([self.edge_vars.x(edge) for edge in connecting_edges])
 
                 if self.solver.solve():
                     model = self.solver.get_model()

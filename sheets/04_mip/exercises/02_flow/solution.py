@@ -152,17 +152,22 @@ class MiningRoutingSolver:
             # No outgoing Flow from the elevator
             self._model.addConstr(flow_var == 0)
 
-        # Flow in if we allow flow in that direction - Flow out if we allow flow out in that direction + production >= 0. Flow out of a node should atleast be Flow in plus the production
+        for (u, v, throughput) in self.graph.edges(data="throughput"):
+            self._model.addConstr(self._flow_vars.x(u, v) <= self._edge_vars.x(u, v) * throughput)
+            self._model.addConstr(self._flow_vars.x(v, u) <= self._edge_vars.x(v, u) * throughput)
+
+        # Flow in - Flow out + production >= 0. Flow out of a node should atleast be Flow in plus the production
         for (node, production) in self.graph.nodes(data="production"):
             if node != self.elevator.id:
-                self._model.addConstr(sum(flow_var * self._edge_vars.x(u, v) for (u, v), flow_var in self._flow_vars.incident_edges(node))
-                                    - sum(flow_var * self._edge_vars.x(u, v) for (u, v), flow_var in self._flow_vars.outgoing_edges([node])) + production >= 0)
+                self._model.addConstr(sum(flow_var for _edge, flow_var in self._flow_vars.incident_edges(node)) -
+                                      sum(flow_var for _edge, flow_var in self._flow_vars.outgoing_edges([node])) + production >= 0)
 
 
         # total budget constraint
         self._model.addConstr(sum(self.graph.edges[edge]["cost"] * edge_var for edge, edge_var in self._edge_vars) <= self.budget)
 
         # Maximize Flow Objective (the flow comming into the elevators node)
+        self._model.addConstr(sum(flow_var * self._edge_vars.x(*edge) for edge, flow_var in self._flow_vars.incident_edges(self.elevator.id)) >= 1)
         self._model.setObjective(sum(flow_var * self._edge_vars.x(*edge) for edge, flow_var in self._flow_vars.incident_edges(self.elevator.id)), GRB.MAXIMIZE)
 
 
@@ -178,4 +183,4 @@ class MiningRoutingSolver:
         """
         self._model.optimize()
         solution_graph = self._flow_vars.as_graph()
-        return Solution(flow=[((u, v), flow) for (u, v, flow) in solution_graph.edges(data="flow")])
+        return Solution(flow=[((u, v), round(flow)) for (u, v, flow) in solution_graph.edges(data="flow")])

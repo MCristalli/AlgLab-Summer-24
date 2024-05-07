@@ -19,7 +19,7 @@ class _EdgeVariables:
         self._graph = G
         self._model = model
         self._vars = {
-            (u, v): model.addVar(vtype=gp.GRB.CONTINUOUS, name=f"edge_{u}_{v}")
+            (u, v): model.addVar(vtype=gp.GRB.CONTINUOUS, name=f"edge_{u}_{v}", lb=0, ub=1)
             for u, v in G.edges
         }
 
@@ -148,7 +148,7 @@ class GurobiTspRelaxationSolver:
             for component in nx.connected_components(solution):
                 # we have a disconnected component, add a constraint to connect it
                 self._model.addConstr(
-                    sum(x for _, x in self._edge_vars.outgoing_edges(component)) >= 2*self._edge_vars.EPSILON
+                    sum(x for _, x in self._edge_vars.outgoing_edges(component)) >= 2
                 )
             # reoptimize, with the added Constraints.
             self._model.optimize()

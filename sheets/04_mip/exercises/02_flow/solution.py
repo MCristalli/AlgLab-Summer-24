@@ -1,5 +1,5 @@
-import gurobipy as gb
-import networkx as nx
+import gurobipy as gp
+import networkx as nx  # noqa: F401
 from data_schema import Instance, Solution
 from gurobipy import GRB
 from collections import defaultdict

@@ -89,7 +89,6 @@ class GurobiTspSolver:
         self._edge_vars = _EdgeVariables(G, self._model)
 
 
-
     def get_lower_bound(self) -> float:
         """
         Return the current lower bound.
@@ -125,6 +124,7 @@ class GurobiTspSolver:
         # Set parameters for the solver.
         self._model.Params.LogToConsole = 1
         self._model.Params.TimeLimit = time_limit
+        self._model.Params.nonConvex = 0  # Throw an error if the model is non-convex
         self._model.Params.lazyConstraints = 1
         self._model.Params.MIPGap = (
             opt_tol  # https://www.gurobi.com/documentation/11.0/refman/mipgap.html

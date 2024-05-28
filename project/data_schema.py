@@ -8,6 +8,8 @@ class Student(BaseModel):
     """
     id: int
     projects: List[int] # list of project ids the student selected
+    negatives: List[int] # list of projects explicitly not chosen
+    skill: int # 0 = programmer, 1 = writer
 
     class Config:
         frozen = True

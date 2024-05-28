@@ -5,46 +5,31 @@ import gurobipy as gp
 import networkx as nx
 from gurobipy import GRB
 
-class _EdgeVariables:
+class _AssignmentVariables:
     """
     A helper class that manages the variables for edges in a graph.
     """
     EPSILON = 0.5
 
-    def __init__(self, G: nx.Graph, model: gp.Model):
-        self._graph = G
+    def __init__(self, students: List[Student], projects: List[Project], model: gp.Model):
+        self._students = students
+        self._projects = projects
         self._model = model
         self._vars = {
-            (u, v): model.addVar(vtype=GRB.BINARY, name=f"edge_{u}_{v}") 
-            for u, v in self._graph.edges
+            (s.id, p): model.addVar(vtype=GRB.BINARY, name=f"assign_{s.id}_{p}") 
+            for s in self._students
+            for p in s.projects
         }
 
-    def x(self, u, v) -> gp.Var:
+    def x(self, s: Student, p: Project) -> gp.Var:
         """
-        Return variable for edge (u, v).
+        Return variable for student project assigment s-> p if available.
         """
-        if (u, v) in self._vars:
-            return self._vars[u, v]
-        # If (u,v) was not found, try (v,u)
-        return self._vars[v, u]
-
-    def outgoing_edges(self, vertices):
-        """
-        Return all edges&variables that are outgoing from the given vertices.
-        """
-        # Not super efficient, but efficient enough for our purposes.
-        for (u, v), x in self._vars.items():
-            if u in vertices and v not in vertices:
-                yield (u, v), x
-            elif v in vertices and u not in vertices:
-                yield (v, u), x
-
-    def incident_edges(self, v):
-        """
-        Return all edges&variables that are incident to the given vertex.
-        """
-        for n in self._graph.neighbors(v):
-            yield (n, v), self.x(n, v)
+        assert p in self._projects
+        if p.id in s.projects:
+            return self._vars[s.id, p.id]
+        else:
+            return None
 
     def __iter__(self):
         """
@@ -52,30 +37,37 @@ class _EdgeVariables:
         """
         return iter(self._vars.items())
 
-    def as_graph(self, in_callback: bool = False):
+    def as_dict(self, in_callback: bool = False):
         """
-        Return the current solution as a graph.
+        Return the current solution in a dict.
         """
         if in_callback:
             # If we are in a callback, we need to use the solution from the callback.
-            used_edges = [uv for uv, x in self if self._model.cbGetSolution(x) > self.EPSILON]
+            return {s: p for (s, p), x in self if self._model.cbGetSolution(x) > self.EPSILON}
         else:
             # Otherwise, we can use the solution from the model.
-            used_edges = [uv for uv, x in self if x.X > self.EPSILON]
-        return nx.Graph(used_edges)
+            return {s: p for (s, p), x in self if x.X > self.EPSILON}
 
 
 class SEPAssignmentSolver:
     def __init__(self, instance: Instance) -> None:
         self.instance = instance
+        self._students = {s.id: s for s in instance.students}
+        self._projects = {p.id: p for p in instance.projects}
         self._model = gp.Model()
-        self._graph = nx.Graph([(student.id, -project_id) for student in self.instance.students for project_id in student.projects]) # graph from student to project
-        self._assignment_vars = _EdgeVariables(self._graph, self._model)
+        self._assignment_vars = _AssignmentVariables(self._students.values(), self._projects.values(), self._model)
         self.setup_constraints()
 
     def setup_constraints(self) -> None:
-        #setup initial constraints and the objective here.
-        pass
+        for project in self._projects.values():
+            self._model.addConstr(project.max >= sum([self._assignment_vars.x(student, project) for student in self._students.values() if project.id in student.projects]))
+            self._model.addConstr(project.min <= sum([self._assignment_vars.x(student, project) for student in self._students.values() if project.id in student.projects]))
+
+        for student in self._students.values():
+            self._model.addConstr(1 >= sum([self._assignment_vars.x(student, self._projects[project]) for project in student.projects]))
+
+        self._model.setObjective(sum([x for sp, x in self._assignment_vars]), GRB.MAXIMIZE)
+
 
 
     def solve(self) -> Solution:
@@ -89,7 +81,7 @@ class SEPAssignmentSolver:
 
         # perform multiple iterations here if necessary
 
-        return Solution(assignments=[])
+        return Solution(assignments=list(self._assignment_vars.as_dict().items()))
 
 
 
@@ -97,7 +89,7 @@ class SEPAssignmentSolver:
 
 if __name__ == "__main__":
     # Read the instance
-    with open("./instances/instance_1.json") as f:
+    with open("./instances/100_students_random.json") as f:
         instance: Instance = Instance.model_validate_json(f.read())
         student_lookup = {student.id: student for student in instance.students}
     # Create the solver

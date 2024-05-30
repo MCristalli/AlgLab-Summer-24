@@ -16,9 +16,9 @@ class _AssignmentVariables:
         self._projects = projects
         self._model = model
         self._vars = {
-            (s.id, p): model.addVar(vtype=GRB.BINARY, name=f"assign_{s.id}_{p}") 
+            (s.id, p.id): model.addVar(vtype=GRB.BINARY, name=f"assign_{s.id}_{p.id}") 
             for s in self._students
-            for p in s.projects
+            for p in self._projects if p not in s.negatives
         }
 
     def x(self, s: Student, p: Project) -> gp.Var:
@@ -59,14 +59,16 @@ class SEPAssignmentSolver:
         self.setup_constraints()
 
     def setup_constraints(self) -> None:
+        # Project Constraints
         for project in self._projects.values():
-            self._model.addConstr(project.max >= sum([self._assignment_vars.x(student, project) for student in self._students.values() if project.id in student.projects]))
-            self._model.addConstr(project.min <= sum([self._assignment_vars.x(student, project) for student in self._students.values() if project.id in student.projects]))
+            self._model.addConstr(project.max >= sum(x for (s, p), x in self._assignment_vars if p == project.id))
+            self._model.addConstr(project.min <= sum(x for (s, p), x in self._assignment_vars if p == project.id))
 
+        # Student Constraints
         for student in self._students.values():
-            self._model.addConstr(1 >= sum([self._assignment_vars.x(student, self._projects[project]) for project in student.projects]))
+            self._model.addConstr(1 >= sum(x for (s, p), x in self._assignment_vars if s == student.id))
 
-        self._model.setObjective(sum([x for sp, x in self._assignment_vars]), GRB.MAXIMIZE)
+        self._model.setObjective(sum(x if p not in self._students[s].projects else 2 * x for (s, p), x in self._assignment_vars), GRB.MAXIMIZE)
 
 
 

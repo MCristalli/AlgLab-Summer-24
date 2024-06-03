@@ -35,8 +35,8 @@ class Generator:
                 projects.append(choice)
 
             for v in range(number_negative):
-                choice = random.choice([x for x in self.projects if x not in projects and x not in negatives])
-                negatives.append(choice.id)
+                choice = random.choice([x.id for x in self.projects if x.id not in projects and x.id not in negatives])
+                negatives.append(choice)
 
             skill = random.randint(0, 1)
 

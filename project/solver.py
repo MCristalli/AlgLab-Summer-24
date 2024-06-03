@@ -106,9 +106,24 @@ if __name__ == "__main__":
         student = student_lookup[student_id]
         project_id = assignment[1]
         assert student is not None, f"Invalid Student {student_id} found!"
-        assert project_id in student.projects, f"Student {student_id} got assigned a Project he didnt sign up for!"
+      # assert project_id in student.projects, f"Student {student_id} got assigned a Project he didnt sign up for!"
     # Dump the solution to a file
     solution_json = solution.model_dump_json(indent=2)
     with open("./solution.json", "w") as f:
         f.write(solution_json)
     # TODO: Do some analysis on the Solution.
+
+    # Count the number of students who were assigned to one of their preferred projects
+    def count_preferred_assignments():
+        count = 0
+        for student_id, assigned_project in solution.assignments:
+            student_projects = [student.projects for student in instance.students if student.id == student_id][0]
+
+            if assigned_project in student_projects:
+                count += 1
+        print()
+        return count
+
+    preferred_count = count_preferred_assignments()
+    print(f"Anzahl der Studenten mit einem Wunschprojekt: {preferred_count}")
+    print(f"Anzahl der Studenten mit einem neutralem Projekt: {len(instance.students) - preferred_count}")

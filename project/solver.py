@@ -55,7 +55,9 @@ class SEPAssignmentSolver:
         self._students = {s.id: s for s in instance.students}
         self._projects = {p.id: p for p in instance.projects}
         self._model = gp.Model()
+        self._model.ModelSense = -1
         self._assignment_vars = _AssignmentVariables(self._students.values(), self._projects.values(), self._model)
+        self._abs_diff = self._model.addVars(len(self._projects), vtype=GRB.CONTINUOUS, name="abs_diff")
         self.setup_constraints()
 
     def setup_constraints(self) -> None:
@@ -68,9 +70,21 @@ class SEPAssignmentSolver:
         for student in self._students.values():
             self._model.addConstr(1 >= sum(x for (s, p), x in self._assignment_vars if s == student.id))
 
-        self._model.setObjective(sum(x if p not in self._students[s].projects else 2 * x for (s, p), x in self._assignment_vars), GRB.MAXIMIZE)
+        # abs_diff Constraints
+        programmers_count = [0 for p in self._projects.values()]
+        writers_count = [0 for p in self._projects.values()]
+        for project in self._projects.values():
+            programmers_count[project.id] = sum(x if self._students[s].skill == 0 else 0 for (s, p), x in self._assignment_vars if p == project.id)
+            writers_count[project.id] = sum(x if self._students[s].skill == 1 else 0 for (s, p), x in self._assignment_vars if p == project.id)
+            self._model.addConstr(self._abs_diff[project.id] >= writers_count[project.id] - programmers_count[project.id])
+            self._model.addConstr(self._abs_diff[project.id] >= programmers_count[project.id] - writers_count[project.id])
 
+        #Objective 1: Assign students to preferred projects. 2 points for assignment to preferred project, 1 for neutral
+        self._model.setObjectiveN(sum(x if p not in self._students[s].projects else 2 * x for (s, p), x in self._assignment_vars), index=0, priority=0, weight=2)
 
+        # Objetive 2: Minimize the difference between number of programmers and number of writers in each group.
+        # The absolute difference is subtracted from objective value
+        self._model.setObjectiveN(-sum(self._abs_diff[j] for j in range(len(instance.projects))), index=1, priority=0, weight=1)
 
     def solve(self) -> Solution:
         """
@@ -106,7 +120,7 @@ if __name__ == "__main__":
         student = student_lookup[student_id]
         project_id = assignment[1]
         assert student is not None, f"Invalid Student {student_id} found!"
-      # assert project_id in student.projects, f"Student {student_id} got assigned a Project he didnt sign up for!"
+    # assert project_id in student.projects, f"Student {student_id} got assigned a Project he didnt sign up for!"
     # Dump the solution to a file
     solution_json = solution.model_dump_json(indent=2)
     with open("./solution.json", "w") as f:
@@ -124,6 +138,24 @@ if __name__ == "__main__":
         print()
         return count
 
+    # Counts the absolute difference between number of programmers and writers for each group
+    def count_skillDiff_per_project():
+        programmers_count = [0 for j in range(len(instance.projects))]
+        writers_count = [0 for j in range(len(instance.projects))]
+
+        for student_id, assigned_project in solution.assignments:
+            if student_lookup[student_id].skill == 0:
+                programmers_count[assigned_project] += 1
+
+            if student_lookup[student_id].skill == 1:
+                writers_count[assigned_project] += 1
+
+        skillDiff = [abs(programmers_count[project] - writers_count[project]) for project in range(len(instance.projects))]
+        return skillDiff
+
     preferred_count = count_preferred_assignments()
+    skillDiff = count_skillDiff_per_project()
     print(f"Anzahl der Studenten mit einem Wunschprojekt: {preferred_count}")
     print(f"Anzahl der Studenten mit einem neutralem Projekt: {len(instance.students) - preferred_count}")
+    for diff in range(max(skillDiff) + 1):
+        print(f"Anzahl der Projekte mit einer Schreiber/Programmierer Differenz von {diff} : {skillDiff.count(diff)}")

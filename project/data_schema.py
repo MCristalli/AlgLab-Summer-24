@@ -12,7 +12,7 @@ class Student(BaseModel):
     skill: int # 0 = programmer, 1 = writer
 
     class Config:
-        frozen = True
+        frozen = False
 
 
 class Project(BaseModel):

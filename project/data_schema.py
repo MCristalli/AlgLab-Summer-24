@@ -10,6 +10,7 @@ class Student(BaseModel):
     projects: List[int] # list of project ids the student selected
     negatives: List[int] # list of projects explicitly not chosen
     skill: int # 0 = programmer, 1 = writer
+    programing_skills: dict
 
     class Config:
         frozen = False

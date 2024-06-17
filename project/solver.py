@@ -75,10 +75,10 @@ class SEPAssignmentSolver:
         writers_count = [0 for p in self._projects.values()]
         print(len(programmers_count))
         for project in self._projects.values():
-            programmers_count[project.id - 1] = sum(x if self._students[s].skill == 0 else 0 for (s, p), x in self._assignment_vars if p == project.id) # out of bounds index at programmers_count[project.id]
-            writers_count[project.id - 1] = sum(x if self._students[s].skill == 1 else 0 for (s, p), x in self._assignment_vars if p == project.id) #  out of bounds index at writers_count[project.id]
-            self._model.addConstr(self._abs_diff[project.id - 1] >= writers_count[project.id - 1] - programmers_count[project.id - 1]) # out of bounds index at self._abs_diff[project.id] and writers_count[project.id] and programmers_count[project.id]
-            self._model.addConstr(self._abs_diff[project.id - 1] >= programmers_count[project.id - 1] - writers_count[project.id - 1]) # out of bounds index at self._abs_diff[project.id] and writers_count[project.id] and programmers_count[project.id]
+            programmers_count[project.id] = sum(x if self._students[s].skill == 0 else 0 for (s, p), x in self._assignment_vars if p == project.id) # out of bounds index at programmers_count[project.id]
+            writers_count[project.id] = sum(x if self._students[s].skill == 1 else 0 for (s, p), x in self._assignment_vars if p == project.id) #  out of bounds index at writers_count[project.id]
+            self._model.addConstr(self._abs_diff[project.id] >= writers_count[project.id] - programmers_count[project.id]) # out of bounds index at self._abs_diff[project.id] and writers_count[project.id] and programmers_count[project.id]
+            self._model.addConstr(self._abs_diff[project.id] >= programmers_count[project.id] - writers_count[project.id]) # out of bounds index at self._abs_diff[project.id] and writers_count[project.id] and programmers_count[project.id]
 
         #Objective 1: Assign students to preferred projects. 2 points for assignment to preferred project, 1 for neutral
         self._model.setObjectiveN(sum(x if p not in self._students[s].projects else 2 * x for (s, p), x in self._assignment_vars), index=0, priority=0, weight=2)
@@ -146,10 +146,10 @@ if __name__ == "__main__":
 
         for student_id, assigned_project in solution.assignments:
             if student_lookup[student_id].skill == 0:
-                programmers_count[assigned_project - 1] += 1 # out of bounds index at [assigned_project]
+                programmers_count[assigned_project] += 1 # out of bounds index at [assigned_project]
 
             if student_lookup[student_id].skill == 1:
-                writers_count[assigned_project - 1] += 1 # out of bounds index at [assigned_project]
+                writers_count[assigned_project] += 1 # out of bounds index at [assigned_project]
 
         skillDiff = [abs(programmers_count[project] - writers_count[project]) for project in range(len(instance.projects))]
         return skillDiff

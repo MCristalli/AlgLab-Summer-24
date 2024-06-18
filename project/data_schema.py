@@ -31,6 +31,7 @@ class Instance(BaseModel):
     """
     students: List[Student]
     projects: List[Project]
+    programming_languages: List[str]
 
     class Config:
         frozen = True

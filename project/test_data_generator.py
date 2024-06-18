@@ -16,7 +16,7 @@ class Generator:
         self.generate_projects(number_courses)
         self.generate_students(number_students, number_positive, number_negative)
 
-        self.instance = Instance(students=self.students, projects=self.projects)
+        self.instance = Instance(students=self.students, projects=self.projects, programming_languages=self.programing_languages)
         self.instance_json = self.instance.model_dump_json(indent=2)
         return self.instance
 
@@ -70,7 +70,7 @@ class Generator:
 
             student.negatives = negatives;
 
-        self.instance = Instance(students=self.students, projects=self.projects)
+        self.instance = Instance(students=self.students, projects=self.projects, programming_languages=self.programing_languages)
         self.instance_json = self.instance.model_dump_json(indent=2)
 
     def parse_anonymous_data(self, df):

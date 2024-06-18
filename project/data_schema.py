@@ -4,12 +4,12 @@ from pydantic import BaseModel, model_validator
 
 class Student(BaseModel):
     """
-    The Student and the ossociated data with that student
+    The Student and the associated data with that student
     """
     id: int
-    projects: List[int] # list of project ids the student selected
-    negatives: List[int] # list of projects explicitly not chosen
-    skill: int # 0 = programmer, 1 = writer
+    projects: List[int]     # list of project ids the student selected
+    negatives: List[int]    # list of projects explicitly not chosen
+    skill: int              # 0 = programmer, 1 = writer
     programing_skills: dict
 
     class Config:
@@ -18,8 +18,10 @@ class Student(BaseModel):
 
 class Project(BaseModel):
     id: int
-    min: int # minimum number of students
-    max: int # maximum number of students
+    min: int    # minimum number of students
+    max: int    # maximum number of students
+    opt: int    # optimal number of students
+    language_requirements: List[int]
 
     class Config:
         frozen = True

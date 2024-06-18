@@ -11,8 +11,13 @@ class Generator:
         self.instance = None
         self.instance_json = None
         self.programing_languages = ["C ", "C++", "C#", "Java", "HTML/CSS", "Python", "JavaScript", "PHP"]
+        self.project_min_students = 7
+        self.projects_max_students = 13
 
-    def generate_test_data(self, number_students, number_courses, number_positive, number_negative) -> Instance:
+    def generate_test_data(self, number_students, number_courses, number_positive, number_negative, projects_min_students, projects_max_students) -> Instance:
+        self.project_min_students = projects_min_students
+        self.projects_max_students = projects_max_students
+
         self.generate_projects(number_courses)
         self.generate_students(number_students, number_positive, number_negative)
 
@@ -26,9 +31,42 @@ class Generator:
 
     def generate_projects(self, number_courses):
         for i in range(number_courses):
-            minimum = random.randint(5, 8)
-            project = Project(id=i, min=minimum, max=minimum + 4)
+            minimum = random.randint(self.project_min_students, self.projects_max_students)
+            maximum = random.randint(minimum, self.projects_max_students)
+            optimum = random.randint(minimum, maximum)
+
+            number_programming_languages = random.randint(1, 4)
+
+            required_languages = []
+            for v in range(number_programming_languages):
+                required_languages.append(random.choice([x for x in self.programing_languages if x not in required_languages]))
+
+            project = Project(id=i, min=minimum, max=maximum, opt=optimum, language_requirements=self.language_requirements_to_int_list(required_languages))
             self.projects.append(project)
+
+    def generate_single_project(self, project_id) -> Project:
+        minimum = random.randint(self.project_min_students, self.projects_max_students)
+        maximum = random.randint(minimum, self.projects_max_students)
+        optimum = random.randint(minimum, maximum)
+
+        number_programming_languages = random.randint(1, 4)
+
+        required_languages = []
+        for v in range(number_programming_languages):
+            required_languages.append(
+                random.choice([x for x in self.programing_languages if x not in required_languages]))
+
+        return Project(id=project_id, min=minimum, max=maximum, opt=optimum, language_requirements=self.language_requirements_to_int_list(required_languages))
+
+    def language_requirements_to_int_list(self, list) -> []:
+        language_requirements = [0 for x in self.programing_languages]
+
+        for language in list:
+            for i in range(len(self.programing_languages)):
+                if language == self.programing_languages[i]:
+                    language_requirements[i] = 1;
+
+        return language_requirements
 
     def generate_students(self, number_students, number_positive, number_negative):
         for i in range(number_students):
@@ -57,10 +95,9 @@ class Generator:
             project_ids = project_ids + student.projects
 
         project_ids = list(set(project_ids))
-        minimum = random.randint(5, 8)
 
-        for id in project_ids:
-            self.projects.append(Project(id=id, min=minimum, max=minimum+4))
+        for project_id in project_ids:
+            self.projects.append(self.generate_single_project(project_id))
 
         for student in self.students:
             negatives = []

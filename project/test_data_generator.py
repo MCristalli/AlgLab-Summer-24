@@ -45,7 +45,7 @@ class Generator:
             self.projects.append(project)
 
     def generate_single_project(self, project_id) -> Project:
-        minimum = random.randint(self.project_min_students, self.projects_max_students)
+        minimum = random.randint(self.project_min_students, self.project_min_students + 2)
         maximum = random.randint(minimum, self.projects_max_students)
         optimum = random.randint(minimum, maximum)
 

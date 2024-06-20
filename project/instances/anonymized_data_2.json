@@ -8,8 +8,8 @@
         6
       ],
       "negatives": [
-        13,
-        16,
+        15,
+        14,
         3
       ],
       "skill": 0,
@@ -32,11 +32,11 @@
         13
       ],
       "negatives": [
-        4,
-        7,
-        11
+        6,
+        0,
+        12
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 0,
@@ -56,9 +56,9 @@
         1
       ],
       "negatives": [
-        13,
-        12,
-        11
+        2,
+        18,
+        4
       ],
       "skill": 0,
       "programing_skills": {
@@ -80,11 +80,11 @@
         15
       ],
       "negatives": [
-        2,
         1,
-        18
+        8,
+        2
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 0,
         "C++": 0,
@@ -104,9 +104,9 @@
         17
       ],
       "negatives": [
-        8,
         13,
-        10
+        18,
+        5
       ],
       "skill": 0,
       "programing_skills": {
@@ -128,11 +128,11 @@
         14
       ],
       "negatives": [
-        4,
-        17,
+        18,
+        3,
         13
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 2,
@@ -152,9 +152,9 @@
         17
       ],
       "negatives": [
-        11,
         0,
-        7
+        6,
+        5
       ],
       "skill": 1,
       "programing_skills": {
@@ -176,11 +176,11 @@
         9
       ],
       "negatives": [
-        6,
-        18,
-        3
+        15,
+        1,
+        8
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 0,
@@ -200,11 +200,11 @@
         7
       ],
       "negatives": [
-        6,
-        10,
-        2
+        1,
+        11,
+        13
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -224,9 +224,9 @@
         6
       ],
       "negatives": [
-        5,
-        17,
-        14
+        10,
+        13,
+        8
       ],
       "skill": 0,
       "programing_skills": {
@@ -248,9 +248,9 @@
         13
       ],
       "negatives": [
+        3,
         6,
-        17,
-        12
+        0
       ],
       "skill": 0,
       "programing_skills": {
@@ -272,9 +272,9 @@
         17
       ],
       "negatives": [
-        15,
-        4,
-        2
+        3,
+        10,
+        8
       ],
       "skill": 0,
       "programing_skills": {
@@ -296,9 +296,9 @@
         1
       ],
       "negatives": [
-        13,
-        11,
-        16
+        6,
+        12,
+        17
       ],
       "skill": 0,
       "programing_skills": {
@@ -320,8 +320,8 @@
         9
       ],
       "negatives": [
-        10,
-        17,
+        13,
+        14,
         1
       ],
       "skill": 0,
@@ -345,10 +345,10 @@
       ],
       "negatives": [
         17,
-        10,
-        3
+        1,
+        7
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 2,
@@ -368,8 +368,8 @@
         0
       ],
       "negatives": [
-        7,
-        14,
+        12,
+        17,
         1
       ],
       "skill": 1,
@@ -392,11 +392,11 @@
         7
       ],
       "negatives": [
+        12,
         13,
-        1,
-        18
+        15
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 0,
@@ -416,11 +416,11 @@
         10
       ],
       "negatives": [
-        1,
+        14,
         4,
         7
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 0,
@@ -440,11 +440,11 @@
         17
       ],
       "negatives": [
-        8,
         13,
-        1
+        1,
+        6
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -464,9 +464,9 @@
         11
       ],
       "negatives": [
-        0,
-        1,
-        6
+        17,
+        6,
+        13
       ],
       "skill": 0,
       "programing_skills": {
@@ -488,9 +488,9 @@
         1
       ],
       "negatives": [
-        6,
-        17,
-        5
+        11,
+        8,
+        14
       ],
       "skill": 0,
       "programing_skills": {
@@ -512,9 +512,9 @@
         13
       ],
       "negatives": [
-        0,
-        7,
-        17
+        5,
+        6,
+        8
       ],
       "skill": 0,
       "programing_skills": {
@@ -536,11 +536,11 @@
         15
       ],
       "negatives": [
-        1,
-        17,
-        18
+        8,
+        13,
+        3
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 2,
         "C++": 0,
@@ -560,9 +560,9 @@
         17
       ],
       "negatives": [
+        15,
         1,
-        10,
-        14
+        10
       ],
       "skill": 0,
       "programing_skills": {
@@ -584,8 +584,8 @@
         14
       ],
       "negatives": [
-        0,
-        4,
+        8,
+        16,
         12
       ],
       "skill": 0,
@@ -608,11 +608,11 @@
         13
       ],
       "negatives": [
+        5,
         12,
-        16,
         10
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 3,
         "C++": 1,
@@ -633,10 +633,10 @@
       ],
       "negatives": [
         17,
-        15,
-        14
+        1,
+        9
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 0,
@@ -656,9 +656,9 @@
         1
       ],
       "negatives": [
-        12,
+        3,
         17,
-        13
+        8
       ],
       "skill": 1,
       "programing_skills": {
@@ -680,9 +680,9 @@
         17
       ],
       "negatives": [
-        9,
-        5,
-        16
+        8,
+        2,
+        11
       ],
       "skill": 0,
       "programing_skills": {
@@ -704,11 +704,11 @@
         6
       ],
       "negatives": [
-        9,
-        14,
-        0
+        10,
+        2,
+        5
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -728,11 +728,11 @@
         17
       ],
       "negatives": [
-        6,
-        11,
-        12
+        3,
+        9,
+        11
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 0,
@@ -752,9 +752,9 @@
         11
       ],
       "negatives": [
+        6,
         10,
-        8,
-        18
+        0
       ],
       "skill": 0,
       "programing_skills": {
@@ -776,9 +776,9 @@
         13
       ],
       "negatives": [
-        0,
-        8,
-        3
+        1,
+        2,
+        0
       ],
       "skill": 0,
       "programing_skills": {
@@ -800,9 +800,9 @@
         5
       ],
       "negatives": [
-        11,
-        7,
-        6
+        17,
+        3,
+        7
       ],
       "skill": 1,
       "programing_skills": {
@@ -824,11 +824,11 @@
         13
       ],
       "negatives": [
+        5,
         15,
-        16,
-        4
+        8
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -848,9 +848,9 @@
         17
       ],
       "negatives": [
-        8,
-        11,
-        4
+        9,
+        3,
+        14
       ],
       "skill": 1,
       "programing_skills": {
@@ -872,9 +872,9 @@
         14
       ],
       "negatives": [
-        12,
-        16,
-        7
+        3,
+        9,
+        0
       ],
       "skill": 0,
       "programing_skills": {
@@ -896,9 +896,9 @@
         11
       ],
       "negatives": [
-        15,
-        13,
-        9
+        6,
+        8,
+        2
       ],
       "skill": 0,
       "programing_skills": {
@@ -920,9 +920,9 @@
         15
       ],
       "negatives": [
-        7,
-        3,
-        12
+        18,
+        1,
+        13
       ],
       "skill": 1,
       "programing_skills": {
@@ -944,9 +944,9 @@
         12
       ],
       "negatives": [
-        1,
-        15,
-        8
+        4,
+        8,
+        3
       ],
       "skill": 1,
       "programing_skills": {
@@ -968,11 +968,11 @@
         17
       ],
       "negatives": [
-        9,
-        0,
-        5
+        15,
+        8,
+        2
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 0,
@@ -992,9 +992,9 @@
         7
       ],
       "negatives": [
-        1,
-        11,
-        12
+        16,
+        0,
+        10
       ],
       "skill": 0,
       "programing_skills": {
@@ -1016,11 +1016,11 @@
         7
       ],
       "negatives": [
-        13,
-        16,
-        10
+        11,
+        1,
+        14
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 2,
         "C++": 1,
@@ -1041,8 +1041,8 @@
       ],
       "negatives": [
         15,
-        12,
-        9
+        9,
+        5
       ],
       "skill": 0,
       "programing_skills": {
@@ -1064,9 +1064,9 @@
         6
       ],
       "negatives": [
-        0,
-        18,
-        1
+        17,
+        12,
+        10
       ],
       "skill": 0,
       "programing_skills": {
@@ -1089,8 +1089,8 @@
       ],
       "negatives": [
         8,
-        17,
-        1
+        13,
+        9
       ],
       "skill": 0,
       "programing_skills": {
@@ -1112,11 +1112,11 @@
         0
       ],
       "negatives": [
-        4,
-        10,
-        13
+        3,
+        17,
+        14
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 2,
         "C++": 0,
@@ -1136,11 +1136,11 @@
         6
       ],
       "negatives": [
-        11,
-        5,
-        1
+        7,
+        18,
+        16
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 0,
         "C++": 1,
@@ -1160,9 +1160,9 @@
         0
       ],
       "negatives": [
-        8,
-        1,
-        6
+        14,
+        16,
+        17
       ],
       "skill": 0,
       "programing_skills": {
@@ -1184,11 +1184,11 @@
         12
       ],
       "negatives": [
-        4,
-        15,
-        11
+        14,
+        3,
+        0
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -1208,11 +1208,11 @@
         8
       ],
       "negatives": [
-        14,
-        2,
-        12
+        5,
+        6,
+        0
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 0,
@@ -1232,9 +1232,9 @@
         4
       ],
       "negatives": [
-        9,
-        14,
-        10
+        17,
+        11,
+        6
       ],
       "skill": 1,
       "programing_skills": {
@@ -1256,11 +1256,11 @@
         5
       ],
       "negatives": [
-        1,
-        0,
-        10
+        9,
+        2,
+        6
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 0,
@@ -1280,9 +1280,9 @@
         4
       ],
       "negatives": [
-        2,
         11,
-        17
+        18,
+        14
       ],
       "skill": 0,
       "programing_skills": {
@@ -1304,11 +1304,11 @@
         5
       ],
       "negatives": [
-        17,
-        11,
-        13
+        8,
+        3,
+        4
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 2,
         "C++": 1,
@@ -1328,11 +1328,11 @@
         11
       ],
       "negatives": [
-        8,
-        3,
-        10
+        16,
+        12,
+        8
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 2,
         "C++": 2,
@@ -1352,9 +1352,9 @@
         8
       ],
       "negatives": [
-        18,
-        4,
-        13
+        0,
+        14,
+        5
       ],
       "skill": 1,
       "programing_skills": {
@@ -1376,11 +1376,11 @@
         15
       ],
       "negatives": [
-        2,
-        3,
+        4,
+        13,
         12
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 2,
         "C++": 1,
@@ -1400,8 +1400,8 @@
         9
       ],
       "negatives": [
+        17,
         1,
-        10,
         4
       ],
       "skill": 0,
@@ -1424,9 +1424,9 @@
         4
       ],
       "negatives": [
-        2,
-        6,
-        10
+        10,
+        0,
+        8
       ],
       "skill": 1,
       "programing_skills": {
@@ -1448,8 +1448,8 @@
         17
       ],
       "negatives": [
-        12,
-        3,
+        2,
+        10,
         6
       ],
       "skill": 1,
@@ -1472,9 +1472,9 @@
         5
       ],
       "negatives": [
-        3,
-        9,
-        15
+        14,
+        1,
+        16
       ],
       "skill": 1,
       "programing_skills": {
@@ -1496,9 +1496,9 @@
         15
       ],
       "negatives": [
+        5,
         0,
-        16,
-        12
+        14
       ],
       "skill": 0,
       "programing_skills": {
@@ -1521,8 +1521,8 @@
       ],
       "negatives": [
         8,
-        11,
-        15
+        17,
+        1
       ],
       "skill": 1,
       "programing_skills": {
@@ -1544,11 +1544,11 @@
         13
       ],
       "negatives": [
-        8,
-        5,
-        3
+        10,
+        0,
+        8
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -1568,9 +1568,9 @@
         6
       ],
       "negatives": [
-        1,
-        2,
-        5
+        17,
+        8,
+        10
       ],
       "skill": 1,
       "programing_skills": {
@@ -1592,11 +1592,11 @@
         0
       ],
       "negatives": [
-        1,
-        6,
-        9
+        17,
+        12,
+        5
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -1616,11 +1616,11 @@
         0
       ],
       "negatives": [
-        6,
-        4,
-        16
+        5,
+        8,
+        17
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 0,
         "C++": 0,
@@ -1640,9 +1640,9 @@
         7
       ],
       "negatives": [
-        3,
-        6,
-        17
+        8,
+        16,
+        12
       ],
       "skill": 1,
       "programing_skills": {
@@ -1664,11 +1664,11 @@
         4
       ],
       "negatives": [
-        10,
+        3,
         1,
-        16
+        2
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 2,
         "C++": 1,
@@ -1689,8 +1689,8 @@
       ],
       "negatives": [
         8,
-        10,
-        12
+        3,
+        10
       ],
       "skill": 1,
       "programing_skills": {
@@ -1712,11 +1712,11 @@
         16
       ],
       "negatives": [
-        14,
         13,
-        1
+        6,
+        11
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -1736,9 +1736,9 @@
         7
       ],
       "negatives": [
-        10,
+        0,
         11,
-        13
+        17
       ],
       "skill": 1,
       "programing_skills": {
@@ -1760,11 +1760,11 @@
         3
       ],
       "negatives": [
-        2,
-        16,
-        12
+        11,
+        14,
+        6
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 2,
@@ -1784,8 +1784,8 @@
         6
       ],
       "negatives": [
-        14,
-        7,
+        16,
+        0,
         8
       ],
       "skill": 0,
@@ -1808,11 +1808,11 @@
         12
       ],
       "negatives": [
-        16,
-        15,
-        6
+        5,
+        14,
+        17
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 0,
         "C++": 0,
@@ -1832,11 +1832,11 @@
         14
       ],
       "negatives": [
-        3,
         15,
-        18
+        2,
+        13
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 0,
@@ -1856,11 +1856,11 @@
         13
       ],
       "negatives": [
-        8,
         0,
-        3
+        11,
+        5
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 0,
         "C++": 0,
@@ -1880,11 +1880,11 @@
         4
       ],
       "negatives": [
-        15,
-        11,
-        18
+        16,
+        3,
+        10
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 0,
@@ -1904,11 +1904,11 @@
         17
       ],
       "negatives": [
-        12,
-        8,
-        1
+        7,
+        11,
+        4
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 0,
@@ -1928,11 +1928,11 @@
         1
       ],
       "negatives": [
-        11,
-        17,
-        9
+        12,
+        18,
+        16
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 0,
         "C++": 0,
@@ -1952,11 +1952,11 @@
         1
       ],
       "negatives": [
-        9,
-        16,
-        4
+        8,
+        12,
+        16
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 2,
         "C++": 0,
@@ -1977,8 +1977,8 @@
       ],
       "negatives": [
         4,
-        11,
-        9
+        0,
+        3
       ],
       "skill": 1,
       "programing_skills": {
@@ -2000,9 +2000,9 @@
         11
       ],
       "negatives": [
-        16,
-        8,
-        1
+        1,
+        14,
+        17
       ],
       "skill": 0,
       "programing_skills": {
@@ -2024,9 +2024,9 @@
         14
       ],
       "negatives": [
-        10,
-        8,
-        15
+        12,
+        7,
+        4
       ],
       "skill": 0,
       "programing_skills": {
@@ -2048,11 +2048,11 @@
         16
       ],
       "negatives": [
-        5,
-        3,
-        0
+        0,
+        12,
+        5
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 0,
         "C++": 0,
@@ -2072,9 +2072,9 @@
         13
       ],
       "negatives": [
-        11,
-        1,
-        10
+        0,
+        3,
+        2
       ],
       "skill": 0,
       "programing_skills": {
@@ -2097,10 +2097,10 @@
       ],
       "negatives": [
         5,
-        6,
-        17
+        4,
+        16
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 0,
         "C++": 0,
@@ -2120,9 +2120,9 @@
         16
       ],
       "negatives": [
-        12,
+        15,
         14,
-        0
+        6
       ],
       "skill": 0,
       "programing_skills": {
@@ -2144,11 +2144,11 @@
         17
       ],
       "negatives": [
-        12,
-        15,
-        7
+        6,
+        10,
+        18
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 2,
         "C++": 1,
@@ -2168,9 +2168,9 @@
         4
       ],
       "negatives": [
-        0,
-        18,
-        16
+        8,
+        3,
+        14
       ],
       "skill": 1,
       "programing_skills": {
@@ -2192,9 +2192,9 @@
         1
       ],
       "negatives": [
-        17,
-        18,
-        5
+        13,
+        12,
+        2
       ],
       "skill": 1,
       "programing_skills": {
@@ -2216,11 +2216,11 @@
         14
       ],
       "negatives": [
-        15,
-        13,
-        1
+        2,
+        7,
+        8
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -2240,11 +2240,11 @@
         5
       ],
       "negatives": [
-        12,
-        10,
-        4
+        4,
+        17,
+        2
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 0,
@@ -2265,8 +2265,8 @@
       ],
       "negatives": [
         3,
-        10,
-        8
+        4,
+        9
       ],
       "skill": 0,
       "programing_skills": {
@@ -2288,9 +2288,9 @@
         8
       ],
       "negatives": [
-        15,
-        11,
-        6
+        5,
+        7,
+        2
       ],
       "skill": 0,
       "programing_skills": {
@@ -2312,11 +2312,11 @@
         5
       ],
       "negatives": [
-        17,
-        0,
-        9
+        6,
+        18,
+        2
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 0,
         "C++": 0,
@@ -2336,11 +2336,11 @@
         15
       ],
       "negatives": [
-        14,
-        13,
-        6
+        6,
+        12,
+        13
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -2360,9 +2360,9 @@
         10
       ],
       "negatives": [
-        3,
-        4,
-        11
+        16,
+        18,
+        2
       ],
       "skill": 0,
       "programing_skills": {
@@ -2384,11 +2384,11 @@
         4
       ],
       "negatives": [
-        17,
-        10,
-        12
+        12,
+        15,
+        6
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 0,
@@ -2408,11 +2408,11 @@
         5
       ],
       "negatives": [
-        16,
-        14,
-        18
+        12,
+        11,
+        6
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -2432,8 +2432,8 @@
         7
       ],
       "negatives": [
-        3,
-        0,
+        14,
+        6,
         16
       ],
       "skill": 0,
@@ -2456,11 +2456,11 @@
         1
       ],
       "negatives": [
-        13,
-        17,
-        8
+        0,
+        10,
+        14
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 0,
         "C++": 1,
@@ -2480,9 +2480,9 @@
         15
       ],
       "negatives": [
-        8,
-        17,
-        12
+        1,
+        13,
+        11
       ],
       "skill": 0,
       "programing_skills": {
@@ -2504,11 +2504,11 @@
         13
       ],
       "negatives": [
-        0,
-        11,
-        5
+        12,
+        5,
+        8
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 0,
         "C++": 0,
@@ -2528,9 +2528,9 @@
         6
       ],
       "negatives": [
-        16,
-        12,
-        3
+        15,
+        0,
+        9
       ],
       "skill": 1,
       "programing_skills": {
@@ -2552,11 +2552,11 @@
         6
       ],
       "negatives": [
-        12,
-        7,
-        8
+        1,
+        2,
+        0
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 0,
@@ -2576,9 +2576,9 @@
         7
       ],
       "negatives": [
-        9,
+        5,
         1,
-        18
+        4
       ],
       "skill": 0,
       "programing_skills": {
@@ -2600,11 +2600,11 @@
         8
       ],
       "negatives": [
-        12,
-        0,
-        5
+        14,
+        11,
+        15
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 0,
@@ -2624,11 +2624,11 @@
         0
       ],
       "negatives": [
-        10,
-        3,
-        6
+        11,
+        4,
+        16
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 2,
         "C++": 0,
@@ -2648,9 +2648,9 @@
         1
       ],
       "negatives": [
+        2,
         16,
-        4,
-        12
+        17
       ],
       "skill": 0,
       "programing_skills": {
@@ -2672,9 +2672,9 @@
         13
       ],
       "negatives": [
-        15,
-        4,
-        10
+        0,
+        8,
+        4
       ],
       "skill": 1,
       "programing_skills": {
@@ -2696,9 +2696,9 @@
         1
       ],
       "negatives": [
-        18,
-        0,
-        13
+        16,
+        3,
+        5
       ],
       "skill": 0,
       "programing_skills": {
@@ -2720,8 +2720,8 @@
         8
       ],
       "negatives": [
-        9,
-        17,
+        16,
+        0,
         1
       ],
       "skill": 0,
@@ -2744,9 +2744,9 @@
         8
       ],
       "negatives": [
-        1,
-        17,
-        13
+        6,
+        18,
+        15
       ],
       "skill": 1,
       "programing_skills": {
@@ -2768,11 +2768,11 @@
         7
       ],
       "negatives": [
-        13,
         17,
-        10
+        0,
+        18
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 0,
@@ -2792,9 +2792,9 @@
         3
       ],
       "negatives": [
-        0,
-        15,
-        8
+        2,
+        11,
+        9
       ],
       "skill": 0,
       "programing_skills": {
@@ -2816,11 +2816,11 @@
         6
       ],
       "negatives": [
-        8,
-        10,
+        0,
+        7,
         17
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 0,
@@ -2840,9 +2840,9 @@
         5
       ],
       "negatives": [
-        0,
-        4,
-        6
+        16,
+        14,
+        2
       ],
       "skill": 1,
       "programing_skills": {
@@ -2864,11 +2864,11 @@
         8
       ],
       "negatives": [
-        15,
-        1,
-        17
+        12,
+        6,
+        3
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 0,
@@ -2888,11 +2888,11 @@
         17
       ],
       "negatives": [
-        1,
-        4,
-        11
+        16,
+        5,
+        15
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 2,
         "C++": 1,
@@ -2912,11 +2912,11 @@
         14
       ],
       "negatives": [
+        9,
         16,
-        5,
-        12
+        5
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -2936,9 +2936,9 @@
         16
       ],
       "negatives": [
-        10,
-        6,
-        0
+        9,
+        2,
+        10
       ],
       "skill": 0,
       "programing_skills": {
@@ -2960,9 +2960,9 @@
         1
       ],
       "negatives": [
-        10,
-        0,
-        17
+        8,
+        16,
+        11
       ],
       "skill": 1,
       "programing_skills": {
@@ -2984,11 +2984,11 @@
         6
       ],
       "negatives": [
-        17,
-        7,
-        8
+        3,
+        1,
+        15
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 0,
@@ -3008,9 +3008,9 @@
         9
       ],
       "negatives": [
-        5,
-        11,
-        1
+        7,
+        8,
+        2
       ],
       "skill": 0,
       "programing_skills": {
@@ -3032,11 +3032,11 @@
         13
       ],
       "negatives": [
-        16,
-        9,
-        0
+        4,
+        10,
+        8
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 2,
         "C++": 0,
@@ -3056,9 +3056,9 @@
         7
       ],
       "negatives": [
-        16,
-        5,
-        18
+        17,
+        12,
+        6
       ],
       "skill": 1,
       "programing_skills": {
@@ -3080,9 +3080,9 @@
         4
       ],
       "negatives": [
-        16,
-        2,
-        5
+        5,
+        13,
+        16
       ],
       "skill": 1,
       "programing_skills": {
@@ -3104,11 +3104,11 @@
         4
       ],
       "negatives": [
-        6,
-        3,
-        13
+        9,
+        2,
+        8
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 0,
@@ -3128,9 +3128,9 @@
         7
       ],
       "negatives": [
-        4,
-        6,
-        16
+        15,
+        2,
+        10
       ],
       "skill": 0,
       "programing_skills": {
@@ -3152,9 +3152,9 @@
         16
       ],
       "negatives": [
-        14,
-        5,
-        10
+        9,
+        0,
+        1
       ],
       "skill": 0,
       "programing_skills": {
@@ -3176,11 +3176,11 @@
         8
       ],
       "negatives": [
-        11,
-        9,
-        14
+        13,
+        14,
+        3
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 0,
@@ -3200,11 +3200,11 @@
         8
       ],
       "negatives": [
-        13,
+        9,
         16,
-        9
+        14
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 0,
@@ -3224,9 +3224,9 @@
         11
       ],
       "negatives": [
-        9,
-        3,
-        10
+        5,
+        6,
+        4
       ],
       "skill": 0,
       "programing_skills": {
@@ -3248,11 +3248,11 @@
         9
       ],
       "negatives": [
-        14,
-        11,
-        10
+        17,
+        0,
+        4
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 2,
         "C++": 1,
@@ -3272,11 +3272,11 @@
         4
       ],
       "negatives": [
-        0,
-        2,
-        11
+        10,
+        15,
+        16
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 2,
         "C++": 2,
@@ -3296,8 +3296,8 @@
         1
       ],
       "negatives": [
-        14,
-        15,
+        13,
+        6,
         0
       ],
       "skill": 0,
@@ -3321,10 +3321,10 @@
       ],
       "negatives": [
         10,
-        2,
+        14,
         6
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 2,
         "C++": 0,
@@ -3344,9 +3344,9 @@
         13
       ],
       "negatives": [
-        17,
-        18,
-        4
+        12,
+        11,
+        3
       ],
       "skill": 1,
       "programing_skills": {
@@ -3368,9 +3368,9 @@
         13
       ],
       "negatives": [
-        5,
-        3,
-        10
+        7,
+        10,
+        9
       ],
       "skill": 1,
       "programing_skills": {
@@ -3392,9 +3392,9 @@
         15
       ],
       "negatives": [
-        10,
-        8,
-        9
+        9,
+        6,
+        3
       ],
       "skill": 1,
       "programing_skills": {
@@ -3416,11 +3416,11 @@
         17
       ],
       "negatives": [
-        11,
-        2,
-        10
+        12,
+        9,
+        14
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 0,
@@ -3440,9 +3440,9 @@
         7
       ],
       "negatives": [
-        15,
-        18,
-        6
+        6,
+        4,
+        11
       ],
       "skill": 1,
       "programing_skills": {
@@ -3464,9 +3464,9 @@
         7
       ],
       "negatives": [
-        15,
-        13,
-        8
+        2,
+        11,
+        0
       ],
       "skill": 1,
       "programing_skills": {
@@ -3488,11 +3488,11 @@
         15
       ],
       "negatives": [
-        2,
-        4,
-        13
+        17,
+        12,
+        8
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 0,
@@ -3513,10 +3513,10 @@
       ],
       "negatives": [
         0,
-        9,
-        2
+        16,
+        10
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 0,
@@ -3536,11 +3536,11 @@
         15
       ],
       "negatives": [
-        4,
-        17,
-        14
+        3,
+        6,
+        4
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 0,
@@ -3560,11 +3560,11 @@
         8
       ],
       "negatives": [
+        17,
         0,
-        13,
-        9
+        11
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 0,
@@ -3584,11 +3584,11 @@
         15
       ],
       "negatives": [
-        10,
-        8,
-        3
+        3,
+        13,
+        1
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 1,
@@ -3608,11 +3608,11 @@
         1
       ],
       "negatives": [
-        13,
-        18,
-        0
+        4,
+        8,
+        2
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 0,
         "C++": 0,
@@ -3632,9 +3632,9 @@
         6
       ],
       "negatives": [
-        15,
-        7,
-        4
+        2,
+        5,
+        18
       ],
       "skill": 1,
       "programing_skills": {
@@ -3656,9 +3656,9 @@
         0
       ],
       "negatives": [
-        4,
-        10,
-        13
+        18,
+        7,
+        15
       ],
       "skill": 0,
       "programing_skills": {
@@ -3680,11 +3680,11 @@
         7
       ],
       "negatives": [
-        13,
-        2,
-        10
+        9,
+        18,
+        15
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 0,
@@ -3704,11 +3704,11 @@
         4
       ],
       "negatives": [
-        1,
+        15,
         13,
-        3
+        7
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 2,
         "C++": 0,
@@ -3728,8 +3728,8 @@
         13
       ],
       "negatives": [
+        14,
         5,
-        12,
         7
       ],
       "skill": 0,
@@ -3752,11 +3752,11 @@
         4
       ],
       "negatives": [
-        1,
-        16,
+        12,
+        0,
         6
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 0,
         "C++": 0,
@@ -3776,9 +3776,9 @@
         1
       ],
       "negatives": [
-        18,
-        2,
-        6
+        8,
+        6,
+        10
       ],
       "skill": 0,
       "programing_skills": {
@@ -3800,8 +3800,8 @@
         1
       ],
       "negatives": [
-        17,
-        6,
+        4,
+        11,
         9
       ],
       "skill": 1,
@@ -3824,8 +3824,8 @@
         16
       ],
       "negatives": [
-        17,
-        4,
+        10,
+        18,
         1
       ],
       "skill": 1,
@@ -3848,11 +3848,11 @@
         11
       ],
       "negatives": [
-        10,
-        7,
-        6
+        14,
+        6,
+        13
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -3872,8 +3872,8 @@
         12
       ],
       "negatives": [
-        14,
-        17,
+        8,
+        6,
         15
       ],
       "skill": 0,
@@ -3896,11 +3896,11 @@
         17
       ],
       "negatives": [
-        16,
-        6,
+        1,
+        9,
         4
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -3920,11 +3920,11 @@
         2
       ],
       "negatives": [
-        18,
-        3,
-        17
+        9,
+        17,
+        7
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 2,
@@ -3944,11 +3944,11 @@
         9
       ],
       "negatives": [
-        6,
-        7,
-        2
+        5,
+        2,
+        15
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -3968,11 +3968,11 @@
         16
       ],
       "negatives": [
-        14,
+        9,
         18,
-        0
+        17
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 1,
@@ -3992,11 +3992,11 @@
         3
       ],
       "negatives": [
-        6,
-        15,
-        13
+        5,
+        11,
+        0
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 2,
@@ -4016,9 +4016,9 @@
         12
       ],
       "negatives": [
-        17,
-        8,
-        6
+        0,
+        4,
+        11
       ],
       "skill": 1,
       "programing_skills": {
@@ -4040,9 +4040,9 @@
         16
       ],
       "negatives": [
-        11,
-        18,
-        2
+        7,
+        0,
+        13
       ],
       "skill": 0,
       "programing_skills": {
@@ -4064,11 +4064,11 @@
         7
       ],
       "negatives": [
-        8,
+        9,
         0,
-        4
+        3
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 0,
@@ -4088,9 +4088,9 @@
         17
       ],
       "negatives": [
-        12,
-        0,
-        11
+        10,
+        13,
+        9
       ],
       "skill": 1,
       "programing_skills": {
@@ -4112,11 +4112,11 @@
         16
       ],
       "negatives": [
-        7,
-        10,
-        11
+        0,
+        15,
+        14
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 1,
@@ -4136,9 +4136,9 @@
         12
       ],
       "negatives": [
-        4,
-        5,
-        11
+        18,
+        2,
+        6
       ],
       "skill": 1,
       "programing_skills": {
@@ -4160,11 +4160,11 @@
         9
       ],
       "negatives": [
-        10,
-        1,
-        0
+        14,
+        4,
+        13
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 0,
         "C++": 1,
@@ -4184,9 +4184,9 @@
         9
       ],
       "negatives": [
-        5,
-        3,
-        4
+        18,
+        7,
+        11
       ],
       "skill": 0,
       "programing_skills": {
@@ -4208,11 +4208,11 @@
         18
       ],
       "negatives": [
-        2,
-        1,
-        10
+        15,
+        14,
+        11
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -4232,11 +4232,11 @@
         17
       ],
       "negatives": [
-        8,
-        15,
-        4
+        10,
+        11,
+        16
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 1,
@@ -4256,9 +4256,9 @@
         17
       ],
       "negatives": [
-        9,
         5,
-        0
+        7,
+        4
       ],
       "skill": 0,
       "programing_skills": {
@@ -4280,11 +4280,11 @@
         9
       ],
       "negatives": [
-        8,
-        7,
-        10
+        14,
+        3,
+        2
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -4304,9 +4304,9 @@
         18
       ],
       "negatives": [
+        15,
         10,
-        5,
-        8
+        2
       ],
       "skill": 0,
       "programing_skills": {
@@ -4328,11 +4328,11 @@
         12
       ],
       "negatives": [
-        13,
-        17,
-        10
+        0,
+        6,
+        15
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 1,
@@ -4352,11 +4352,11 @@
         12
       ],
       "negatives": [
-        15,
-        6,
-        11
+        10,
+        8,
+        15
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 0,
@@ -4376,8 +4376,8 @@
         16
       ],
       "negatives": [
-        17,
-        5,
+        14,
+        12,
         9
       ],
       "skill": 1,
@@ -4400,11 +4400,11 @@
         1
       ],
       "negatives": [
-        17,
-        11,
-        8
+        4,
+        7,
+        0
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 0,
         "C++": 1,
@@ -4424,11 +4424,11 @@
         9
       ],
       "negatives": [
-        8,
-        5,
-        6
+        4,
+        0,
+        8
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 2,
@@ -4448,11 +4448,11 @@
         17
       ],
       "negatives": [
+        9,
         13,
-        10,
         2
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 2,
@@ -4473,10 +4473,10 @@
       ],
       "negatives": [
         3,
-        13,
-        7
+        5,
+        1
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 0,
         "C++": 1,
@@ -4496,11 +4496,11 @@
         12
       ],
       "negatives": [
-        18,
-        15,
-        11
+        16,
+        1,
+        0
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 1,
@@ -4520,9 +4520,9 @@
         9
       ],
       "negatives": [
-        8,
-        15,
-        16
+        6,
+        11,
+        0
       ],
       "skill": 1,
       "programing_skills": {
@@ -4544,9 +4544,9 @@
         17
       ],
       "negatives": [
-        3,
-        14,
-        2
+        0,
+        5,
+        8
       ],
       "skill": 0,
       "programing_skills": {
@@ -4568,11 +4568,11 @@
         12
       ],
       "negatives": [
-        7,
-        17,
-        11
+        9,
+        3,
+        6
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 2,
@@ -4592,11 +4592,11 @@
         6
       ],
       "negatives": [
-        7,
-        15,
-        9
+        10,
+        12,
+        1
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 2,
         "C++": 2,
@@ -4616,11 +4616,11 @@
         18
       ],
       "negatives": [
-        16,
-        10,
-        0
+        3,
+        15,
+        5
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 0,
@@ -4640,11 +4640,11 @@
         16
       ],
       "negatives": [
-        17,
-        13,
-        11
+        1,
+        10,
+        4
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -4664,9 +4664,9 @@
         16
       ],
       "negatives": [
-        6,
-        9,
-        17
+        8,
+        14,
+        7
       ],
       "skill": 1,
       "programing_skills": {
@@ -4688,9 +4688,9 @@
         16
       ],
       "negatives": [
-        1,
-        4,
-        10
+        2,
+        5,
+        14
       ],
       "skill": 1,
       "programing_skills": {
@@ -4712,11 +4712,11 @@
         16
       ],
       "negatives": [
-        14,
-        4,
+        5,
+        18,
         3
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 1,
@@ -4736,9 +4736,9 @@
         4
       ],
       "negatives": [
-        16,
-        9,
-        13
+        14,
+        1,
+        0
       ],
       "skill": 1,
       "programing_skills": {
@@ -4760,9 +4760,9 @@
         4
       ],
       "negatives": [
+        10,
         8,
-        3,
-        2
+        9
       ],
       "skill": 0,
       "programing_skills": {
@@ -4784,11 +4784,11 @@
         3
       ],
       "negatives": [
-        4,
-        9,
+        18,
+        15,
         11
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 2,
         "C++": 2,
@@ -4808,9 +4808,9 @@
         1
       ],
       "negatives": [
-        0,
-        7,
-        9
+        10,
+        14,
+        15
       ],
       "skill": 0,
       "programing_skills": {
@@ -4832,11 +4832,11 @@
         12
       ],
       "negatives": [
-        8,
+        9,
         16,
         15
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 0,
@@ -4856,11 +4856,11 @@
         1
       ],
       "negatives": [
-        8,
-        15,
-        16
+        0,
+        2,
+        8
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 0,
         "C++": 1,
@@ -4880,11 +4880,11 @@
         9
       ],
       "negatives": [
-        1,
-        10,
-        11
+        15,
+        0,
+        5
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 1,
@@ -4904,9 +4904,9 @@
         11
       ],
       "negatives": [
+        8,
         0,
-        6,
-        2
+        4
       ],
       "skill": 0,
       "programing_skills": {
@@ -4928,11 +4928,11 @@
         15
       ],
       "negatives": [
-        0,
-        16,
-        11
+        3,
+        5,
+        14
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 2,
         "C++": 1,
@@ -4952,9 +4952,9 @@
         12
       ],
       "negatives": [
-        7,
-        15,
-        1
+        17,
+        3,
+        13
       ],
       "skill": 1,
       "programing_skills": {
@@ -4976,7 +4976,7 @@
         12
       ],
       "negatives": [
-        0,
+        4,
         16,
         10
       ],
@@ -5000,11 +5000,11 @@
         12
       ],
       "negatives": [
+        11,
         6,
-        0,
-        14
+        5
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -5024,11 +5024,11 @@
         9
       ],
       "negatives": [
-        2,
-        0,
-        14
+        16,
+        7,
+        12
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 2,
         "C++": 2,
@@ -5048,11 +5048,11 @@
         9
       ],
       "negatives": [
-        2,
-        5,
-        6
+        10,
+        13,
+        5
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 1,
@@ -5072,9 +5072,9 @@
         6
       ],
       "negatives": [
-        17,
-        1,
-        5
+        4,
+        10,
+        9
       ],
       "skill": 1,
       "programing_skills": {
@@ -5096,9 +5096,9 @@
         9
       ],
       "negatives": [
-        2,
-        6,
-        5
+        4,
+        7,
+        15
       ],
       "skill": 1,
       "programing_skills": {
@@ -5120,9 +5120,9 @@
         16
       ],
       "negatives": [
-        2,
         4,
-        17
+        6,
+        5
       ],
       "skill": 1,
       "programing_skills": {
@@ -5144,11 +5144,11 @@
         18
       ],
       "negatives": [
-        13,
-        15,
-        4
+        8,
+        14,
+        11
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -5168,11 +5168,11 @@
         1
       ],
       "negatives": [
-        9,
-        18,
-        17
+        5,
+        16,
+        10
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 1,
@@ -5194,9 +5194,9 @@
       "negatives": [
         14,
         17,
-        11
+        3
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 0,
         "C++": 1,
@@ -5216,11 +5216,11 @@
         1
       ],
       "negatives": [
-        11,
-        9,
-        10
+        0,
+        3,
+        5
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 1,
@@ -5240,9 +5240,9 @@
         3
       ],
       "negatives": [
-        9,
-        0,
-        11
+        13,
+        2,
+        15
       ],
       "skill": 1,
       "programing_skills": {
@@ -5264,11 +5264,11 @@
         3
       ],
       "negatives": [
-        10,
-        12,
-        1
+        18,
+        4,
+        14
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -5288,8 +5288,8 @@
         12
       ],
       "negatives": [
-        5,
-        16,
+        10,
+        7,
         14
       ],
       "skill": 1,
@@ -5312,11 +5312,11 @@
         3
       ],
       "negatives": [
-        0,
-        13,
-        2
+        14,
+        4,
+        13
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 2,
         "C++": 2,
@@ -5336,9 +5336,9 @@
         9
       ],
       "negatives": [
-        14,
-        17,
-        13
+        13,
+        5,
+        2
       ],
       "skill": 0,
       "programing_skills": {
@@ -5360,9 +5360,9 @@
         3
       ],
       "negatives": [
-        13,
-        16,
-        15
+        4,
+        11,
+        9
       ],
       "skill": 1,
       "programing_skills": {
@@ -5384,11 +5384,11 @@
         12
       ],
       "negatives": [
+        0,
         8,
-        3,
-        9
+        4
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 2,
@@ -5408,9 +5408,9 @@
         16
       ],
       "negatives": [
-        12,
-        7,
-        6
+        9,
+        2,
+        7
       ],
       "skill": 1,
       "programing_skills": {
@@ -5432,9 +5432,9 @@
         12
       ],
       "negatives": [
-        13,
-        6,
-        2
+        3,
+        15,
+        4
       ],
       "skill": 0,
       "programing_skills": {
@@ -5456,9 +5456,9 @@
         3
       ],
       "negatives": [
-        5,
-        11,
-        12
+        13,
+        8,
+        11
       ],
       "skill": 1,
       "programing_skills": {
@@ -5480,11 +5480,11 @@
         16
       ],
       "negatives": [
+        3,
         5,
-        0,
-        15
+        0
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 0,
         "C++": 2,
@@ -5504,9 +5504,9 @@
         13
       ],
       "negatives": [
-        5,
-        17,
-        8
+        7,
+        4,
+        0
       ],
       "skill": 0,
       "programing_skills": {
@@ -5528,11 +5528,11 @@
         8
       ],
       "negatives": [
-        6,
-        3,
-        18
+        1,
+        17,
+        9
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 0,
@@ -5552,11 +5552,11 @@
         8
       ],
       "negatives": [
-        14,
         5,
-        17
+        3,
+        13
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 0,
@@ -5576,11 +5576,11 @@
         1
       ],
       "negatives": [
+        17,
         2,
-        10,
-        18
+        6
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 2,
         "C++": 1,
@@ -5600,11 +5600,11 @@
         2
       ],
       "negatives": [
-        1,
-        9,
-        11
+        12,
+        8,
+        6
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 1,
@@ -5625,8 +5625,8 @@
       ],
       "negatives": [
         11,
-        3,
-        15
+        6,
+        4
       ],
       "skill": 0,
       "programing_skills": {
@@ -5648,11 +5648,11 @@
         16
       ],
       "negatives": [
-        5,
-        6,
-        10
+        8,
+        15,
+        4
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 2,
         "C++": 2,
@@ -5673,10 +5673,10 @@
       ],
       "negatives": [
         15,
-        7,
-        13
+        2,
+        17
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 0,
         "C++": 2,
@@ -5696,11 +5696,11 @@
         16
       ],
       "negatives": [
-        1,
-        17,
-        14
+        15,
+        8,
+        2
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 0,
@@ -5720,11 +5720,11 @@
         3
       ],
       "negatives": [
-        13,
-        11,
-        14
+        7,
+        16,
+        18
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 1,
@@ -5744,11 +5744,11 @@
         16
       ],
       "negatives": [
-        11,
+        4,
         2,
-        17
+        13
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -5769,10 +5769,10 @@
       ],
       "negatives": [
         1,
-        10,
-        14
+        12,
+        13
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 2,
         "C++": 2,
@@ -5793,8 +5793,8 @@
       ],
       "negatives": [
         5,
-        7,
-        14
+        11,
+        7
       ],
       "skill": 0,
       "programing_skills": {
@@ -5816,11 +5816,11 @@
         9
       ],
       "negatives": [
-        6,
-        12,
+        2,
+        3,
         0
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 0,
         "C++": 1,
@@ -5840,11 +5840,11 @@
         3
       ],
       "negatives": [
-        2,
-        13,
-        14
+        5,
+        9,
+        13
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 0,
         "C++": 1,
@@ -5864,11 +5864,11 @@
         9
       ],
       "negatives": [
-        8,
-        18,
+        3,
+        5,
         11
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 2,
         "C++": 2,
@@ -5888,9 +5888,9 @@
         12
       ],
       "negatives": [
+        9,
         5,
-        2,
-        16
+        0
       ],
       "skill": 1,
       "programing_skills": {
@@ -5912,11 +5912,11 @@
         9
       ],
       "negatives": [
-        8,
+        17,
         0,
-        17
+        7
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -5936,11 +5936,11 @@
         13
       ],
       "negatives": [
-        1,
-        2,
-        4
+        17,
+        3,
+        11
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 1,
@@ -5960,11 +5960,11 @@
         1
       ],
       "negatives": [
-        5,
-        0,
-        6
+        16,
+        3,
+        17
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -5984,9 +5984,9 @@
         3
       ],
       "negatives": [
-        5,
-        7,
-        6
+        6,
+        1,
+        14
       ],
       "skill": 1,
       "programing_skills": {
@@ -6008,9 +6008,9 @@
         3
       ],
       "negatives": [
-        11,
-        6,
-        13
+        9,
+        1,
+        16
       ],
       "skill": 0,
       "programing_skills": {
@@ -6032,11 +6032,11 @@
         12
       ],
       "negatives": [
-        15,
-        9,
-        0
+        5,
+        13,
+        2
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 0,
         "C++": 0,
@@ -6056,9 +6056,9 @@
         8
       ],
       "negatives": [
+        0,
         5,
-        15,
-        2
+        14
       ],
       "skill": 0,
       "programing_skills": {
@@ -6080,9 +6080,9 @@
         12
       ],
       "negatives": [
-        0,
-        6,
-        2
+        7,
+        13,
+        9
       ],
       "skill": 1,
       "programing_skills": {
@@ -6104,11 +6104,11 @@
         4
       ],
       "negatives": [
-        14,
-        3,
-        6
+        9,
+        0,
+        10
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -6128,11 +6128,11 @@
         8
       ],
       "negatives": [
-        4,
-        17,
-        10
+        2,
+        0,
+        3
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 3,
         "C++": 3,
@@ -6152,11 +6152,11 @@
         1
       ],
       "negatives": [
-        3,
-        11,
-        8
+        6,
+        14,
+        4
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -6176,11 +6176,11 @@
         5
       ],
       "negatives": [
-        9,
-        17,
-        13
+        0,
+        2,
+        12
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 2,
@@ -6200,11 +6200,11 @@
         18
       ],
       "negatives": [
-        6,
-        12,
-        11
+        2,
+        0,
+        13
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 2,
         "C++": 1,
@@ -6224,9 +6224,9 @@
         3
       ],
       "negatives": [
-        0,
-        8,
-        14
+        13,
+        14,
+        5
       ],
       "skill": 0,
       "programing_skills": {
@@ -6248,9 +6248,9 @@
         4
       ],
       "negatives": [
-        13,
-        2,
-        5
+        5,
+        9,
+        13
       ],
       "skill": 0,
       "programing_skills": {
@@ -6272,11 +6272,11 @@
         10
       ],
       "negatives": [
-        7,
-        15,
-        12
+        2,
+        13,
+        6
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 2,
@@ -6297,8 +6297,8 @@
       ],
       "negatives": [
         0,
-        13,
-        11
+        6,
+        17
       ],
       "skill": 0,
       "programing_skills": {
@@ -6320,9 +6320,9 @@
         9
       ],
       "negatives": [
-        8,
-        10,
-        14
+        1,
+        5,
+        16
       ],
       "skill": 1,
       "programing_skills": {
@@ -6344,9 +6344,9 @@
         4
       ],
       "negatives": [
-        7,
-        0,
-        1
+        2,
+        9,
+        0
       ],
       "skill": 0,
       "programing_skills": {
@@ -6368,11 +6368,11 @@
         12
       ],
       "negatives": [
-        9,
-        3,
-        13
+        16,
+        13,
+        8
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 1,
@@ -6392,9 +6392,9 @@
         15
       ],
       "negatives": [
-        11,
-        4,
-        6
+        14,
+        9,
+        4
       ],
       "skill": 1,
       "programing_skills": {
@@ -6416,11 +6416,11 @@
         8
       ],
       "negatives": [
+        13,
         7,
-        18,
-        5
+        15
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -6440,11 +6440,11 @@
         12
       ],
       "negatives": [
+        17,
         0,
-        11,
-        7
+        14
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 0,
         "C++": 1,
@@ -6464,9 +6464,9 @@
         0
       ],
       "negatives": [
-        14,
-        5,
-        17
+        6,
+        17,
+        18
       ],
       "skill": 1,
       "programing_skills": {
@@ -6488,11 +6488,11 @@
         15
       ],
       "negatives": [
-        4,
-        7,
-        0
+        10,
+        0,
+        7
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -6512,11 +6512,11 @@
         3
       ],
       "negatives": [
-        10,
-        4,
-        14
+        5,
+        17,
+        6
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 0,
@@ -6536,11 +6536,11 @@
         7
       ],
       "negatives": [
-        0,
-        13,
-        9
+        18,
+        12,
+        8
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -6560,9 +6560,9 @@
         5
       ],
       "negatives": [
-        10,
-        0,
-        9
+        8,
+        17,
+        12
       ],
       "skill": 1,
       "programing_skills": {
@@ -6584,9 +6584,9 @@
         6
       ],
       "negatives": [
-        15,
-        11,
-        2
+        13,
+        4,
+        9
       ],
       "skill": 1,
       "programing_skills": {
@@ -6608,11 +6608,11 @@
         12
       ],
       "negatives": [
-        14,
-        4,
-        11
+        5,
+        18,
+        3
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 0,
@@ -6632,11 +6632,11 @@
         9
       ],
       "negatives": [
-        15,
-        4,
-        10
+        6,
+        11,
+        3
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 2,
         "C++": 0,
@@ -6656,11 +6656,11 @@
         13
       ],
       "negatives": [
-        12,
+        3,
         6,
-        4
+        16
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 2,
@@ -6680,11 +6680,11 @@
         4
       ],
       "negatives": [
-        5,
-        8,
-        0
+        9,
+        11,
+        7
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 0,
         "C++": 1,
@@ -6704,11 +6704,11 @@
         17
       ],
       "negatives": [
-        14,
-        15,
-        8
+        3,
+        5,
+        13
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 2,
@@ -6728,9 +6728,9 @@
         6
       ],
       "negatives": [
-        4,
+        14,
         0,
-        14
+        16
       ],
       "skill": 0,
       "programing_skills": {
@@ -6752,11 +6752,11 @@
         12
       ],
       "negatives": [
-        16,
-        7,
-        14
+        14,
+        8,
+        9
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 2,
@@ -6776,11 +6776,11 @@
         8
       ],
       "negatives": [
-        17,
-        15,
-        10
+        13,
+        6,
+        14
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 2,
         "C++": 1,
@@ -6800,9 +6800,9 @@
         1
       ],
       "negatives": [
-        16,
         12,
-        9
+        16,
+        7
       ],
       "skill": 0,
       "programing_skills": {
@@ -6824,11 +6824,11 @@
         16
       ],
       "negatives": [
-        6,
-        1,
-        11
+        7,
+        13,
+        14
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 2,
@@ -6848,9 +6848,9 @@
         3
       ],
       "negatives": [
-        1,
+        7,
         10,
-        8
+        12
       ],
       "skill": 1,
       "programing_skills": {
@@ -6872,9 +6872,9 @@
         17
       ],
       "negatives": [
-        9,
-        10,
-        2
+        3,
+        16,
+        10
       ],
       "skill": 1,
       "programing_skills": {
@@ -6896,11 +6896,11 @@
         13
       ],
       "negatives": [
-        2,
-        7,
-        4
+        3,
+        4,
+        18
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -6920,11 +6920,11 @@
         2
       ],
       "negatives": [
-        12,
-        9,
-        5
+        14,
+        10,
+        4
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 1,
@@ -6944,11 +6944,11 @@
         12
       ],
       "negatives": [
-        3,
-        18,
-        13
+        13,
+        14,
+        6
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 2,
         "C++": 2,
@@ -6968,11 +6968,11 @@
         12
       ],
       "negatives": [
-        9,
-        10,
-        4
+        6,
+        17,
+        9
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 2,
@@ -6992,11 +6992,11 @@
         13
       ],
       "negatives": [
-        15,
-        0,
+        17,
+        2,
         4
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 2,
@@ -7016,11 +7016,11 @@
         17
       ],
       "negatives": [
-        13,
-        9,
-        12
+        12,
+        7,
+        14
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 2,
         "C++": 2,
@@ -7040,9 +7040,9 @@
         9
       ],
       "negatives": [
-        10,
-        11,
-        5
+        14,
+        0,
+        13
       ],
       "skill": 1,
       "programing_skills": {
@@ -7064,9 +7064,9 @@
         16
       ],
       "negatives": [
-        11,
-        4,
-        13
+        1,
+        10,
+        14
       ],
       "skill": 0,
       "programing_skills": {
@@ -7088,11 +7088,11 @@
         6
       ],
       "negatives": [
-        7,
-        14,
-        17
+        17,
+        8,
+        7
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 0,
@@ -7112,11 +7112,11 @@
         9
       ],
       "negatives": [
-        15,
-        0,
-        2
+        13,
+        18,
+        8
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -7136,11 +7136,11 @@
         16
       ],
       "negatives": [
-        2,
-        3,
-        11
+        11,
+        9,
+        2
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 2,
@@ -7160,11 +7160,11 @@
         10
       ],
       "negatives": [
+        3,
         7,
-        1,
-        2
+        5
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -7184,9 +7184,9 @@
         11
       ],
       "negatives": [
-        6,
-        12,
-        15
+        16,
+        15,
+        6
       ],
       "skill": 0,
       "programing_skills": {
@@ -7208,8 +7208,8 @@
         13
       ],
       "negatives": [
-        6,
-        0,
+        10,
+        18,
         8
       ],
       "skill": 1,
@@ -7232,9 +7232,9 @@
         12
       ],
       "negatives": [
-        8,
-        16,
-        13
+        14,
+        10,
+        9
       ],
       "skill": 0,
       "programing_skills": {
@@ -7256,11 +7256,11 @@
         12
       ],
       "negatives": [
-        5,
-        7,
-        9
+        11,
+        0,
+        10
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 0,
         "C++": 1,
@@ -7280,9 +7280,9 @@
         4
       ],
       "negatives": [
-        2,
-        9,
-        12
+        0,
+        18,
+        11
       ],
       "skill": 1,
       "programing_skills": {
@@ -7304,9 +7304,9 @@
         6
       ],
       "negatives": [
-        1,
-        4,
-        5
+        8,
+        12,
+        15
       ],
       "skill": 0,
       "programing_skills": {
@@ -7328,9 +7328,9 @@
         12
       ],
       "negatives": [
+        0,
         16,
-        3,
-        4
+        6
       ],
       "skill": 0,
       "programing_skills": {
@@ -7352,11 +7352,11 @@
         8
       ],
       "negatives": [
-        2,
-        5,
-        17
+        17,
+        15,
+        16
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -7376,9 +7376,9 @@
         12
       ],
       "negatives": [
-        15,
         0,
-        5
+        10,
+        6
       ],
       "skill": 0,
       "programing_skills": {
@@ -7400,11 +7400,11 @@
         17
       ],
       "negatives": [
-        9,
-        3,
-        12
+        8,
+        15,
+        0
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 2,
         "C++": 2,
@@ -7424,11 +7424,11 @@
         12
       ],
       "negatives": [
-        11,
         9,
-        5
+        5,
+        8
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 0,
@@ -7448,11 +7448,11 @@
         1
       ],
       "negatives": [
-        15,
-        3,
-        5
+        4,
+        13,
+        6
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -7472,9 +7472,9 @@
         16
       ],
       "negatives": [
-        4,
-        8,
-        10
+        11,
+        17,
+        0
       ],
       "skill": 0,
       "programing_skills": {
@@ -7496,9 +7496,9 @@
         12
       ],
       "negatives": [
-        8,
-        6,
-        4
+        13,
+        18,
+        8
       ],
       "skill": 0,
       "programing_skills": {
@@ -7520,9 +7520,9 @@
         8
       ],
       "negatives": [
-        10,
         2,
-        15
+        15,
+        7
       ],
       "skill": 0,
       "programing_skills": {
@@ -7544,9 +7544,9 @@
         2
       ],
       "negatives": [
-        17,
-        14,
-        0
+        9,
+        6,
+        18
       ],
       "skill": 1,
       "programing_skills": {
@@ -7568,11 +7568,11 @@
         1
       ],
       "negatives": [
+        6,
         11,
-        18,
-        9
+        14
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 0,
         "C++": 0,
@@ -7592,11 +7592,11 @@
         5
       ],
       "negatives": [
-        9,
-        4,
-        8
+        10,
+        13,
+        2
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 1,
         "C++": 1,
@@ -7616,9 +7616,9 @@
         3
       ],
       "negatives": [
-        7,
-        15,
-        12
+        12,
+        4,
+        11
       ],
       "skill": 1,
       "programing_skills": {
@@ -7640,11 +7640,11 @@
         16
       ],
       "negatives": [
+        1,
         14,
-        15,
-        2
+        10
       ],
-      "skill": 1,
+      "skill": 0,
       "programing_skills": {
         "C ": 0,
         "C++": 1,
@@ -7665,8 +7665,8 @@
       ],
       "negatives": [
         6,
-        9,
-        16
+        13,
+        9
       ],
       "skill": 1,
       "programing_skills": {
@@ -7689,8 +7689,8 @@
       ],
       "negatives": [
         10,
-        4,
-        12
+        16,
+        14
       ],
       "skill": 0,
       "programing_skills": {
@@ -7712,9 +7712,9 @@
         7
       ],
       "negatives": [
-        3,
-        2,
-        14
+        5,
+        6,
+        0
       ],
       "skill": 1,
       "programing_skills": {
@@ -7736,9 +7736,9 @@
         1
       ],
       "negatives": [
-        0,
-        17,
-        11
+        2,
+        15,
+        16
       ],
       "skill": 1,
       "programing_skills": {
@@ -7760,11 +7760,11 @@
         9
       ],
       "negatives": [
-        7,
-        4,
-        3
+        18,
+        16,
+        1
       ],
-      "skill": 0,
+      "skill": 1,
       "programing_skills": {
         "C ": 1,
         "C++": 2,
@@ -7780,13 +7780,13 @@
   "projects": [
     {
       "id": 0,
-      "min": 8,
-      "max": 9,
-      "opt": 8,
+      "min": 9,
+      "max": 13,
+      "opt": 12,
       "language_requirements": [
         0,
         1,
-        1,
+        0,
         0,
         0,
         0,
@@ -7796,14 +7796,14 @@
     },
     {
       "id": 1,
-      "min": 11,
-      "max": 11,
-      "opt": 11,
+      "min": 8,
+      "max": 10,
+      "opt": 9,
       "language_requirements": [
         1,
         0,
         0,
-        0,
+        1,
         1,
         0,
         0,
@@ -7812,13 +7812,13 @@
     },
     {
       "id": 2,
-      "min": 11,
-      "max": 11,
-      "opt": 11,
+      "min": 8,
+      "max": 10,
+      "opt": 10,
       "language_requirements": [
+        0,
         1,
-        0,
-        0,
+        1,
         0,
         0,
         0,
@@ -7829,13 +7829,29 @@
     {
       "id": 3,
       "min": 8,
-      "max": 13,
-      "opt": 11,
+      "max": 12,
+      "opt": 9,
+      "language_requirements": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1
+      ]
+    },
+    {
+      "id": 4,
+      "min": 8,
+      "max": 8,
+      "opt": 8,
       "language_requirements": [
         0,
         0,
-        0,
-        0,
+        1,
+        1,
         0,
         1,
         0,
@@ -7843,48 +7859,32 @@
       ]
     },
     {
-      "id": 4,
-      "min": 10,
-      "max": 10,
-      "opt": 10,
-      "language_requirements": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0
-      ]
-    },
-    {
       "id": 5,
-      "min": 9,
-      "max": 10,
-      "opt": 10,
+      "min": 8,
+      "max": 13,
+      "opt": 12,
       "language_requirements": [
+        1,
         0,
-        0,
-        0,
+        1,
+        1,
         0,
         0,
         1,
-        0,
         0
       ]
     },
     {
       "id": 6,
       "min": 7,
-      "max": 8,
-      "opt": 8,
+      "max": 9,
+      "opt": 7,
       "language_requirements": [
         0,
         0,
-        0,
-        0,
         1,
+        1,
+        0,
         1,
         0,
         1
@@ -7892,46 +7892,46 @@
     },
     {
       "id": 7,
-      "min": 8,
-      "max": 10,
-      "opt": 8,
+      "min": 9,
+      "max": 12,
+      "opt": 11,
       "language_requirements": [
-        0,
+        1,
         0,
         1,
         0,
-        0,
-        0,
+        1,
+        1,
         0,
         0
       ]
     },
     {
       "id": 8,
-      "min": 12,
-      "max": 13,
-      "opt": 13,
+      "min": 9,
+      "max": 9,
+      "opt": 9,
       "language_requirements": [
         0,
-        1,
-        1,
-        1,
         0,
         0,
         0,
-        1
+        1,
+        0,
+        1,
+        0
       ]
     },
     {
       "id": 9,
-      "min": 9,
+      "min": 8,
       "max": 10,
-      "opt": 10,
+      "opt": 8,
       "language_requirements": [
-        0,
-        1,
         1,
         0,
+        0,
+        1,
         1,
         0,
         1,
@@ -7940,319 +7940,31 @@
     },
     {
       "id": 10,
-      "min": 7,
-      "max": 8,
-      "opt": 8,
+      "min": 9,
+      "max": 12,
+      "opt": 10,
       "language_requirements": [
         0,
         0,
         1,
         0,
-        1,
         0,
         0,
-        1
+        0,
+        0
       ]
     },
     {
       "id": 11,
-      "min": 7,
+      "min": 8,
       "max": 10,
       "opt": 8,
       "language_requirements": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0
-      ]
-    },
-    {
-      "id": 12,
-      "min": 8,
-      "max": 12,
-      "opt": 12,
-      "language_requirements": [
-        1,
-        0,
-        0,
-        1,
-        1,
-        0,
-        1,
-        0
-      ]
-    },
-    {
-      "id": 13,
-      "min": 8,
-      "max": 12,
-      "opt": 8,
-      "language_requirements": [
-        0,
-        1,
-        1,
-        1,
-        0,
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "id": 14,
-      "min": 8,
-      "max": 9,
-      "opt": 9,
-      "language_requirements": [
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "id": 15,
-      "min": 10,
-      "max": 11,
-      "opt": 10,
-      "language_requirements": [
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        1
-      ]
-    },
-    {
-      "id": 16,
-      "min": 10,
-      "max": 12,
-      "opt": 10,
-      "language_requirements": [
-        0,
         1,
         0,
         0,
         0,
         1,
-        1,
-        1
-      ]
-    },
-    {
-      "id": 17,
-      "min": 8,
-      "max": 8,
-      "opt": 8,
-      "language_requirements": [
-        0,
-        0,
-        1,
-        0,
-        1,
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "id": 0,
-      "min": 7,
-      "max": 9,
-      "opt": 9,
-      "language_requirements": [
-        0,
-        0,
-        1,
-        0,
-        0,
-        1,
-        0,
-        1
-      ]
-    },
-    {
-      "id": 1,
-      "min": 13,
-      "max": 13,
-      "opt": 13,
-      "language_requirements": [
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "id": 2,
-      "min": 10,
-      "max": 12,
-      "opt": 10,
-      "language_requirements": [
-        0,
-        0,
-        1,
-        0,
-        0,
-        1,
-        0,
-        0
-      ]
-    },
-    {
-      "id": 3,
-      "min": 11,
-      "max": 11,
-      "opt": 11,
-      "language_requirements": [
-        1,
-        0,
-        0,
-        1,
-        0,
-        0,
-        1,
-        0
-      ]
-    },
-    {
-      "id": 4,
-      "min": 13,
-      "max": 13,
-      "opt": 13,
-      "language_requirements": [
-        0,
-        0,
-        0,
-        1,
-        1,
-        0,
-        1,
-        1
-      ]
-    },
-    {
-      "id": 5,
-      "min": 9,
-      "max": 9,
-      "opt": 9,
-      "language_requirements": [
-        0,
-        0,
-        1,
-        1,
-        1,
-        0,
-        0,
-        1
-      ]
-    },
-    {
-      "id": 6,
-      "min": 8,
-      "max": 8,
-      "opt": 8,
-      "language_requirements": [
-        0,
-        1,
-        0,
-        0,
-        0,
-        1,
-        1,
-        0
-      ]
-    },
-    {
-      "id": 7,
-      "min": 10,
-      "max": 13,
-      "opt": 11,
-      "language_requirements": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1
-      ]
-    },
-    {
-      "id": 8,
-      "min": 8,
-      "max": 8,
-      "opt": 8,
-      "language_requirements": [
-        1,
-        1,
-        1,
-        1,
-        0,
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "id": 9,
-      "min": 12,
-      "max": 13,
-      "opt": 13,
-      "language_requirements": [
-        0,
-        0,
-        1,
-        0,
-        0,
-        1,
-        0,
-        0
-      ]
-    },
-    {
-      "id": 10,
-      "min": 13,
-      "max": 13,
-      "opt": 13,
-      "language_requirements": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0
-      ]
-    },
-    {
-      "id": 11,
-      "min": 11,
-      "max": 11,
-      "opt": 11,
-      "language_requirements": [
-        0,
-        0,
-        1,
-        1,
-        0,
         1,
         0,
         1
@@ -8260,17 +7972,17 @@
     },
     {
       "id": 12,
-      "min": 11,
-      "max": 12,
-      "opt": 12,
+      "min": 8,
+      "max": 11,
+      "opt": 11,
       "language_requirements": [
         0,
         0,
-        0,
-        0,
+        1,
         1,
         0,
-        1,
+        0,
+        0,
         1
       ]
     },
@@ -8280,8 +7992,24 @@
       "max": 7,
       "opt": 7,
       "language_requirements": [
+        0,
+        0,
+        0,
         1,
         1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 14,
+      "min": 7,
+      "max": 13,
+      "opt": 9,
+      "language_requirements": [
+        1,
+        0,
         1,
         0,
         0,
@@ -8291,10 +8019,58 @@
       ]
     },
     {
-      "id": 14,
-      "min": 13,
-      "max": 13,
-      "opt": 13,
+      "id": 15,
+      "min": 8,
+      "max": 12,
+      "opt": 11,
+      "language_requirements": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "id": 16,
+      "min": 9,
+      "max": 9,
+      "opt": 9,
+      "language_requirements": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 17,
+      "min": 9,
+      "max": 11,
+      "opt": 9,
+      "language_requirements": [
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "id": 0,
+      "min": 7,
+      "max": 10,
+      "opt": 7,
       "language_requirements": [
         0,
         1,
@@ -8307,7 +8083,247 @@
       ]
     },
     {
+      "id": 1,
+      "min": 7,
+      "max": 10,
+      "opt": 7,
+      "language_requirements": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "id": 2,
+      "min": 8,
+      "max": 12,
+      "opt": 9,
+      "language_requirements": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "id": 3,
+      "min": 8,
+      "max": 12,
+      "opt": 8,
+      "language_requirements": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "id": 4,
+      "min": 9,
+      "max": 9,
+      "opt": 9,
+      "language_requirements": [
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 5,
+      "min": 9,
+      "max": 12,
+      "opt": 9,
+      "language_requirements": [
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "id": 6,
+      "min": 8,
+      "max": 13,
+      "opt": 9,
+      "language_requirements": [
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        1,
+        1
+      ]
+    },
+    {
+      "id": 7,
+      "min": 7,
+      "max": 13,
+      "opt": 7,
+      "language_requirements": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "id": 8,
+      "min": 8,
+      "max": 10,
+      "opt": 8,
+      "language_requirements": [
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 9,
+      "min": 9,
+      "max": 13,
+      "opt": 9,
+      "language_requirements": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 10,
+      "min": 8,
+      "max": 10,
+      "opt": 9,
+      "language_requirements": [
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "id": 11,
+      "min": 9,
+      "max": 9,
+      "opt": 9,
+      "language_requirements": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "id": 12,
+      "min": 8,
+      "max": 12,
+      "opt": 9,
+      "language_requirements": [
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1
+      ]
+    },
+    {
+      "id": 13,
+      "min": 7,
+      "max": 9,
+      "opt": 8,
+      "language_requirements": [
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "id": 14,
+      "min": 9,
+      "max": 11,
+      "opt": 11,
+      "language_requirements": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    {
       "id": 15,
+      "min": 9,
+      "max": 13,
+      "opt": 13,
+      "language_requirements": [
+        0,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 16,
       "min": 8,
       "max": 11,
       "opt": 8,
@@ -8319,54 +8335,38 @@
         1,
         0,
         1,
-        1
-      ]
-    },
-    {
-      "id": 16,
-      "min": 8,
-      "max": 9,
-      "opt": 8,
-      "language_requirements": [
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
         0
       ]
     },
     {
       "id": 17,
-      "min": 11,
-      "max": 12,
-      "opt": 11,
+      "min": 7,
+      "max": 7,
+      "opt": 7,
       "language_requirements": [
-        0,
         1,
         0,
         1,
         0,
         0,
-        0,
+        1,
+        1,
         0
       ]
     },
     {
       "id": 18,
-      "min": 10,
+      "min": 8,
       "max": 10,
-      "opt": 10,
+      "opt": 9,
       "language_requirements": [
+        1,
+        0,
         0,
         0,
         0,
         0,
         1,
-        0,
-        0,
         0
       ]
     }

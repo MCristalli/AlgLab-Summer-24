@@ -83,10 +83,12 @@ class SEPAssignmentSolver:
 
         # at least one person with sufficient skill for every required language for each project
         for project in self._projects.values():
+            langCount = 0
             for lang in self._languages:
                 self._model.addConstr(
                     sum(x * self._students[s].programing_skills.get(lang) for (s, p), x in self._assignment_vars if p == project.id) \
-                    >= project.get[lang])
+                    >= project.language_requirements[langCount])
+                langCount += 1
 
         #Objective 1: Assign students to preferred projects. 2 points for assignment to preferred project, 1 for neutral
         self._model.setObjectiveN(sum(x if p not in self._students[s].projects else 2 * x for (s, p), x in self._assignment_vars), index=0, priority=0, weight=2)
@@ -130,6 +132,22 @@ if __name__ == "__main__":
         project_id = assignment[1]
         assert student is not None, f"Invalid Student {student_id} found!"
     # assert project_id in student.projects, f"Student {student_id} got assigned a Project he didnt sign up for!"
+
+    #checks if theres at least one student with required langauge skill
+    for project in instance.projects:
+        students_in_project = []
+        for student_id, assigned_project in solution.assignments:
+            if assigned_project == project.id:
+                students_in_project.append(student_lookup[student_id])
+        langCount = 0
+        for lang in instance.programming_languages:
+            if project.language_requirements[langCount] == 1:  # This project requires this language
+                # Check if there is at least one student in the project with this language skill
+                if not any(student.programing_skills[lang] >= 1 for student in students_in_project):
+                    raise AssertionError(
+                        f"Project {project.id} does not have a student with the required skill for language {lang}")
+            langCount += 1
+
     # Dump the solution to a file
     solution_json = solution.model_dump_json(indent=2)
     with open("./solution.json", "w") as f:

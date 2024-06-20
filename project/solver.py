@@ -4,6 +4,8 @@ from data_schema import *
 import gurobipy as gp
 import networkx as nx
 from gurobipy import GRB
+import math
+
 
 class _AssignmentVariables:
     """
@@ -16,7 +18,7 @@ class _AssignmentVariables:
         self._projects = projects
         self._model = model
         self._vars = {
-            (s.id, p.id): model.addVar(vtype=GRB.BINARY, name=f"assign_{s.id}_{p.id}") 
+            (s.id, p.id): model.addVar(vtype=GRB.BINARY, name=f"assign_{s.id}_{p.id}")
             for s in self._students
             for p in self._projects if p not in s.negatives
         }
@@ -59,6 +61,7 @@ class SEPAssignmentSolver:
         self._model.ModelSense = -1
         self._assignment_vars = _AssignmentVariables(self._students.values(), self._projects.values(), self._model)
         self._abs_diff = self._model.addVars(len(self._projects), vtype=GRB.CONTINUOUS, name="abs_diff")
+        self._opt_size_diff = self._model.addVars(len(self._projects), vtype=GRB.CONTINUOUS, name="opt_size_diff")
         self.setup_constraints()
 
     def setup_constraints(self) -> None:
@@ -76,10 +79,14 @@ class SEPAssignmentSolver:
         writers_count = [0 for p in self._projects.values()]
         print(len(programmers_count))
         for project in self._projects.values():
-            programmers_count[project.id] = sum(x if self._students[s].skill == 0 else 0 for (s, p), x in self._assignment_vars if p == project.id)
-            writers_count[project.id] = sum(x if self._students[s].skill == 1 else 0 for (s, p), x in self._assignment_vars if p == project.id)
-            self._model.addConstr(self._abs_diff[project.id] >= writers_count[project.id] - programmers_count[project.id])
-            self._model.addConstr(self._abs_diff[project.id] >= programmers_count[project.id] - writers_count[project.id])
+            programmers_count[project.id] = sum(
+                x if self._students[s].skill == 0 else 0 for (s, p), x in self._assignment_vars if p == project.id)
+            writers_count[project.id] = sum(
+                x if self._students[s].skill == 1 else 0 for (s, p), x in self._assignment_vars if p == project.id)
+            self._model.addConstr(
+                self._abs_diff[project.id] >= writers_count[project.id] - programmers_count[project.id])
+            self._model.addConstr(
+                self._abs_diff[project.id] >= programmers_count[project.id] - writers_count[project.id])
 
         # at least one person with sufficient skill for every required language for each project
         for project in self._projects.values():
@@ -90,12 +97,31 @@ class SEPAssignmentSolver:
                     >= project.language_requirements[langCount])
                 langCount += 1
 
-        #Objective 1: Assign students to preferred projects. 2 points for assignment to preferred project, 1 for neutral
-        self._model.setObjectiveN(sum(x if p not in self._students[s].projects else 2 * x for (s, p), x in self._assignment_vars), index=0, priority=0, weight=2)
+        # Constrain the absolute difference from optimal size
+        project_opt_size = [0 for i in range(len(self._projects.values()))]
+        for p in self._projects.values():
+            project_opt_size[p.id] = math.ceil((p.max + p.min) / 2)
+        students_in_project = [0 for proj in self._projects.values()]
+        for project in self._projects.values():
+            students_in_project[project.id] = sum(x for (s, p), x in self._assignment_vars if p == project.id)
+            self._model.addConstr(
+                self._opt_size_diff[project.id] >= len(students_in_project) - project_opt_size[project.id])
+            self._model.addConstr(
+                self._opt_size_diff[project.id] >= project_opt_size[project.id] - len(students_in_project))
+
+            # Objective 1: Assign students to preferred projects. 2 points for assignment to preferred project, 1 for neutral
+        self._model.setObjectiveN(
+            sum(x if p not in self._students[s].projects else 2 * x for (s, p), x in self._assignment_vars), index=0,
+            priority=0, weight=2)
 
         # Objetive 2: Minimize the difference between number of programmers and number of writers in each group.
         # The absolute difference is subtracted from objective value
-        self._model.setObjectiveN(-sum(self._abs_diff[j] for j in range(len(instance.projects))), index=1, priority=0, weight=1)
+        self._model.setObjectiveN(-sum(self._abs_diff[j] for j in range(len(instance.projects))), index=1, priority=0,
+                                  weight=1)
+
+        # Objective 3: Minimize the difference from the optimal project size
+        self._model.setObjectiveN(-sum(self._opt_size_diff[j] for j in range(len(instance.projects))), index=2,
+                                  priority=0, weight=0.5)
 
     def solve(self) -> Solution:
         """
@@ -109,9 +135,6 @@ class SEPAssignmentSolver:
         # perform multiple iterations here if necessary
 
         return Solution(assignments=list(self._assignment_vars.as_dict().items()))
-
-
-
 
 
 if __name__ == "__main__":
@@ -152,6 +175,8 @@ if __name__ == "__main__":
     solution_json = solution.model_dump_json(indent=2)
     with open("./solution.json", "w") as f:
         f.write(solution_json)
+
+
     # TODO: Do some analysis on the Solution.
 
     # Count the number of students who were assigned to one of their preferred projects
@@ -177,8 +202,24 @@ if __name__ == "__main__":
             if student_lookup[student_id].skill == 1:
                 writers_count[assigned_project] += 1
 
-        skillDiff = [abs(programmers_count[project] - writers_count[project]) for project in range(len(instance.projects))]
+        skillDiff = [abs(programmers_count[project] - writers_count[project]) for project in
+                     range(len(instance.projects))]
         return skillDiff
+
+
+    def count_difference_from_optimal_size():
+        student_count = [0 for i in range(len(instance.projects))]
+        project_opt_size = [0 for i in range(len(instance.projects))]
+        for p in instance.projects:
+            project_opt_size[p.id] = math.ceil((p.max + p.min) / 2)
+
+        for student_id, assigned_project in solution.assignments:
+            student_count[assigned_project] += 1
+
+        diff_from_opt_size = [abs(student_count[assigned_project] - project_opt_size[assigned_project]) for project in
+                              range(len(instance.projects))]
+        return diff_from_opt_size
+
 
     preferred_count = count_preferred_assignments()
     skillDiff = count_skillDiff_per_project()
@@ -186,3 +227,6 @@ if __name__ == "__main__":
     print(f"Anzahl der Studenten mit einem neutralem Projekt: {len(instance.students) - preferred_count}")
     for diff in range(max(skillDiff) + 1):
         print(f"Anzahl der Projekte mit einer Schreiber/Programmierer Differenz von {diff} : {skillDiff.count(diff)}")
+    size_diff = count_difference_from_optimal_size()
+    for diff in range(max(size_diff) + 1):
+        print(f"Anzahl der Projekte mit einer Differenz zur opt Größe von {diff} : {size_diff.count(diff)}")

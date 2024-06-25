@@ -37,7 +37,7 @@ Base.metadata.create_all(conn.engine)
 
 def insert_into_projects(name, minimum, optimum, maximum, ratio, language_requirements):
     with conn.session as session:
-        session.add(Project(name=name, minimum=minimum, optimum=optimum, maximum=maximum, ratio=ratio, language_requirements=language_requirements))
+        session.add(Project(name=name, minimum=minimum, optimum=optimum, maximum=maximum, ratio=ratio, language_requirements=[session.get(ProgrammingLanguage, languages[name]) for name in language_requirements]))
         session.commit()
 
 def update_project_by_id(id, name, minimum, optimum, maximum, ratio, language_requirements):

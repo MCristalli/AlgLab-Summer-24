@@ -98,16 +98,12 @@ class SEPAssignmentSolver:
                 langCount += 1
 
         # Constrain the absolute difference from optimal size
-        project_opt_size = [0 for i in range(len(self._projects.values()))]
-        for p in self._projects.values():
-            project_opt_size[p.id] = math.ceil((p.max + p.min) / 2)
-        students_in_project = [0 for proj in self._projects.values()]
         for project in self._projects.values():
-            students_in_project[project.id] = sum(x for (s, p), x in self._assignment_vars if p == project.id)
+            students_in_project = sum(x for (s, p), x in self._assignment_vars if p == project.id)
             self._model.addConstr(
-                self._opt_size_diff[project.id] >= len(students_in_project) - project_opt_size[project.id])
+                self._opt_size_diff[project.id] >= students_in_project - project.opt)
             self._model.addConstr(
-                self._opt_size_diff[project.id] >= project_opt_size[project.id] - len(students_in_project))
+                self._opt_size_diff[project.id] >= project.opt - students_in_project)
 
             # Objective 1: Assign students to preferred projects. 2 points for assignment to preferred project, 1 for neutral
         self._model.setObjectiveN(
@@ -136,6 +132,15 @@ class SEPAssignmentSolver:
 
         return Solution(assignments=list(self._assignment_vars.as_dict().items()))
 
+    def count_difference_from_optimal_size(self, solution: Solution) -> List[int]:
+        optimal_size = [project.opt for project in self.instance.projects]
+        student_count = [0 for _ in range(len(self.instance.projects))]
+        for student_id, assigned_project in solution.assignments:
+            student_count[assigned_project] += 1
+
+        diff_from_opt_size = [abs(student_count[project] - optimal_size[project]) for project in
+                              range(len(self.instance.projects))]
+        return diff_from_opt_size
 
 if __name__ == "__main__":
     # Read the instance
@@ -208,16 +213,15 @@ if __name__ == "__main__":
 
 
     def count_difference_from_optimal_size():
+        optimal_size = [0 for p in Instance.projects]
+        for i in range(len(Instance.projects)):
+            optimal_size[i] = Instance.projects[i].opt
         student_count = [0 for i in range(len(instance.projects))]
-        project_opt_size = [0 for i in range(len(instance.projects))]
-        for p in instance.projects:
-            project_opt_size[p.id] = math.ceil((p.max + p.min) / 2)
-
         for student_id, assigned_project in solution.assignments:
             student_count[assigned_project] += 1
 
-        diff_from_opt_size = [abs(student_count[assigned_project] - project_opt_size[assigned_project]) for project in
-                              range(len(instance.projects))]
+        diff_from_opt_size = [abs(student_count[project] - optimal_size[project]) for project in
+                     range(len(instance.projects))]
         return diff_from_opt_size
 
 
@@ -227,6 +231,7 @@ if __name__ == "__main__":
     print(f"Anzahl der Studenten mit einem neutralem Projekt: {len(instance.students) - preferred_count}")
     for diff in range(max(skillDiff) + 1):
         print(f"Anzahl der Projekte mit einer Schreiber/Programmierer Differenz von {diff} : {skillDiff.count(diff)}")
-    size_diff = count_difference_from_optimal_size()
+    size_diff = solver.count_difference_from_optimal_size(solution)
     for diff in range(max(size_diff) + 1):
         print(f"Anzahl der Projekte mit einer Differenz zur opt Größe von {diff} : {size_diff.count(diff)}")
+

@@ -81,9 +81,11 @@ c2.download_button("Export CSV", data=csv, file_name="projects.csv", mime="text/
 c3.button("Testing", type="primary", use_container_width=True)
 
 if st.session_state.csvbutton:
-    uploaded_file = st.file_uploader("Import CSV", label_visibility="hidden")
-    if uploaded_file is not None:
-        # TODO: read uploaded_files concat individual dataframes and replace the work dataframe
+    uploaded_files = st.file_uploader("Import CSV", label_visibility="hidden", type=["csv"], accept_multiple_files=True)
+    if uploaded_files is not None and len(uploaded_files) > 0:
+        st.session_state.projects = pd.concat(
+            [pd.read_csv(file, index_col=0, converters={"language_requirements": ast.literal_eval}) for file in uploaded_files], ignore_index=True
+        )
         st.session_state.csvbutton = False
         st.rerun()
 
@@ -91,6 +93,8 @@ def set_projects(row, column, key):
     st.session_state.projects.at[row, column] = st.session_state[key]
 
 def add_row(key: int, name: str = "Example Project", minimum: int = 4, optimum: int = 7, maximum: int = 10, ratio: int = 50, language_requirements: List[str] = list()):
+    if key is None:
+        return
     with st.container(border=True):
         str_id = str(key)
         new_name = st.text_input("Project Name", name, max_chars=255, key=str_id+"name", on_change=set_projects, kwargs=dict(row=key, column="name", key=str_id+"name"))

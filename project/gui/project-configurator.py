@@ -13,13 +13,12 @@ project_language_requirements_association = Table(
     "project_language_requirements",
     Base.metadata,
     Column("project_id", ForeignKey("projects.id")),
-    Column("language_requirement_id", ForeignKey("programming_languages.id")),
+    Column("language_requirement_id", ForeignKey("programming_languages.name")),
 )
 
 class ProgrammingLanguage(Base):
     __tablename__ = "programming_languages"
-    id: Mapped[int] = mapped_column(autoincrement=True, primary_key=True)
-    name: Mapped[str]
+    name: Mapped[str] = mapped_column(primary_key=True)
 
 class Project(Base):
     __tablename__ = "projects"
@@ -31,87 +30,95 @@ class Project(Base):
     ratio: Mapped[int]
     language_requirements: Mapped[List[ProgrammingLanguage]] = relationship(ProgrammingLanguage, secondary=project_language_requirements_association, backref='Project')
 
-
 conn = st.connection("projects", type="sql", url="sqlite:///projects.db")
 Base.metadata.create_all(conn.engine)
 
-def insert_into_projects(name, minimum, optimum, maximum, ratio, language_requirements):
-    with conn.session as session:
-        session.add(Project(name=name, minimum=minimum, optimum=optimum, maximum=maximum, ratio=ratio, language_requirements=[session.get(ProgrammingLanguage, languages[name]) for name in language_requirements]))
-        session.commit()
+@st.cache_data
+def query_projects(_conn):
+    projects = list()
+    with _conn.session as session:
+        for project in session.query(Project):
+            projects += [{
+                "id": project.id,
+                "name": project.name,
+                "minimum": project.minimum,
+                "optimum": project.optimum,
+                "maximum": project.maximum,
+                "ratio": project.ratio,
+                "language_requirements": [language.name for language in project.language_requirements],
+            }]
+    return pd.DataFrame.from_records(projects, index='id') if len(projects) > 0 else pd.DataFrame()
+    # return projects
 
-def update_project_by_id(id, name, minimum, optimum, maximum, ratio, language_requirements):
-    with conn.session as session:
-        project = session.get(Project, id)
-        project.name = name
-        project.minimum = minimum
-        project.optimum = optimum
-        project.maximum = maximum
-        project.ratio = ratio
-        project.language_requirements = [session.get(ProgrammingLanguage, languages[name]) for name in language_requirements]
-        session.commit()
+@st.cache_data
+def query_languages(_conn):
+    languages = list()
+    with _conn.session as session:
+        for language in session.query(ProgrammingLanguage):
+            languages += [language.name]
+    return languages
 
-projects = []
-for (project,) in conn.session.execute(select(Project)):
-    projects += [{
-        "id": project.id,
-        "name": project.name,
-        "minimum": project.minimum,
-        "optimum": project.optimum,
-        "maximum": project.maximum,
-        "ratio": project.ratio,
-        "language_requirements": [language.name for language in project.language_requirements],
-    }]
-
-languages = {}
-for (language,) in conn.session.execute(select(ProgrammingLanguage)):
-    languages.update({
-        language.name: language.id,
-    })
+if 'projects' not in st.session_state:
+    st.session_state.projects = query_projects(conn)
+languages = query_languages(conn)
 
 
 if 'csvbutton' not in st.session_state:
     st.session_state.csvbutton = False
-def toggle_button():
+def toggle_csvbutton():
     st.session_state.csvbutton = not st.session_state.csvbutton
 
 @st.cache_data
-def convert_df(df):
+def convert_df(projects):
     # IMPORTANT: Cache the conversion to prevent computation on every rerun
-    return df.to_csv().encode("utf-8")
-csv = convert_df(pd.DataFrame.from_records(projects, index='id'))
+    return projects.to_csv().encode("utf-8")
+csv = convert_df(st.session_state.projects)
 
-st.title("Project Configurator v2")
+st.title("Project Configurator v3")
 c1, c2, c3 = st.columns(3)
-c1.button("Import CSV", on_click=toggle_button, use_container_width=True)
+c1.button("Import CSV", on_click=toggle_csvbutton, use_container_width=True)
 c2.download_button("Export CSV", data=csv, file_name="projects.csv", mime="text/csv", use_container_width=True)
 c3.button("Testing", type="primary", use_container_width=True)
 
 if st.session_state.csvbutton:
     uploaded_file = st.file_uploader("Import CSV", label_visibility="hidden")
     if uploaded_file is not None:
-        dataframe = pd.read_csv(uploaded_file)
-        projects = dataframe.to_dict('records')
-        for project in projects:
-            update_project_by_id(**dict(project, language_requirements=ast.literal_eval(project['language_requirements'])))
+        # TODO: read uploaded_files concat individual dataframes and replace the work dataframe
         st.session_state.csvbutton = False
         st.rerun()
 
-def add_row(id: int, name: str = "Example Project", minimum: int = 4, optimum: int = 7, maximum: int = 10, ratio: int = 50, language_requirements: List[str] = list()):
-    name_out = st.text_input("Project Name", name, max_chars=255, key=str(id)+"pnam")
-    c1, c2, c3 = st.columns(3)
-    minimum_out = c1.number_input("Minimum", 0, maximum, minimum, key=str(id)+"c1")
-    optimum_out = c2.number_input("Optimum", minimum, maximum, optimum, key=str(id)+"c2")
-    maximum_out = c3.number_input("Maximum", minimum, 1000, maximum, key=str(id)+"c3")
-    ratio_out = st.slider("Programmer-Writer ratio", 0, 100, ratio, format="%d%%", help="Prozentualer anteil an Programmierern", key=str(id)+"pslider")
-    language_requirements_out = st.multiselect("Required Skills", languages.keys(), default=language_requirements, key=str(id)+"skills")
-    update_project_by_id(id, name_out, minimum_out, optimum_out, maximum_out, ratio_out, language_requirements_out)
+def set_projects(row, column, key):
+    st.session_state.projects.at[row, column] = st.session_state[key]
 
-for project in projects:
+def add_row(key: int, name: str = "Example Project", minimum: int = 4, optimum: int = 7, maximum: int = 10, ratio: int = 50, language_requirements: List[str] = list()):
     with st.container(border=True):
-        add_row(**project)
+        str_id = str(key)
+        new_name = st.text_input("Project Name", name, max_chars=255, key=str_id+"name", on_change=set_projects, kwargs=dict(row=key, column="name", key=str_id+"name"))
+        c1, c2, c3 = st.columns(3)
+        new_minimum = c1.number_input("Minimum", 0, int(optimum), int(minimum), key=str_id+"min", on_change=set_projects, kwargs=dict(row=key, column="minimum", key=str_id+"min"))
+        new_optimum = c2.number_input("Optimum", int(minimum), int(maximum), int(optimum), key=str_id+"opt", on_change=set_projects, kwargs=dict(row=key, column="optimum", key=str_id+"opt"))
+        new_maximum = c3.number_input("Maximum", int(optimum), 1000, int(maximum), key=str_id+"max", on_change=set_projects, kwargs=dict(row=key, column="maximum", key=str_id+"max"))
+        new_ratio = st.slider("Programmer-Writer ratio", 0, 100, ratio, format="%d%%", help="Prozentualer anteil an Programmierern", key=str_id+"ratio", on_change=set_projects, kwargs=dict(row=key, column="ratio", key=str_id+"ratio"))
+        new_language_requirements = st.multiselect("Required Skills", languages, default=language_requirements, key=str_id+"skills", on_change=set_projects, kwargs=dict(row=key, column="language_requirements", key=str_id+"skills"))
+
+st.dataframe(st.session_state.projects)
+projects = st.session_state.projects
+projects = projects.apply(lambda row: add_row(**dict({column: row[column] for column in projects.columns}, key=row.name)), axis='columns')
 
 with st.container(border=True):
     if st.button("Add New Project!"):
-        insert_into_projects("Project Name", 4, 5, 7, 50.0, list())
+        new_project = pd.DataFrame([{
+            "name": "Example Project",
+            "minimum": 4,
+            "optimum": 7,
+            "maximum": 10,
+            "ratio": 50,
+            "language_requirements": [],
+        }])
+        # Adding new data to the dataframe
+        st.session_state.projects = pd.concat(
+            [st.session_state.projects, new_project], ignore_index=True
+        )
         st.rerun()
+
+# TODO: save edited projects to db

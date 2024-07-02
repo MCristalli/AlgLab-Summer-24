@@ -1,8 +1,24 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+from sqlalchemy import insert, delete, select, text
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import declarative_base
 
+
+Base = declarative_base()
+class Student(Base):
+    __tablename__ = 'students'
+    matrikelnummer = Column(Integer, primary_key=True)
+    firstname = Column(String, nullable=False)
+    name = Column(String, nullable=False)
+    projects = Column(String, nullable=False)
+    negatives = Column(String)
+    skill = Column(String, nullable=False)
+    programing_skills = Column(String, nullable=False)
+    
 conn = st.connection("projects", type="sql", url="sqlite:///projects.db")
+Base.metadata.create_all(conn.engine)
 
 
 if 'projects' not in st.session_state:
@@ -26,7 +42,9 @@ with st.form(key="student_form"):
     )
     c1, c2 = st.columns(2)
     matrikelnummer = c1.number_input(
-        label="Matrikelnummer"
+        label="Matrikelnummer",
+        value=0,
+        format="%i"
     )
 
 
@@ -51,19 +69,26 @@ with st.form(key="student_form"):
     update_button = st.form_submit_button(label="Anmelden!")
 
     if update_button:
-        if not first_ame or not last_name or not selected or not negatives or not skill or not programing_skills:
+        if not first_ame or not last_name or not selected or not skill or not programing_skills:
             st.warning("Bitte fülle alle felder aus.")
         else:
             pass
-            # TODO: Removing old entry from DB, if it exists
-            # TODO: Creating new data entry
+            # Creating new data entry
             new_user_data = {
-                        "Vorname": first_ame,
-                        "Name": last_name,
-                        "Matrikelnummer": matrikelnummer,
-                        "projects": selected,
-                        "negatives": negatives,
+                        "firstname": first_ame,
+                        "name": last_name,
+                        "matrikelnummer": matrikelnummer,
+                        "projects": str(selected),
+                        "negatives": str(negatives),
                         "skill": skill,
-                        "ProgramierSkills": programing_skills,
+                        "programing_skills": str(programing_skills),
                     }
-            # TODO: Adding data to the DB
+            # Adding data to the DB
+            with conn.session as session:
+                #  Removing old entry from DB, if it exists
+                stmt = delete(Student).where(Student.matrikelnummer == matrikelnummer)
+                session.execute(stmt)
+                stmt = insert(Student).values(new_user_data)
+                session.execute(stmt)
+                session.commit()
+            st.success("Erfolgreich angemeldet!")

@@ -9,13 +9,6 @@ from sqlalchemy.orm import Query, declarative_base, Mapped, mapped_column, relat
 
 Base = declarative_base()
 
-project_language_requirements_association = Table(
-    "project_language_requirements",
-    Base.metadata,
-    Column("project_id", ForeignKey("projects.id")),
-    Column("language_requirement_id", ForeignKey("programming_languages.name")),
-)
-
 class ProgrammingLanguage(Base):
     __tablename__ = "programming_languages"
     name: Mapped[str] = mapped_column(primary_key=True)
@@ -28,27 +21,17 @@ class Project(Base):
     optimum: Mapped[int]
     maximum: Mapped[int]
     ratio: Mapped[int]
-    language_requirements: Mapped[List[ProgrammingLanguage]] = relationship(ProgrammingLanguage, secondary=project_language_requirements_association, backref='Project')
+    language_requirements: Mapped[str]
 
 conn = st.connection("projects", type="sql", url="sqlite:///projects.db")
 Base.metadata.create_all(conn.engine)
 
 @st.cache_data
 def query_projects(_conn):
-    projects = list()
-    with _conn.session as session:
-        for project in session.query(Project):
-            projects += [{
-                "id": project.id,
-                "name": project.name,
-                "minimum": project.minimum,
-                "optimum": project.optimum,
-                "maximum": project.maximum,
-                "ratio": project.ratio,
-                "language_requirements": [language.name for language in project.language_requirements],
-            }]
-    return pd.DataFrame.from_records(projects, index='id') if len(projects) > 0 else pd.DataFrame()
-    # return projects
+    projects = pd.read_sql_table("projects", conn.engine, index_col='id')
+    # convert str to list
+    projects['language_requirements'] = projects['language_requirements'].apply(lambda val: ast.literal_eval(val) if val is not None else list())
+    return projects
 
 @st.cache_data
 def query_languages(_conn):
@@ -95,8 +78,9 @@ def set_projects(row, column, key):
 def add_row(key: int, name: str = "Example Project", minimum: int = 4, optimum: int = 7, maximum: int = 10, ratio: int = 50, language_requirements: List[str] = list()):
     if key is None:
         return
-    with st.container(border=True):
-        str_id = str(key)
+    str_id = str(key)
+    # with st.container(border=True):
+    with st.expander(name, expanded=True):
         new_name = st.text_input("Project Name", name, max_chars=255, key=str_id+"name", on_change=set_projects, kwargs=dict(row=key, column="name", key=str_id+"name"))
         c1, c2, c3 = st.columns(3)
         new_minimum = c1.number_input("Minimum", 0, int(optimum), int(minimum), key=str_id+"min", on_change=set_projects, kwargs=dict(row=key, column="minimum", key=str_id+"min"))
@@ -104,10 +88,15 @@ def add_row(key: int, name: str = "Example Project", minimum: int = 4, optimum: 
         new_maximum = c3.number_input("Maximum", int(optimum), 1000, int(maximum), key=str_id+"max", on_change=set_projects, kwargs=dict(row=key, column="maximum", key=str_id+"max"))
         new_ratio = st.slider("Programmer-Writer ratio", 0, 100, ratio, format="%d%%", help="Prozentualer anteil an Programmierern", key=str_id+"ratio", on_change=set_projects, kwargs=dict(row=key, column="ratio", key=str_id+"ratio"))
         new_language_requirements = st.multiselect("Required Skills", languages, default=language_requirements, key=str_id+"skills", on_change=set_projects, kwargs=dict(row=key, column="language_requirements", key=str_id+"skills"))
+        columns = st.columns((5, 1)) # TODO: properly align to the right
+        remove = columns[1].button('Remove!', key=str_id+"remove")
+        if remove:
+            st.session_state.projects=st.session_state.projects.drop([key])
+            st.rerun()
 
 st.dataframe(st.session_state.projects)
 projects = st.session_state.projects
-projects = projects.apply(lambda row: add_row(**dict({column: row[column] for column in projects.columns}, key=row.name)), axis='columns')
+projects.apply(lambda row: add_row(**dict({column: row[column] for column in projects.columns}, key=row.name)), axis='columns')
 
 with st.container(border=True):
     if st.button("Add New Project!"):
@@ -125,4 +114,8 @@ with st.container(border=True):
         )
         st.rerun()
 
-# TODO: save edited projects to db
+# save edited projects to db
+projects = pd.DataFrame(st.session_state.projects)
+# convert list to str
+projects['language_requirements'] = st.session_state.projects['language_requirements'].apply(str)
+projects.to_sql(name='projects', con=conn.engine, if_exists='replace', index_label='id')

@@ -124,9 +124,16 @@ class SEPAssignmentSolver:
         Calculate the optimal solution to the problem.
         """
         # Set parameters for the solver.
-        self._model.Params.LogToConsole = 1
+        self._model.Params.LogToConsole = 0
 
-        self._model.optimize()
+        def callback(model, where):
+            # This callback is called by Gurobi on various occasions, and
+            # we can react to these occasions.
+            if where == gp.GRB.Callback.MESSAGE:
+                message = model.cbGet(GRB.Callback.MSG_STRING)
+                print("Log: " + message, end="")
+
+        self._model.optimize(callback)
 
         # perform multiple iterations here if necessary
 

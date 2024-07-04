@@ -143,6 +143,7 @@ if selected == "Programming Languages":
         c1.text_input("Language "+str(key), programming_language, on_change=set_language, kwargs=dict(index=key, key="Language"+str(key)), key="Language"+str(key), label_visibility='collapsed')
         c2.button("❌", on_click=remove_language, kwargs=dict(index=key), key="remove"+str(key), use_container_width=True)
     
+    st.warning("Warning: Programming Languages will be removed from all Projects and Students if modified!")
     st.write("Programming Languages")
     for id, language in enumerate(st.session_state.languages):
         add_row(id, language)

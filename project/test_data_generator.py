@@ -1,4 +1,4 @@
-from data_schema import Instance, Student, Project
+from data_schema import Instance, Student, Project, Solution
 import random
 import pandas as pd
 
@@ -143,13 +143,105 @@ class Generator:
 
         return programing_skills
 
+    # converts gui csvs into instance
+    def parse_gui_data(self, project_file_name, student_file_name):
+        self.parse_gui_projects(project_file_name)
+        self.parse_gui_students(student_file_name)
 
+        self.instance = Instance(students=self.students, projects=self.projects,
+                                 programming_languages=self.programing_languages)
+        self.instance_json = self.instance.model_dump_json(indent=2)
+        self.save_instance("./instances/gui_data.json")
+
+    # converts project csv into project instances
+    def parse_gui_projects(self, name):
+        df = pd.read_csv(name)
+
+        for line in range(len(df["id"])):
+            minimum = int(df["minimum"][line])
+            maximum = int(df["maximum"][line])
+            optimum = int(df["optimum"][line])
+            languages = []
+
+            string = str(df["language_required"][line])
+            string.replace("'", "")
+            languages = string.split(", ")
+            l = []
+
+            for language in languages:
+                for i in range(len(self.programing_languages)):
+                    if language == self.programing_languages[i]:
+                        l[i] = 1
+                    else:
+                        l[i] = 0
+
+            p = Project(id=int(df["id"][line]), min=minimum, max=maximum, opt=optimum, language_requirements=l)
+
+            self.projects.append(p)
+
+    # converts student csv into student variables
+    def parse_gui_students(self, name):
+        pass
+
+    def anonymized_data_to_gui_readable(self, name):
+        self.generate_anonymous_data(name, 3)
+
+        data = []
+
+        for project in self.projects:
+            languages = []
+            counter = 0
+            for i in project.language_requirements:
+                if i:
+                    languages.append(self.programing_languages[counter])
+                counter = counter + 1
+
+            project_data = [
+                project.id,
+                "Projekt_" + str(project.id + 1),
+                project.min,
+                project.opt,
+                project.max,
+                50,
+                languages
+            ]
+
+            data.append(project_data)
+
+        df = pd.DataFrame(data, columns=["id", "name", "minimum", "optimum", "maximum", "ratio", "language_requirements"])
+        df.to_csv("./instances/gui_readable.csv", sep=',', encoding='utf-8', index=False)
+
+    def instance_to_csv(self, original_data_file_name):
+        with open("./solution.json") as f:
+            solution: Solution = Solution.model_validate_json(f.read())
+
+        data_df = pd.read_csv(original_data_file_name)
+
+        project_ids = []
+        for (s_id, p_id) in solution.assignments:
+            project_ids.append(p_id)
+
+        project_ids = list(dict.fromkeys(project_ids)) # remove duplicates
+        project_ids.sort()
+
+        for p_id in project_ids:
+            data = []
+
+            for assignment in solution.assignments:
+                if assignment[1] == p_id:
+                    name = self.get_name_from_student_id(data_df, assignment[0])
+                    data.append([assignment[0], name[0], name[1]])
+
+            df = pd.DataFrame(data, columns=["MatrikelNr", "Nachname", "Vorname"])
+            df.to_csv("./assignments/Projekt_" + str(p_id + 1) + ".csv", sep=',', encoding='utf-8', index=False)
+
+    def get_name_from_student_id(self, df, mnr):
+        for line in range(len(df["MatrikelNr"])):
+            if df["MatrikelNr"][line] == mnr:
+                return [df["Nachname"][line], df["Vorname"][line]]
 
 
 
 generator = Generator()
-generator.generate_anonymous_data("./instances/sep_registrations_1.csv", 3)
-generator.save_instance("./instances/anonymized_data_1.json")
-generator.generate_anonymous_data("./instances/sep_registrations_2.csv", 3)
-generator.save_instance("./instances/anonymized_data_2.json")
-
+#generator.anonymized_data_to_gui_readable("./instances/sep_registrations_1.csv")
+generator.instance_to_csv("./instances/sep_registrations_1.csv")

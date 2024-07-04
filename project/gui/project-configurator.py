@@ -87,6 +87,8 @@ if selected == "Projects":
         if key is None:
             return
         str_id = str(key)
+        # filter out invalid Languages
+        language_requirements = [language for language in language_requirements if language in st.session_state.languages]
         with st.expander(name, expanded=True):
             st.text_input("Project Name", name, max_chars=255, key=str_id+"name", on_change=set_project, kwargs=dict(row=key, column="name", key=str_id+"name"))
             c1, c2, c3 = st.columns(3)

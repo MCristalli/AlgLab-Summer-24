@@ -39,18 +39,16 @@ def _entry_point_solver_process(
         lower_bound.value = value
 
     # Set solver callbacks
-    solver_settings = {
+    callbacks = {
         # send log messages through the log pipe
-        "LogCallback": lambda msg: log_conn.send([msg]),
-        "LowerBoundCallback": update_lower_bound,
-        "UpperBoundCallback": update_upper_bound,
+        "Message": lambda msg: log_conn.send([msg]),
         # send solutions through the solution pipe
         # "SolutionCallback": lambda solution: solution_conn.send(solution.model_dump())
     }
 
     try:
         # Solve the problem with the specified maximum time and callback
-        status, solution = solver.solve(max_time, callback=callback)
+        status, solution = solver.solve(max_time, callbacks=callbacks)
 
         # If a solution is found, send the final solution through the solution pipe
         if solution is not None:

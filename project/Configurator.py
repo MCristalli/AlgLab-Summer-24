@@ -5,7 +5,7 @@ import numpy as np
 import ast
 from typing import List
 from typing import Optional
-from sqlalchemy import Column, ForeignKey, Table, String, update, select, delete
+from sqlalchemy import Column, ForeignKey, Table, Integer, String, update, select, delete
 from sqlalchemy.dialects.sqlite import insert
 from sqlalchemy.orm import Query, declarative_base, Mapped, mapped_column, relationship
 
@@ -24,6 +24,16 @@ class Project(Base):
     maximum: Mapped[int]
     ratio: Mapped[int]
     language_requirements: Mapped[str]
+
+class Student(Base):
+    __tablename__ = 'students'
+    matrikelnummer = Column(Integer, primary_key=True)
+    firstname = Column(String, nullable=False)
+    name = Column(String, nullable=False)
+    projects = Column(String, nullable=False)
+    negatives = Column(String)
+    skill = Column(String, nullable=False)
+    programing_skills = Column(String, nullable=False)
 
 conn = st.connection("projects", type="sql", url="sqlite:///projects.db")
 Base.metadata.create_all(conn.engine)
@@ -52,6 +62,8 @@ def query_students(_conn):
 
 if 'projects' not in st.session_state:
     st.session_state.projects = query_projects(conn)
+if 'students' not in st.session_state:
+    st.session_state.students = query_students(conn)
 if 'languages' not in st.session_state:
     st.session_state.languages = query_languages(conn)
 if 'csvbutton' not in st.session_state:
@@ -73,12 +85,13 @@ selected = option_menu(None, ["Projects", "Programming Languages", "Students"],
 
 if selected == "Students":
     st.button("Solve", type="primary", use_container_width=True)
-    st.dataframe(query_students(conn), use_container_width=True)
+    st.dataframe(st.session_state.students, use_container_width=True)
 else:
     c1, c2, c3 = st.columns(3)
     c1.button("Import CSV", on_click=toggle_csvbutton, use_container_width=True)
     c2.download_button("Export CSV", data=csv, file_name="projects.csv", mime="text/csv", use_container_width=True)
-    c3.button("Solve", type="primary", use_container_width=True)
+    if c3.button("Solve", type="primary", use_container_width=True):
+        st.switch_page("pages/Solver.py")
 
     if st.session_state.csvbutton:
         uploaded_files = st.file_uploader("Import CSV", label_visibility="hidden", type=["csv"], accept_multiple_files=True)

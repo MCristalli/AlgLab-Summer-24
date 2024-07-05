@@ -119,7 +119,7 @@ class SEPAssignmentSolver:
         self._model.setObjectiveN(-sum(self._opt_size_diff[j] for j in range(len(instance.projects))), index=2,
                                   priority=0, weight=0.5)
 
-    def solve(self) -> Solution:
+    def solve(self, callbacks = None) -> Solution:
         """
         Calculate the optimal solution to the problem.
         """
@@ -130,8 +130,9 @@ class SEPAssignmentSolver:
             # This callback is called by Gurobi on various occasions, and
             # we can react to these occasions.
             if where == gp.GRB.Callback.MESSAGE:
-                message = model.cbGet(GRB.Callback.MSG_STRING)
-                print("Log: " + message, end="")
+                if callbacks and ('Message' in callbacks):
+                    message = model.cbGet(GRB.Callback.MSG_STRING)
+                    callbacks['Message'](message)
 
         self._model.optimize(callback)
 
@@ -156,7 +157,7 @@ if __name__ == "__main__":
         student_lookup = {student.id: student for student in instance.students}
     # Create the solver
     solver = SEPAssignmentSolver(instance)
-    solution = solver.solve()
+    solution = solver.solve(callbacks={'Message': lambda msg: print(msg, end='')})
     # Verify the solution
     assert solution is not None, "The solution must not be 'None'!"
     assert isinstance(solution, Solution), "The solution be of type 'Solution'!"

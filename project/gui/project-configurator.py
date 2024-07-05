@@ -42,6 +42,13 @@ def query_languages(_conn):
         for language in session.query(ProgrammingLanguage):
             languages += [language.name]
     return languages
+@st.cache_data
+def query_students(_conn):
+    students = pd.read_sql_table("students", conn.engine, index_col='matrikelnummer')
+    students['projects'] = students['projects'].apply(lambda val: ast.literal_eval(val) if val is not None else list())
+    students['negatives'] = students['negatives'].apply(lambda val: ast.literal_eval(val) if val is not None else list())
+    students['programing_skills'] = students['programing_skills'].apply(lambda val: ast.literal_eval(val) if val is not None else list())
+    return students
 
 if 'projects' not in st.session_state:
     st.session_state.projects = query_projects(conn)
@@ -50,21 +57,47 @@ if 'languages' not in st.session_state:
 if 'csvbutton' not in st.session_state:
     st.session_state.csvbutton = False
 
+def toggle_csvbutton():
+    st.session_state.csvbutton = not st.session_state.csvbutton
+
+@st.cache_data
+def convert_df(projects):
+    # IMPORTANT: Cache the conversion to prevent computation on every rerun
+    return projects.to_csv().encode("utf-8")
+csv = bytes(str(st.session_state.languages) + "\n", 'utf-8') + convert_df(st.session_state.projects)
+
 
 st.title("Project Configurator v3")
-selected = option_menu(None, ["Projects", "Programming Languages"], 
+selected = option_menu(None, ["Projects", "Programming Languages", "Students"], 
     default_index=0, orientation="horizontal")
 
+if selected == "Students":
+    st.button("Solve", type="primary", use_container_width=True)
+    st.dataframe(query_students(conn), use_container_width=True)
+else:
+    c1, c2, c3 = st.columns(3)
+    c1.button("Import CSV", on_click=toggle_csvbutton, use_container_width=True)
+    c2.download_button("Export CSV", data=csv, file_name="projects.csv", mime="text/csv", use_container_width=True)
+    c3.button("Solve", type="primary", use_container_width=True)
+
+    if st.session_state.csvbutton:
+        uploaded_files = st.file_uploader("Import CSV", label_visibility="hidden", type=["csv"], accept_multiple_files=True)
+        if uploaded_files is not None and len(uploaded_files) > 0:
+            # Get the list of all languages without duplicates
+            st.session_state.languages = list({language for file in uploaded_files for language in ast.literal_eval(str(file.readline()[:-1], 'UTF-8'))})
+            st.session_state.projects = pd.concat(
+                [pd.read_csv(file, index_col=0, converters={"language_requirements": ast.literal_eval}) for file in uploaded_files], ignore_index=True
+            )
+            # Add any missing languages
+            required_languages = list(set(st.session_state.projects["language_requirements"].sum()))
+            for required_language in required_languages:
+                if required_language not in st.session_state.languages:
+                    st.session_state.languages.append(required_language)
+
+            st.session_state.csvbutton = False
+            st.rerun()
+
 if selected == "Projects":
-    def toggle_csvbutton():
-        st.session_state.csvbutton = not st.session_state.csvbutton
-
-    @st.cache_data
-    def convert_df(projects):
-        # IMPORTANT: Cache the conversion to prevent computation on every rerun
-        return projects.to_csv().encode("utf-8")
-    csv = convert_df(st.session_state.projects)
-
     def remove_project(row):
         st.session_state.projects.drop([row], inplace=True)
     def set_project(row, column, key):
@@ -99,21 +132,6 @@ if selected == "Projects":
             st.multiselect("Required Skills", st.session_state.languages, default=language_requirements, on_change=set_project, kwargs=dict(row=key, column="language_requirements", key=str_id+"skills"), key=str_id+"skills")
             c0, c1 = st.columns([12, 1]) # TODO: properly align to the right
             c1.button('❌', on_click=remove_project, args=[key], use_container_width=True, key=str_id+"remove")
-
-
-    c1, c2, c3 = st.columns(3)
-    c1.button("Import CSV", on_click=toggle_csvbutton, use_container_width=True)
-    c2.download_button("Export CSV", data=csv, file_name="projects.csv", mime="text/csv", use_container_width=True)
-    c3.button("Testing", type="primary", use_container_width=True)
-
-    if st.session_state.csvbutton:
-        uploaded_files = st.file_uploader("Import CSV", label_visibility="hidden", type=["csv"], accept_multiple_files=True)
-        if uploaded_files is not None and len(uploaded_files) > 0:
-            st.session_state.projects = pd.concat(
-                [pd.read_csv(file, index_col=0, converters={"language_requirements": ast.literal_eval}) for file in uploaded_files], ignore_index=True
-            )
-            st.session_state.csvbutton = False
-            st.rerun()
 
     st.dataframe(st.session_state.projects, use_container_width=True)
     projects = st.session_state.projects
@@ -156,6 +174,7 @@ if selected == "Programming Languages":
     with conn.session as session:
         stmt = delete(ProgrammingLanguage)
         session.execute(stmt)
-        stmt = insert(ProgrammingLanguage).values([[language] for language in languages]).on_conflict_do_nothing()
-        session.execute(stmt)
+        if len(languages) > 0:
+            stmt = insert(ProgrammingLanguage).values([[language] for language in languages]).on_conflict_do_nothing()
+            session.execute(stmt)
         session.commit()

@@ -133,9 +133,11 @@ if selected == "Projects":
             c0, c1 = st.columns([12, 1]) # TODO: properly align to the right
             c1.button('❌', on_click=remove_project, args=[key], use_container_width=True, key=str_id+"remove")
 
-    st.dataframe(st.session_state.projects, use_container_width=True)
+    dataframe_event = st.dataframe(st.session_state.projects, selection_mode="multi-row", on_select="rerun", use_container_width=True)
     projects = st.session_state.projects
-    projects.apply(lambda row: add_row(**dict({column: row[column] for column in projects.columns}, key=row.name)), axis='columns')
+    for index, row in projects.iterrows():
+        if len(dataframe_event.selection["rows"]) == 0 or index in dataframe_event.selection["rows"]:
+            add_row(**dict({column: row[column] for column in projects.columns}, key=row.name))
 
     with st.container(border=True):
         st.button("Add New Project!", on_click=add_project)

@@ -20,7 +20,7 @@ class _AssignmentVariables:
         self._vars = {
             (s.id, p.id): model.addVar(vtype=GRB.BINARY, name=f"assign_{s.id}_{p.id}")
             for s in self._students
-            for p in self._projects if p not in s.negatives
+            for p in self._projects
         }
 
     def x(self, s: Student, p: Project) -> gp.Var:
@@ -62,6 +62,7 @@ class SEPAssignmentSolver:
         self._assignment_vars = _AssignmentVariables(self._students.values(), self._projects.values(), self._model)
         self._abs_diff = self._model.addVars(len(self._projects), vtype=GRB.CONTINUOUS, name="abs_diff")
         self._opt_size_diff = self._model.addVars(len(self._projects), vtype=GRB.CONTINUOUS, name="opt_size_diff")
+        self._skill_coverage = self._model.addVars(len(self._projects), len(self._languages), vtype=GRB.BINARY, name="skill_coverage")
         self.setup_constraints()
 
     def setup_constraints(self) -> None:
@@ -88,13 +89,26 @@ class SEPAssignmentSolver:
             self._model.addConstr(
                 self._abs_diff[project.id] >= programmers_count[project.id] - writers_count[project.id])
 
-        # at least one person with sufficient skill for every required language for each project
+        # Constraint for helper variable skill_coverage
         for project in self._projects.values():
             langCount = 0
             for lang in self._languages:
-                self._model.addConstr(
-                    sum(x * self._students[s].programing_skills.get(lang) for (s, p), x in self._assignment_vars if p == project.id) \
-                    >= project.language_requirements[langCount])
+                # Anzahl der Studenten im Projekt p, die Skill k mit mindestens 2 haben
+                if project.language_requirements[langCount] == 1:
+                    num_students_with_skill = gp.quicksum(
+                        x * (self._students[s].programing_skills.get(lang) >= 2) for (s, p), x in self._assignment_vars if p == project.id)
+                # Setze skill_coverage[p, k] auf 1, wenn mindestens zwei Studenten Skill k mit mindestens 2 haben
+                    self._model.addConstr(self._skill_coverage[project.id, langCount] <= num_students_with_skill)
+                if project.language_requirements[langCount] == 0:
+                    self._model.addConstr(self._skill_coverage[project.id, langCount] == 0)
+                langCount += 1
+
+        # Minimum one student with minimum beginner level for every required skill per project
+        for project in self._projects.values():
+            langCount = 0
+            for lang in self._languages:
+                self._model.addConstr(sum(x * self._students[s].programing_skills.get(lang) for (s, p), x in self._assignment_vars if p == project.id) \
+                   >= project.language_requirements[langCount])
                 langCount += 1
 
         # Constrain the absolute difference from optimal size
@@ -105,20 +119,33 @@ class SEPAssignmentSolver:
             self._model.addConstr(
                 self._opt_size_diff[project.id] >= project.opt - students_in_project)
 
-            # Objective 1: Assign students to preferred projects. 2 points for assignment to preferred project, 1 for neutral
+            #Objective 1: Do not assign students to projects they dislike
         self._model.setObjectiveN(
-            sum(x if p not in self._students[s].projects else 2 * x for (s, p), x in self._assignment_vars), index=0,
-            priority=0, weight=2)
+            sum(x if p not in self._students[s].negatives else 0 for (s, p), x in self._assignment_vars),
+            index=0,
+            priority=6, weight=2)
 
-        # Objetive 2: Minimize the difference between number of programmers and number of writers in each group.
-        # The absolute difference is subtracted from objective value
-        self._model.setObjectiveN(-sum(self._abs_diff[j] for j in range(len(instance.projects))), index=1, priority=0,
+            #Objective 2: Assign students to preferred projects. 2 points for assignment to preferred project, 1 for neutral
+        self._model.setObjectiveN(
+            sum(x if p not in self._students[s].projects else 2 * x for (s, p), x in self._assignment_vars), index=1,
+            priority=5, weight=2)
+
+            #Objective 3: Maximize the number of groups which have at least on advanced student for every required skill
+        self._model.setObjectiveN(gp.quicksum(self._skill_coverage[p, k] for p in range(len(instance.projects)) for k in range(len(instance.programming_languages))), \
+                                  index=2, priority=4, weight=1)
+
+            #Objective 4: Minimize the difference from the optimal project size
+        self._model.setObjectiveN(-sum(self._opt_size_diff[j] for j in range(len(instance.projects))), index=3,
+                                  priority=3, weight=0.5)
+
+            #Objetive 5: Minimize the difference between number of programmers and number of writers in each group.
+            #The absolute difference is subtracted from objective value
+        self._model.setObjectiveN(-sum(self._abs_diff[j] for j in range(len(instance.projects))), index=4, priority=2,
                                   weight=1)
 
-        # Objective 3: Minimize the difference from the optimal project size
-        self._model.setObjectiveN(-sum(self._opt_size_diff[j] for j in range(len(instance.projects))), index=2,
-                                  priority=0, weight=0.5)
-
+            #Objective 6: Maximize the number of students assigned to a project where at least on of their skills is required
+        self._model.setObjectiveN(sum(x for (s, p), x in self._assignment_vars if any(self._students[s].programing_skills.get(skill) >= 1 for (skill, skillInt) in zip(instance.programming_languages,self._projects[p].language_requirements ) if skillInt == 1) ), \
+                                  index=5, priority=1, weight=1)
     def solve(self, callbacks = None) -> Solution:
         """
         Calculate the optimal solution to the problem.
@@ -167,7 +194,6 @@ if __name__ == "__main__":
         student = student_lookup[student_id]
         project_id = assignment[1]
         assert student is not None, f"Invalid Student {student_id} found!"
-    # assert project_id in student.projects, f"Student {student_id} got assigned a Project he didnt sign up for!"
 
     #checks if theres at least one student with required langauge skill
     for project in instance.projects:
@@ -190,15 +216,22 @@ if __name__ == "__main__":
         f.write(solution_json)
 
 
-    # TODO: Do some analysis on the Solution.
-
     # Count the number of students who were assigned to one of their preferred projects
     def count_preferred_assignments():
         count = 0
         for student_id, assigned_project in solution.assignments:
             student_projects = [student.projects for student in instance.students if student.id == student_id][0]
-
             if assigned_project in student_projects:
+                count += 1
+        print()
+        return count
+
+    def count_disliked_assignments():
+        count = 0
+        for student_id, assigned_project in solution.assignments:
+            student_negatives = [student.negatives for student in instance.students if student.id == student_id][0]
+
+            if assigned_project in student_negatives:
                 count += 1
         print()
         return count
@@ -227,19 +260,73 @@ if __name__ == "__main__":
         student_count = [0 for i in range(len(instance.projects))]
         for student_id, assigned_project in solution.assignments:
             student_count[assigned_project] += 1
-
         diff_from_opt_size = [abs(student_count[project] - optimal_size[project]) for project in
                      range(len(instance.projects))]
         return diff_from_opt_size
 
+    #Counts the number of groups where for every required skills has at least one advanced student
+    def count_groups_min_2_skilled():
+        number_of_groups_sufficient_advanced = 0
+        for project in instance.projects:
+            sufficient_advanced = 1
+            students_in_project = []
+            for student_id, assigned_project in solution.assignments:
+                if assigned_project == project.id:
+                    students_in_project.append(student_lookup[student_id])
+            langCount = 0
+            for lang in instance.programming_languages:
+                if project.language_requirements[langCount] == 1: # This project requires this language
+                    advancedCountforLang = 0
+                    for student in students_in_project:
+                        if student.programing_skills[lang] >= 2:
+                            advancedCountforLang += 1
+                    if advancedCountforLang <= 0:
+                        sufficient_advanced = 0
+                langCount += 1
+            number_of_groups_sufficient_advanced = number_of_groups_sufficient_advanced + sufficient_advanced
+        return number_of_groups_sufficient_advanced
+
+    #Counts the number of students which have at least one required skill for their project
+    def count_stud_min_1_skilled():
+        student_count = 0
+        for student_id, assigned_project in solution.assignments:
+            langCount = 0
+            for skill_lvl in student_lookup[student_id].programing_skills.values():
+                if skill_lvl >= 1 and instance.projects[assigned_project].language_requirements[langCount] == 1:
+                    student_count += 1
+                    break
+                langCount += 1
+        return student_count
+
+    #Calculates the used potential (skill of a student is used if it is required for their project)
+    #The overall potential is the sum of all skills of the students
+    def potential_use():
+        overall_potential = sum(sum(student.programing_skills.values()) for student in instance.students)
+        used_potential = 0
+        for student_id, assigned_project in solution.assignments:
+            for lang, langInt in zip(instance.programming_languages, range(len(instance.programming_languages))):
+                if instance.projects[assigned_project].language_requirements[langInt]:
+                    used_potential = used_potential + student_lookup[student_id].programing_skills[lang]
+        return used_potential, overall_potential
 
     preferred_count = count_preferred_assignments()
+    disliked_count = count_disliked_assignments()
     skillDiff = count_skillDiff_per_project()
+    min_1_skill = count_stud_min_1_skilled()
+    potential_use = potential_use()
+    number_of_groups_sufficient_advanced = count_groups_min_2_skilled()
+
     print(f"Anzahl der Studenten mit einem Wunschprojekt: {preferred_count}")
-    print(f"Anzahl der Studenten mit einem neutralem Projekt: {len(instance.students) - preferred_count}")
+    print(f"Anzahl der Studenten mit einem neutralen Projekt: {len(instance.students) - preferred_count - disliked_count}")
+    print(f"Anzahl der Studenten mit einem abgewählten Projekt: {disliked_count}")
+
     for diff in range(max(skillDiff) + 1):
         print(f"Anzahl der Projekte mit einer Schreiber/Programmierer Differenz von {diff} : {skillDiff.count(diff)}")
     size_diff = solver.count_difference_from_optimal_size(solution)
     for diff in range(max(size_diff) + 1):
         print(f"Anzahl der Projekte mit einer Differenz zur opt Größe von {diff} : {size_diff.count(diff)}")
+
+    print(f"Anzahl der Projekte mit mindestens einem fortgeschrittenen Studenten für jeden benötigten Skill: {number_of_groups_sufficient_advanced}")
+    print(f"Potentialnutzung: {potential_use[0]} von {potential_use[1]}")
+    print(f"Anzahl der Studenten, die für mindestens einen benötigten Skill Anfänger oder besser sind: {min_1_skill}")
 

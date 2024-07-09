@@ -20,7 +20,8 @@ class Student(Base):
 conn = st.connection("projects", type="sql", url="sqlite:///projects.db")
 Base.metadata.create_all(conn.engine)
 
-
+if 'programing_skills' not in st.session_state:
+    st.session_state['programing_skills'] = []
 if 'projects' not in st.session_state:
     st.session_state.projects = pd.read_sql("SELECT name FROM projects", conn.session.bind)
 if 'languages' not in st.session_state:
@@ -61,34 +62,52 @@ with st.form(key="student_form"):
         ["Programmieren", "Schreiben"],
         index=None,
     )
-    programing_skills = st.multiselect(
-        "Programier skills",
-        options=languages['name']
-    )
+
+    programing_skills = st.empty()
+
+    skill_levels = st.empty()
 
     update_button = st.form_submit_button(label="Anmelden!")
 
-    if update_button:
-        if not first_ame or not last_name or not selected or not skill or not programing_skills:
-            st.warning("Bitte fülle alle felder aus.")
-        else:
-            pass
-            # Creating new data entry
-            new_user_data = {
-                        "firstname": first_ame,
-                        "name": last_name,
-                        "matrikelnummer": matrikelnummer,
-                        "projects": str(selected),
-                        "negatives": str(negatives),
-                        "skill": skill,
-                        "programing_skills": str(programing_skills),
-                    }
-            # Adding data to the DB
-            with conn.session as session:
-                #  Removing old entry from DB, if it exists
-                stmt = delete(Student).where(Student.matrikelnummer == matrikelnummer)
-                session.execute(stmt)
-                stmt = insert(Student).values(new_user_data)
-                session.execute(stmt)
-                session.commit()
-            st.success("Erfolgreich angemeldet!")
+with programing_skills:
+    programing_skills = st.multiselect(
+            "Programier skills",
+            options=languages['name'],
+            key='programing_skills'
+        )
+
+if len(programing_skills) > 0:
+    with skill_levels:
+        with st.container():
+            for programing_skill in programing_skills:
+                st.radio(programing_skill + " Skill Level",
+                    ["Anfänger", "Fortgeschritten", "Experte"],
+                    key=programing_skill,
+                    horizontal=True,
+                )
+
+if update_button:
+    if not first_ame or not last_name or not selected or not skill or not programing_skills:
+        st.warning("Bitte fülle alle felder aus.")
+    else:
+        pass
+        # Creating new data entry
+        new_user_data = {
+                    "firstname": first_ame,
+                    "name": last_name,
+                    "matrikelnummer": matrikelnummer,
+                    "projects": str(selected),
+                    "negatives": str(negatives),
+                    "skill": skill,
+                    "programing_skills": str({programing_skill: st.session_state[programing_skill] for programing_skill in programing_skills})
+                }
+
+        # Adding data to the DB
+        with conn.session as session:
+            #  Removing old entry from DB, if it exists
+            stmt = delete(Student).where(Student.matrikelnummer == matrikelnummer)
+            session.execute(stmt)
+            stmt = insert(Student).values(new_user_data)
+            session.execute(stmt)
+            session.commit()
+        st.success("Erfolgreich angemeldet!")

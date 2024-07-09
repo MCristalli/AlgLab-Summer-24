@@ -57,7 +57,7 @@ def query_students(_conn):
     students = pd.read_sql_table("students", conn.engine, index_col='matrikelnummer')
     students['projects'] = students['projects'].apply(lambda val: ast.literal_eval(val) if val is not None else list())
     students['negatives'] = students['negatives'].apply(lambda val: ast.literal_eval(val) if val is not None else list())
-    students['programing_skills'] = students['programing_skills'].apply(lambda val: ast.literal_eval(val) if val is not None else list())
+    students['programing_skills'] = students['programing_skills'].apply(lambda val: ast.literal_eval(val) if val is not None else dict())
     return students
 
 if 'projects' not in st.session_state:

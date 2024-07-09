@@ -48,7 +48,7 @@ def _entry_point_solver_process(
 
     try:
         # Solve the problem with the specified maximum time and callback
-        status, solution = solver.solve(max_time, callbacks=callbacks)
+        solution = solver.solve(callbacks=callbacks)
 
         # If a solution is found, send the final solution through the solution pipe
         if solution is not None:

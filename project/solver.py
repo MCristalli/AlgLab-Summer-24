@@ -131,20 +131,20 @@ class SEPAssignmentSolver:
             priority=5, weight=2)
 
             #Objective 3: Maximize the number of groups which have at least on advanced student for every required skill
-        self._model.setObjectiveN(gp.quicksum(self._skill_coverage[p, k] for p in range(len(instance.projects)) for k in range(len(instance.programming_languages))), \
+        self._model.setObjectiveN(gp.quicksum(self._skill_coverage[p, k] for p in range(len(self.instance.projects)) for k in range(len(self.instance.programming_languages))), \
                                   index=2, priority=4, weight=1)
 
             #Objective 4: Minimize the difference from the optimal project size
-        self._model.setObjectiveN(-sum(self._opt_size_diff[j] for j in range(len(instance.projects))), index=3,
+        self._model.setObjectiveN(-sum(self._opt_size_diff[j] for j in range(len(self.instance.projects))), index=3,
                                   priority=3, weight=0.5)
 
             #Objetive 5: Minimize the difference between number of programmers and number of writers in each group.
             #The absolute difference is subtracted from objective value
-        self._model.setObjectiveN(-sum(self._abs_diff[j] for j in range(len(instance.projects))), index=4, priority=2,
+        self._model.setObjectiveN(-sum(self._abs_diff[j] for j in range(len(self.instance.projects))), index=4, priority=2,
                                   weight=1)
 
             #Objective 6: Maximize the number of students assigned to a project where at least on of their skills is required
-        self._model.setObjectiveN(sum(x for (s, p), x in self._assignment_vars if any(self._students[s].programing_skills.get(skill) >= 1 for (skill, skillInt) in zip(instance.programming_languages,self._projects[p].language_requirements ) if skillInt == 1) ), \
+        self._model.setObjectiveN(sum(x for (s, p), x in self._assignment_vars if any(self._students[s].programing_skills.get(skill) >= 1 for (skill, skillInt) in zip(self.instance.programming_languages,self._projects[p].language_requirements ) if skillInt == 1) ), \
                                   index=5, priority=1, weight=1)
     def solve(self, callbacks = None) -> Solution:
         """

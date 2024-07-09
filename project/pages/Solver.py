@@ -64,10 +64,6 @@ if solve_button:
         with open("./instances/anonymized_data_1.json") as f:
             instance = Instance.model_validate_json(f.read())
 
-        # TODO: Get the config options eg:
-        # config = {
-        #     "test": test_config_option,
-        # }
 
         solver_process = SEPSolverProcess(instance)
         solver_process.start()
@@ -75,8 +71,7 @@ if solve_button:
         st.session_state.log_text = ""
         counter = 0
         while True:
-            logs = solver_process.get_log()
-            logs = None
+            logs = solver_process.get_log()            
             if logs:
                 st.session_state.log_text += "".join(logs) + "\n"
             log_placeholder.text(st.session_state.log_text)
@@ -86,8 +81,8 @@ if solve_button:
                     solver_process.interrupt()
                     status_placeholder.warning("Solution process interrupted.")
                 else:
-                    st.session_state.solution = pd.DataFrame(solver_process.get_solution())
-                    print(st.session_state.solution)
+                    solution = solver_process.get_solution()
+                    st.session_state.solution = pd.DataFrame(solution)
                     solution_placeholder.dataframe(st.session_state.solution, use_container_width=True)
                     status_placeholder.success("Solver finished.")
                 break

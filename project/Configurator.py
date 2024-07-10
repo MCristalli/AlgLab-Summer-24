@@ -95,7 +95,12 @@ if selected == "Students":
         uploaded_file = st.file_uploader("Import CSV", label_visibility="hidden", type=["csv"])
         if uploaded_file is not None:
             students = pd.read_csv(uploaded_file, index_col=0, converters={"projects": ast.literal_eval, "negatives": ast.literal_eval, "programing_skills": ast.literal_eval})
-            print(students)
+            # convert fields to str
+            students['projects'] = students['projects'].apply(str)
+            students['negatives'] = students['negatives'].apply(str)
+            students['programing_skills'] = students['programing_skills'].apply(str)
+            # save imported students to db
+            students.to_sql(name='students', con=conn.engine, if_exists='replace', index_label='matrikelnummer')
             st.session_state.students = students
             st.session_state.csvbutton = False
             st.rerun()

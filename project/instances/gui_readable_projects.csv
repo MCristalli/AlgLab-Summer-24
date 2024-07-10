@@ -1,20 +1,20 @@
 ['C', 'C++', 'C#', 'Java', 'HTML/CSS', 'Python', 'JavaScript', 'PHP']
 id,name,minimum,optimum,maximum,ratio,language_requirements
-0,Projekt_0,8,9,11,50,"['C', 'PHP']"
-1,Projekt_1,8,12,12,50,"['Java', 'Python', 'JavaScript', 'PHP']"
-2,Projekt_2,9,9,13,50,"['C++', 'Python', 'PHP']"
-3,Projekt_3,7,7,8,50,['Python']
-4,Projekt_4,8,10,11,50,"['C', 'C#', 'Python', 'JavaScript']"
-5,Projekt_5,7,12,12,50,"['C++', 'C#']"
-6,Projekt_6,9,9,9,50,"['C#', 'Java', 'Python', 'JavaScript']"
-7,Projekt_7,7,8,9,50,"['C#', 'Java']"
-8,Projekt_8,8,8,12,50,"['C', 'C++', 'C#', 'JavaScript']"
-9,Projekt_9,8,13,13,50,['Python']
-10,Projekt_10,9,9,9,50,"['C#', 'HTML/CSS', 'Python', 'JavaScript']"
-11,Projekt_11,9,9,9,50,"['C', 'C++', 'JavaScript', 'PHP']"
-12,Projekt_12,8,12,12,50,"['C++', 'Python', 'PHP']"
-13,Projekt_13,9,11,12,50,"['C++', 'PHP']"
-14,Projekt_14,9,9,9,50,"['C++', 'C#', 'Java', 'PHP']"
-15,Projekt_15,7,11,12,50,"['JavaScript', 'PHP']"
-16,Projekt_16,8,9,11,50,"['C', 'C#']"
-17,Projekt_17,7,7,10,50,"['C++', 'Java', 'HTML/CSS', 'JavaScript']"
+0,Projekt 0,7,9,9,50,"['C++', 'Java']"
+1,Projekt 1,8,9,9,50,"['C', 'C++']"
+2,Projekt 2,7,7,7,50,"['C', 'C++', 'C#', 'Java']"
+3,Projekt 3,8,9,10,50,"['C', 'C#', 'HTML/CSS', 'Python']"
+4,Projekt 4,8,8,8,50,"['C', 'C++', 'Java']"
+5,Projekt 5,9,10,11,50,['PHP']
+6,Projekt 6,7,7,12,50,"['C#', 'JavaScript']"
+7,Projekt 7,7,7,11,50,"['C++', 'C#', 'Python']"
+8,Projekt 8,9,9,13,50,"['C#', 'Java']"
+9,Projekt 9,8,11,13,50,"['Python', 'JavaScript', 'PHP']"
+10,Projekt 10,9,10,10,50,['JavaScript']
+11,Projekt 11,8,10,12,50,"['C', 'C#', 'Java']"
+12,Projekt 12,7,7,12,50,['C#']
+13,Projekt 13,8,10,11,50,"['C++', 'C#', 'HTML/CSS']"
+14,Projekt 14,8,13,13,50,"['C++', 'C#']"
+15,Projekt 15,7,9,9,50,['Java']
+16,Projekt 16,8,8,12,50,"['Java', 'HTML/CSS']"
+17,Projekt 17,9,10,10,50,"['Java', 'JavaScript', 'PHP']"

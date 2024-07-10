@@ -5,6 +5,8 @@ from sqlalchemy import insert, delete, select, text
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import declarative_base
 
+# Disable sub pages
+st.navigation([st.Page(__file__)])
 
 Base = declarative_base()
 class Student(Base):

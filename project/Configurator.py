@@ -77,6 +77,7 @@ def convert_df(projects):
     # IMPORTANT: Cache the conversion to prevent computation on every rerun
     return projects.to_csv().encode("utf-8")
 csv = bytes(str(st.session_state.languages) + "\n", 'utf-8') + convert_df(st.session_state.projects)
+student_csv = convert_df(st.session_state.students)
 
 
 st.title("Project Configurator v3")
@@ -84,8 +85,21 @@ selected = option_menu(None, ["Projects", "Programming Languages", "Students"],
     default_index=0, orientation="horizontal")
 
 if selected == "Students":
-    if st.button("Solve", type="primary", use_container_width=True):
+    c1, c2, c3 = st.columns(3)
+    c1.button("Import Students", on_click=toggle_csvbutton, use_container_width=True)
+    c2.download_button("Export Students", data=student_csv, file_name="students.csv", mime="text/csv", use_container_width=True)
+    if c3.button("Solve", type="primary", use_container_width=True):
         st.switch_page("pages/Solver.py")
+
+    if st.session_state.csvbutton:
+        uploaded_file = st.file_uploader("Import CSV", label_visibility="hidden", type=["csv"])
+        if uploaded_file is not None:
+            students = pd.read_csv(uploaded_file, index_col=0, converters={"projects": ast.literal_eval, "negatives": ast.literal_eval, "programing_skills": ast.literal_eval})
+            print(students)
+            st.session_state.students = students
+            st.session_state.csvbutton = False
+            st.rerun()
+
     st.dataframe(st.session_state.students, use_container_width=True)
 else:
     c1, c2, c3 = st.columns(3)

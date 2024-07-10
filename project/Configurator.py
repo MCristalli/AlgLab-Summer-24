@@ -161,7 +161,7 @@ if selected == "Projects":
             c1.number_input("Minimum", 0, int(optimum), int(minimum), on_change=set_project, kwargs=dict(row=key, column="minimum", key=str_id+"min"), key=str_id+"min")
             c2.number_input("Optimum", int(minimum), int(maximum), int(optimum), on_change=set_project, kwargs=dict(row=key, column="optimum", key=str_id+"opt"), key=str_id+"opt")
             c3.number_input("Maximum", int(optimum), 1000, int(maximum), on_change=set_project, kwargs=dict(row=key, column="maximum", key=str_id+"max"), key=str_id+"max")
-            st.slider("Programmer-Writer ratio", 0, 100, ratio, format="%d%%", help="Prozentualer anteil an Programmierern", on_change=set_project, kwargs=dict(row=key, column="ratio", key=str_id+"ratio"), key=str_id+"ratio")
+            st.slider("Programmer-Writer ratio", 0, 100, 50, format="%d%%", help="Prozentualer anteil an Programmierern", disabled=True, on_change=set_project, kwargs=dict(row=key, column="ratio", key=str_id+"ratio"), key=str_id+"ratio")
             st.multiselect("Required Skills", st.session_state.languages, default=language_requirements, on_change=set_project, kwargs=dict(row=key, column="language_requirements", key=str_id+"skills"), key=str_id+"skills")
             c0, c1 = st.columns([12, 1]) # TODO: properly align to the right
             c1.button('❌', on_click=remove_project, args=[key], use_container_width=True, key=str_id+"remove")

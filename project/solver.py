@@ -198,6 +198,25 @@ class SolutionStatCalculator:
         self.solution = solution
         self.student_lookup = {student.id: student for student in self.instance.students}
 
+    def getStats(self) -> str:
+        preferred_count = self.count_preferred_assignments()
+        disliked_count = self.count_disliked_assignments()
+        skillDiff = self.count_skillDiff_per_project()
+        size_diff = self.count_difference_from_optimal_size()
+        number_of_groups_sufficient_advanced = self.count_groups_min_2_skilled()
+        potential_use = self.potential_use()
+
+        stats = ""
+        stats += f"Studenten: {len(self.instance.students)}\n"
+        stats += f"Projekte: {len(self.instance.projects)}\n"
+        stats += f"Studenten mit einem Wunschprojekt: {preferred_count}\n"
+        stats += f"Studenten mit einem neutralen Projekt: {len(self.instance.students) - preferred_count - disliked_count}\n"
+        stats += f"Studenten mit einem abgewählten Projekt: {disliked_count}\n"
+        stats += f"Projekte mit mindestens einem fortgeschrittenen Studenten für jeden benötigten Skill: {number_of_groups_sufficient_advanced}\n"
+        for diff in range(max(size_diff) + 1):
+            stats += f"Projekte mit einer Differenz zur opt Größe von {diff} : {size_diff.count(diff)}\n"
+        stats += f"Potentialnutzung: {potential_use[0]} von {potential_use[1]}\n"
+        return stats
 
     def printStats(self):
         preferred_count = self.count_preferred_assignments()

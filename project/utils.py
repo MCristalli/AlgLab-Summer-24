@@ -5,37 +5,23 @@ import ast
 
 
 def get_name_from_student_id(df, mnr):
-    for line in range(len(df["matrikelnummer"])):
-        if df["matrikelnummer"][line] == mnr:
-            return [df["name"][line], df["firstname"][line]]
+    return [df.at[mnr, "name"], df.at[mnr, "firstname"]]
 
 
 def get_name_from_project_id(df, p_id):
-    for line in range(len(df["id"])):
-        if df["id"][line] == p_id:
-            return df["name"][line]
+    return df.at[p_id, "name"]
 
 
 
 def gui_output_to_instance(df_projects, df_students, languages) -> Instance:
-
-    #df_students = pd.read_csv("students.csv")
-    #df_projects = pd.read_csv("projects.csv")
-
-    df_projects.to_csv("./instances/projects.csv", sep=',', encoding='utf-8', index=False)
-    df_students.to_csv("./instances/students.csv", sep=',', encoding='utf-8', index=False)
-
 
     projects = []
 
     students = []
 
     # turn df_projects into Projects
-    for p_id in range(len(df_projects["id"])):
-        string = str(df_projects["language_requirements"][p_id])
-        string = string.replace("[", "").replace("]", "").replace("'", "")
-
-        project_languages = string.split(", ")
+    for p_id, row in df_projects.iterrows():
+        project_languages = row["language_requirements"]
         #print(lan)
         language_req = [0 for x in languages]
 
@@ -49,35 +35,36 @@ def gui_output_to_instance(df_projects, df_students, languages) -> Instance:
             counter = counter + 1
 
 
-        projects.append(Project(id=df_projects["id"][p_id], min=df_projects["minimum"][p_id], max=df_projects["maximum"][p_id], opt=df_projects["optimum"][p_id], language_requirements=language_req))
+        projects.append(Project(id=p_id, min=row["minimum"], max=row["maximum"], opt=row["optimum"], language_requirements=language_req))
 
-    for i in range(len(df_students["matrikelnummer"])):
-        s_projects = str(df_students["projects"][i]).split(",")
+    for matrikelnummer, row in df_students.iterrows():
+        s_projects = row["projects"]
 
-        for name in range(len(s_projects)):
-            for x in range(len(df_projects["id"])):
-                if s_projects[name] == df_projects["name"][x]:
-                    s_projects[name] = df_projects["id"][x]
-                    break
+        s_projects = [df_projects.index[df_projects['name'] == negative][0] for negative in row["projects"]]
 
-        s_negatives = str(df_students["negatives"][i]).split(",")
-        for name in range(len(s_negatives)):
-            for x in range(len(df_projects["id"])):
-                if s_negatives[name] == df_projects["name"][x]:
-                    s_negatives[name] = df_projects["id"][x]
-                    break
+        s_negatives = [df_projects.index[df_projects['name'] == negative][0] for negative in row["negatives"]]
 
-        skill = df_students["skill"][i] == "Schreiben"
+        skill = row["skill"] == "Schreiben"
 
-        students.append(Student(id=df_students["matrikelnummer"][i], projects=s_projects, negatives=s_negatives, skill=skill, programing_skills=ast.literal_eval(str(df_students["programing_skills"][i]))))
+        programing_skills = {}
+        for language in languages:
+            level = row["programing_skills"].get(language, None)
+            if level == "Anfänger":
+                programing_skills[language] = 1
+            elif level == "Fortgeschritten":
+                programing_skills[language] = 2
+            elif level == "Experte":
+                programing_skills[language] = 3
+            else:
+                programing_skills[language] = 0
+
+        students.append(Student(id=matrikelnummer, projects=s_projects, negatives=s_negatives, skill=skill, programing_skills=programing_skills))
 
     return Instance(students=students, projects=projects, programming_languages=languages)
 
 
 
-def solution_to_df(solution) -> pd.DataFrame:
-    projects_df = pd.read_csv("./instances/projects.csv")
-    students_df = pd.read_csv("./instances/students.csv")
+def solution_to_df(solution, projects_df, students_df) -> pd.DataFrame:
     merged_df = pd.DataFrame([], columns=["Projekt", "MatrikelNr", "Nachname", "Vorname"])
 
     project_ids = []
@@ -98,7 +85,7 @@ def solution_to_df(solution) -> pd.DataFrame:
                 data.append([p_name, assignment[0], name[0], name[1]])
 
         df = pd.DataFrame(data, columns=["Projekt", "MatrikelNr", "Nachname", "Vorname"])
-        merged_df.append(df)
-        df.to_csv("./assignments/" + str(get_name_from_project_id(p_id)) + ".csv", sep=',', encoding='utf-8', index=False)
+        merged_df = pd.concat([merged_df, df], ignore_index=True)
+        df.to_csv("./assignments/" + str(get_name_from_project_id(projects_df, p_id)) + ".csv", sep=',', encoding='utf-8', index=False)
 
     return merged_df

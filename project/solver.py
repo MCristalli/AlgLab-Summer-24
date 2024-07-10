@@ -97,7 +97,7 @@ class SEPAssignmentSolver:
                 if project.language_requirements[langCount] == 1:
                     num_students_with_skill = gp.quicksum(
                         x * (self._students[s].programing_skills.get(lang) >= 2) for (s, p), x in self._assignment_vars if p == project.id)
-                # Setze skill_coverage[p, k] auf 1, wenn mindestens zwei Studenten Skill k mit mindestens 2 haben
+                # Setze skill_coverage[p, k] auf 1, wenn mindestens ein Studenten Skill  mit mindestens 2 hat
                     self._model.addConstr(self._skill_coverage[project.id, langCount] <= num_students_with_skill)
                 if project.language_requirements[langCount] == 0:
                     self._model.addConstr(self._skill_coverage[project.id, langCount] == 0)
@@ -123,12 +123,12 @@ class SEPAssignmentSolver:
         self._model.setObjectiveN(
             sum(x if p not in self._students[s].negatives else 0 for (s, p), x in self._assignment_vars),
             index=0,
-            priority=6, weight=2)
+            priority=6, weight=1)
 
             #Objective 2: Assign students to preferred projects. 2 points for assignment to preferred project, 1 for neutral
         self._model.setObjectiveN(
             sum(x if p not in self._students[s].projects else 2 * x for (s, p), x in self._assignment_vars), index=1,
-            priority=5, weight=2)
+            priority=5, weight=1)
 
             #Objective 3: Maximize the number of groups which have at least on advanced student for every required skill
         self._model.setObjectiveN(gp.quicksum(self._skill_coverage[p, k] for p in range(len(self.instance.projects)) for k in range(len(self.instance.programming_languages))), \
@@ -136,7 +136,7 @@ class SEPAssignmentSolver:
 
             #Objective 4: Minimize the difference from the optimal project size
         self._model.setObjectiveN(-sum(self._opt_size_diff[j] for j in range(len(self.instance.projects))), index=3,
-                                  priority=3, weight=0.5)
+                                  priority=3, weight=1)
 
             #Objetive 5: Minimize the difference between number of programmers and number of writers in each group.
             #The absolute difference is subtracted from objective value
@@ -170,30 +170,6 @@ class SEPAssignmentSolver:
         else:
             return None
 
-    def count_difference_from_optimal_size(self, solution: Solution) -> List[int]:
-        optimal_size = [project.opt for project in self.instance.projects]
-        student_count = [0 for _ in range(len(self.instance.projects))]
-        for student_id, assigned_project in solution.assignments:
-            student_count[assigned_project] += 1
-
-        diff_from_opt_size = [abs(student_count[project] - optimal_size[project]) for project in
-                              range(len(self.instance.projects))]
-        return diff_from_opt_size
-
-    def count_skillDiff_per_project():
-        programmers_count = [0 for j in range(len(instance.projects))]
-        writers_count = [0 for j in range(len(instance.projects))]
-
-        for student_id, assigned_project in solution.assignments:
-            if student_lookup[student_id].skill == 0:
-                programmers_count[assigned_project] += 1
-
-            if student_lookup[student_id].skill == 1:
-                writers_count[assigned_project] += 1
-
-        skillDiff = [abs(programmers_count[project] - writers_count[project]) for project in
-                     range(len(instance.projects))]
-        return skillDiff
 
 class SolutionStatCalculator:
     def __init__(self, instance: Instance, solution: Solution) -> None:
@@ -207,6 +183,7 @@ class SolutionStatCalculator:
         skillDiff = self.count_skillDiff_per_project()
         size_diff = self.count_difference_from_optimal_size()
         number_of_groups_sufficient_advanced = self.count_groups_min_2_skilled()
+        min_1_skill = self.count_stud_min_1_skilled()
         potential_use = self.potential_use()
 
         stats = ""
@@ -217,7 +194,10 @@ class SolutionStatCalculator:
         stats += f"Studenten mit einem abgewählten Projekt: {disliked_count}\n"
         stats += f"Projekte mit mindestens einem fortgeschrittenen Studenten für jeden benötigten Skill: {number_of_groups_sufficient_advanced}\n"
         for diff in range(max(size_diff) + 1):
-            stats += f"Projekte mit einer Differenz zur opt Größe von {diff} : {size_diff.count(diff)}\n"
+            stats += f"Projekte mit einer Differenz zur optimalen Größe von {diff} : {size_diff.count(diff)}\n"
+        for diff in range(max(skillDiff) + 1):
+            stats += f"Projekte mit einer Schreiber/Programmierer Differenz von {diff} : {skillDiff.count(diff)}\n"
+        stats += f"Studenten, die für mindestens einen benötigten Skill Anfänger oder besser sind: {min_1_skill}\n"
         stats += f"Potentialnutzung: {potential_use[0]} von {potential_use[1]}\n"
         return stats
 
@@ -227,6 +207,7 @@ class SolutionStatCalculator:
         skillDiff = self.count_skillDiff_per_project()
         size_diff = self.count_difference_from_optimal_size()
         number_of_groups_sufficient_advanced = self.count_groups_min_2_skilled()
+        min_1_skill = self.count_stud_min_1_skilled()
         potential_use = self.potential_use()
 
         print(f"Studenten: {len(self.instance.students)}")
@@ -235,8 +216,12 @@ class SolutionStatCalculator:
         print(f"Studenten mit einem neutralen Projekt: {len(self.instance.students) - preferred_count - disliked_count}")
         print(f"Studenten mit einem abgewählten Projekt: {disliked_count}")
         print(f"Projekte mit mindestens einem fortgeschrittenen Studenten für jeden benötigten Skill: {number_of_groups_sufficient_advanced}")
+        for diff in range(max(skillDiff) + 1):
+            print(
+                f"Projekte mit einer Schreiber/Programmierer Differenz von {diff} : {skillDiff.count(diff)}")
         for diff in range(max(size_diff) + 1):
-            print(f"Projekte mit einer Differenz zur opt Größe von {diff} : {size_diff.count(diff)}")
+            print(f"Projekte mit einer Differenz zur optimalen Größe von {diff} : {size_diff.count(diff)}")
+        print(f"Anzahl der Studenten, die für mindestens einen benötigten Skill Anfänger oder besser sind: {min_1_skill}")
         print(f"Potentialnutzung: {potential_use[0]} von {potential_use[1]}")
 
 

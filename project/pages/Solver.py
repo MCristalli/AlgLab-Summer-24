@@ -30,13 +30,9 @@ if any(var not in st.session_state for var in ['projects', 'students', 'language
 
 st.title("SEP Solver")
 
-st.subheader("Configuration")
-with st.form("Config", border=False):
-    test_config_option = st.number_input("Test Config option", min_value=0, value=100)
-
-    c1, c2 = st.columns([0.75, 0.25])
-    solve_button = c1.form_submit_button("Solve", type="primary", use_container_width=True)
-    abort_button = c2.form_submit_button("Abort!", type="secondary", use_container_width=True)
+c1, c2 = st.columns([0.75, 0.25])
+solve_button = c1.button("Solve", type="primary", use_container_width=True)
+abort_button = c2.button("Abort!", type="secondary", use_container_width=True)
 
 # View solution (Optionally Filterable)
 st.subheader("Solution:")
@@ -51,6 +47,8 @@ if not st.session_state.solution.empty and filter_projects and len(filter_projec
     solution_placeholder.dataframe(filter_solution, hide_index=True, use_container_width=True)
 else:
     solution_placeholder.dataframe(st.session_state.solution, hide_index=True, use_container_width=True)
+
+st.subheader("Output")
 
 # Solver output and progress bar
 progress_spinner = st.empty()

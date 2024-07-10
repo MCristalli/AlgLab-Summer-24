@@ -11,7 +11,7 @@ from solver import SEPAssignmentSolver
 
 
 def _entry_point_solver_process(
-    instance, config_options, max_time, lower_bound, upper_bound, log_conn, solution_conn
+    instance, max_time, lower_bound, upper_bound, log_conn, solution_conn
 ):
     """
     Entry point for the optimization process. Runs the SEPSolver on the given instance and
@@ -27,7 +27,6 @@ def _entry_point_solver_process(
     signal.signal(signal.SIGINT, signal_handler)
 
     # Initialize the solver
-    # solver = SEPAssignmentSolver(instance, config_options)
     solver = SEPAssignmentSolver(instance)
 
     # Define callback to update the shared lower bound value
@@ -65,7 +64,7 @@ class SEPSolverProcess:
     Provides methods to start, interrupt, and retrieve the solution in a non-blocking manner.
     """
 
-    def __init__(self, instance: Instance, config_options = None, max_time: float = 600.0):
+    def __init__(self, instance: Instance, max_time: float = 600.0):
         self.instance = instance
         self.config_options = config_options
         self.max_time = max_time
@@ -77,7 +76,6 @@ class SEPSolverProcess:
             target=_entry_point_solver_process,
             args=(
                 self.instance,
-                self.config_options,
                 self.max_time,
                 self._shared_bound_value,
                 self._shared_objective_value,

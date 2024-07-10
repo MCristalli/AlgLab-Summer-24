@@ -66,7 +66,6 @@ class SEPSolverProcess:
 
     def __init__(self, instance: Instance, max_time: float = 600.0):
         self.instance = instance
-        self.config_options = config_options
         self.max_time = max_time
         self._shared_bound_value = multiprocessing.Value("d", float("-inf"))
         self._shared_objective_value = multiprocessing.Value("d", float("inf"))

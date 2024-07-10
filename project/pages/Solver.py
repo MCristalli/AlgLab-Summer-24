@@ -38,12 +38,19 @@ with st.form("Config", border=False):
     solve_button = c1.form_submit_button("Solve", type="primary", use_container_width=True)
     abort_button = c2.form_submit_button("Abort!", type="secondary", use_container_width=True)
 
-# View solution (Filterable Dataframe?)
+# View solution (Optionally Filterable)
 st.subheader("Solution:")
+
+filter_projects = st.multiselect("Filter by Projects", st.session_state.projects["name"])
+
 if "solution" not in st.session_state:
     st.session_state.solution = pd.DataFrame()
 solution_placeholder = st.empty()
-solution_placeholder.dataframe(st.session_state.solution, hide_index=True, use_container_width=True)
+if not st.session_state.solution.empty and filter_projects and len(filter_projects) > 0:
+    filter_solution = st.session_state.solution.loc[st.session_state.solution['Projekt'].isin(filter_projects)]
+    solution_placeholder.dataframe(filter_solution, hide_index=True, use_container_width=True)
+else:
+    solution_placeholder.dataframe(st.session_state.solution, hide_index=True, use_container_width=True)
 
 # Solver output and progress bar
 progress_spinner = st.empty()

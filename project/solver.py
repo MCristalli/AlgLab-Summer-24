@@ -165,7 +165,10 @@ class SEPAssignmentSolver:
 
         # perform multiple iterations here if necessary
 
-        return Solution(assignments=list(self._assignment_vars.as_dict().items()))
+        if self._model.status == GRB.OPTIMAL:
+            return Solution(assignments=list(self._assignment_vars.as_dict().items()))
+        else:
+            return None
 
     def count_difference_from_optimal_size(self, solution: Solution) -> List[int]:
         optimal_size = [project.opt for project in self.instance.projects]

@@ -177,6 +177,132 @@ class SEPAssignmentSolver:
                               range(len(self.instance.projects))]
         return diff_from_opt_size
 
+    def count_skillDiff_per_project():
+        programmers_count = [0 for j in range(len(instance.projects))]
+        writers_count = [0 for j in range(len(instance.projects))]
+
+        for student_id, assigned_project in solution.assignments:
+            if student_lookup[student_id].skill == 0:
+                programmers_count[assigned_project] += 1
+
+            if student_lookup[student_id].skill == 1:
+                writers_count[assigned_project] += 1
+
+        skillDiff = [abs(programmers_count[project] - writers_count[project]) for project in
+                     range(len(instance.projects))]
+        return skillDiff
+
+class SolutionStatCalculator:
+    def __init__(self, instance: Instance, solution: Solution) -> None:
+        self.instance = instance
+        self.solution = solution
+        self.student_lookup = {student.id: student for student in self.instance.students}
+
+
+    def printStats(self):
+        preferred_count = self.count_preferred_assignments()
+        disliked_count = self.count_disliked_assignments()
+        skillDiff = self.count_skillDiff_per_project()
+        size_diff = self.count_difference_from_optimal_size()
+        number_of_groups_sufficient_advanced = self.count_groups_min_2_skilled()
+        potential_use = self.potential_use()
+
+        print(f"Studenten: {len(self.instance.students)}")
+        print(f"Projekte: {len(self.instance.projects)}")
+        print(f"Studenten mit einem Wunschprojekt: {preferred_count}")
+        print(f"Studenten mit einem neutralen Projekt: {len(self.instance.students) - preferred_count - disliked_count}")
+        print(f"Studenten mit einem abgewählten Projekt: {disliked_count}")
+        print(f"Projekte mit mindestens einem fortgeschrittenen Studenten für jeden benötigten Skill: {number_of_groups_sufficient_advanced}")
+        for diff in range(max(size_diff) + 1):
+            print(f"Projekte mit einer Differenz zur opt Größe von {diff} : {size_diff.count(diff)}")
+        print(f"Potentialnutzung: {potential_use[0]} von {potential_use[1]}")
+
+
+    def count_preferred_assignments(self) -> int:
+        count = 0
+        for student_id, assigned_project in self.solution.assignments:
+            student_projects = [student.projects for student in self.instance.students if student.id == student_id][0]
+            if assigned_project in student_projects:
+                count += 1
+        print()
+        return count
+    def count_disliked_assignments(self) -> int:
+        count = 0
+        for student_id, assigned_project in self.solution.assignments:
+            student_negatives = [student.negatives for student in self.instance.students if student.id == student_id][0]
+
+            if assigned_project in student_negatives:
+                count += 1
+        print()
+        return count
+
+    def count_difference_from_optimal_size(self):
+        optimal_size = [0 for p in self.instance.projects]
+        for i in range(len(self.instance.projects)):
+            optimal_size[i] = self.instance.projects[i].opt
+        student_count = [0 for i in range(len(self.instance.projects))]
+        for student_id, assigned_project in self.solution.assignments:
+            student_count[assigned_project] += 1
+        diff_from_opt_size = [abs(student_count[project] - optimal_size[project]) for project in
+                     range(len(self.instance.projects))]
+        return diff_from_opt_size
+
+    def count_groups_min_2_skilled(self) -> int:
+        number_of_groups_sufficient_advanced = 0
+        for project in self.instance.projects:
+            sufficient_advanced = 1
+            students_in_project = []
+            for student_id, assigned_project in self.solution.assignments:
+                if assigned_project == project.id:
+                    students_in_project.append(self.student_lookup[student_id])
+            langCount = 0
+            for lang in self.instance.programming_languages:
+                if project.language_requirements[langCount] == 1: # This project requires this language
+                    advancedCountforLang = 0
+                    for student in students_in_project:
+                        if student.programing_skills[lang] >= 2:
+                            advancedCountforLang += 1
+                    if advancedCountforLang <= 0:
+                        sufficient_advanced = 0
+                langCount += 1
+            number_of_groups_sufficient_advanced = number_of_groups_sufficient_advanced + sufficient_advanced
+        return number_of_groups_sufficient_advanced
+
+    def count_stud_min_1_skilled(self):
+        student_count = 0
+        for student_id, assigned_project in self.solution.assignments:
+            langCount = 0
+            for skill_lvl in self.student_lookup[student_id].programing_skills.values():
+                if skill_lvl >= 1 and self.instance.projects[assigned_project].language_requirements[langCount] == 1:
+                    student_count += 1
+                    break
+                langCount += 1
+        return student_count
+
+    def potential_use(self):
+        overall_potential = sum(sum(student.programing_skills.values()) for student in self.instance.students)
+        used_potential = 0
+        for student_id, assigned_project in self.solution.assignments:
+            for lang, langInt in zip(self.instance.programming_languages, range(len(self.instance.programming_languages))):
+                if self.instance.projects[assigned_project].language_requirements[langInt]:
+                    used_potential = used_potential + self.student_lookup[student_id].programing_skills[lang]
+        return used_potential, overall_potential
+
+    def count_skillDiff_per_project(self):
+        programmers_count = [0 for j in range(len(self.instance.projects))]
+        writers_count = [0 for j in range(len(self.instance.projects))]
+
+        for student_id, assigned_project in self.solution.assignments:
+            if self.student_lookup[student_id].skill == 0:
+                programmers_count[assigned_project] += 1
+
+            if self.student_lookup[student_id].skill == 1:
+                writers_count[assigned_project] += 1
+
+        skillDiff = [abs(programmers_count[project] - writers_count[project]) for project in
+                     range(len(self.instance.projects))]
+        return skillDiff
+
 if __name__ == "__main__":
     # Read the instance
     with open("./instances/anonymized_data_1.json") as f:
@@ -184,6 +310,7 @@ if __name__ == "__main__":
         student_lookup = {student.id: student for student in instance.students}
     # Create the solver
     solver = SEPAssignmentSolver(instance)
+
     solution = solver.solve(callbacks={'Message': lambda msg: print(msg, end='')})
     # Verify the solution
     assert solution is not None, "The solution must not be 'None'!"
@@ -215,118 +342,9 @@ if __name__ == "__main__":
     with open("./solution.json", "w") as f:
         f.write(solution_json)
 
-
-    # Count the number of students who were assigned to one of their preferred projects
-    def count_preferred_assignments():
-        count = 0
-        for student_id, assigned_project in solution.assignments:
-            student_projects = [student.projects for student in instance.students if student.id == student_id][0]
-            if assigned_project in student_projects:
-                count += 1
-        print()
-        return count
-
-    def count_disliked_assignments():
-        count = 0
-        for student_id, assigned_project in solution.assignments:
-            student_negatives = [student.negatives for student in instance.students if student.id == student_id][0]
-
-            if assigned_project in student_negatives:
-                count += 1
-        print()
-        return count
-
-    # Counts the absolute difference between number of programmers and writers for each group
-    def count_skillDiff_per_project():
-        programmers_count = [0 for j in range(len(instance.projects))]
-        writers_count = [0 for j in range(len(instance.projects))]
-
-        for student_id, assigned_project in solution.assignments:
-            if student_lookup[student_id].skill == 0:
-                programmers_count[assigned_project] += 1
-
-            if student_lookup[student_id].skill == 1:
-                writers_count[assigned_project] += 1
-
-        skillDiff = [abs(programmers_count[project] - writers_count[project]) for project in
-                     range(len(instance.projects))]
-        return skillDiff
+    sol_stat_calculator = SolutionStatCalculator(instance, solution)
+    sol_stat_calculator.printStats()
 
 
-    def count_difference_from_optimal_size():
-        optimal_size = [0 for p in Instance.projects]
-        for i in range(len(Instance.projects)):
-            optimal_size[i] = Instance.projects[i].opt
-        student_count = [0 for i in range(len(instance.projects))]
-        for student_id, assigned_project in solution.assignments:
-            student_count[assigned_project] += 1
-        diff_from_opt_size = [abs(student_count[project] - optimal_size[project]) for project in
-                     range(len(instance.projects))]
-        return diff_from_opt_size
 
-    #Counts the number of groups where for every required skills has at least one advanced student
-    def count_groups_min_2_skilled():
-        number_of_groups_sufficient_advanced = 0
-        for project in instance.projects:
-            sufficient_advanced = 1
-            students_in_project = []
-            for student_id, assigned_project in solution.assignments:
-                if assigned_project == project.id:
-                    students_in_project.append(student_lookup[student_id])
-            langCount = 0
-            for lang in instance.programming_languages:
-                if project.language_requirements[langCount] == 1: # This project requires this language
-                    advancedCountforLang = 0
-                    for student in students_in_project:
-                        if student.programing_skills[lang] >= 2:
-                            advancedCountforLang += 1
-                    if advancedCountforLang <= 0:
-                        sufficient_advanced = 0
-                langCount += 1
-            number_of_groups_sufficient_advanced = number_of_groups_sufficient_advanced + sufficient_advanced
-        return number_of_groups_sufficient_advanced
-
-    #Counts the number of students which have at least one required skill for their project
-    def count_stud_min_1_skilled():
-        student_count = 0
-        for student_id, assigned_project in solution.assignments:
-            langCount = 0
-            for skill_lvl in student_lookup[student_id].programing_skills.values():
-                if skill_lvl >= 1 and instance.projects[assigned_project].language_requirements[langCount] == 1:
-                    student_count += 1
-                    break
-                langCount += 1
-        return student_count
-
-    #Calculates the used potential (skill of a student is used if it is required for their project)
-    #The overall potential is the sum of all skills of the students
-    def potential_use():
-        overall_potential = sum(sum(student.programing_skills.values()) for student in instance.students)
-        used_potential = 0
-        for student_id, assigned_project in solution.assignments:
-            for lang, langInt in zip(instance.programming_languages, range(len(instance.programming_languages))):
-                if instance.projects[assigned_project].language_requirements[langInt]:
-                    used_potential = used_potential + student_lookup[student_id].programing_skills[lang]
-        return used_potential, overall_potential
-
-    preferred_count = count_preferred_assignments()
-    disliked_count = count_disliked_assignments()
-    skillDiff = count_skillDiff_per_project()
-    min_1_skill = count_stud_min_1_skilled()
-    potential_use = potential_use()
-    number_of_groups_sufficient_advanced = count_groups_min_2_skilled()
-
-    print(f"Anzahl der Studenten mit einem Wunschprojekt: {preferred_count}")
-    print(f"Anzahl der Studenten mit einem neutralen Projekt: {len(instance.students) - preferred_count - disliked_count}")
-    print(f"Anzahl der Studenten mit einem abgewählten Projekt: {disliked_count}")
-
-    for diff in range(max(skillDiff) + 1):
-        print(f"Anzahl der Projekte mit einer Schreiber/Programmierer Differenz von {diff} : {skillDiff.count(diff)}")
-    size_diff = solver.count_difference_from_optimal_size(solution)
-    for diff in range(max(size_diff) + 1):
-        print(f"Anzahl der Projekte mit einer Differenz zur opt Größe von {diff} : {size_diff.count(diff)}")
-
-    print(f"Anzahl der Projekte mit mindestens einem fortgeschrittenen Studenten für jeden benötigten Skill: {number_of_groups_sufficient_advanced}")
-    print(f"Potentialnutzung: {potential_use[0]} von {potential_use[1]}")
-    print(f"Anzahl der Studenten, die für mindestens einen benötigten Skill Anfänger oder besser sind: {min_1_skill}")
 

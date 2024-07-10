@@ -84,7 +84,8 @@ selected = option_menu(None, ["Projects", "Programming Languages", "Students"],
     default_index=0, orientation="horizontal")
 
 if selected == "Students":
-    st.button("Solve", type="primary", use_container_width=True)
+    if st.button("Solve", type="primary", use_container_width=True):
+        st.switch_page("pages/Solver.py")
     st.dataframe(st.session_state.students, use_container_width=True)
 else:
     c1, c2, c3 = st.columns(3)

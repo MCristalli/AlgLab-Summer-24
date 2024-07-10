@@ -1,0 +1,20 @@
+['C', 'C++', 'C#', 'Java', 'HTML/CSS', 'Python', 'JavaScript', 'PHP']
+id,name,minimum,optimum,maximum,ratio,language_requirements
+0,Projekt_1,7,7,12,50,"['C++', 'HTML/CSS', 'JavaScript']"
+1,Projekt_2,7,7,11,50,['HTML/CSS']
+2,Projekt_3,7,8,9,50,"['Java', 'JavaScript']"
+3,Projekt_4,8,8,9,50,"['C', 'C++', 'HTML/CSS', 'PHP']"
+4,Projekt_5,8,8,8,50,"['C', 'C#', 'Java', 'Python']"
+5,Projekt_6,7,10,12,50,['C']
+6,Projekt_7,7,13,13,50,['C++']
+7,Projekt_8,7,9,9,50,"['C', 'Java', 'JavaScript']"
+8,Projekt_9,8,9,10,50,['C']
+9,Projekt_10,9,9,9,50,"['C', 'HTML/CSS', 'JavaScript']"
+10,Projekt_11,9,9,12,50,['HTML/CSS']
+11,Projekt_12,9,10,13,50,"['C++', 'C#', 'JavaScript', 'PHP']"
+12,Projekt_13,8,10,11,50,"['C', 'C++', 'JavaScript']"
+13,Projekt_14,8,9,10,50,['C#']
+14,Projekt_15,9,10,10,50,"['C++', 'C#', 'PHP']"
+15,Projekt_16,7,11,12,50,['Python']
+16,Projekt_17,9,9,10,50,['C#']
+17,Projekt_18,9,9,10,50,"['C', 'C++', 'Java']"

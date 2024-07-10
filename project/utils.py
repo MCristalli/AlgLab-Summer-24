@@ -19,8 +19,8 @@ def get_name_from_project_id(df, p_id):
 
 def gui_output_to_instance(df_projects, df_students, languages) -> Instance:
 
-    df_students = pd.read_csv("students.csv")
-    df_projects = pd.read_csv("projects.csv")
+    #df_students = pd.read_csv("students.csv")
+    #df_projects = pd.read_csv("projects.csv")
 
     df_projects.to_csv("./instances/projects.csv", sep=',', encoding='utf-8', index=False)
     df_students.to_csv("./instances/students.csv", sep=',', encoding='utf-8', index=False)

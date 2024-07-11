@@ -64,7 +64,7 @@ class Generator:
         for language in list:
             for i in range(len(self.programing_languages)):
                 if language == self.programing_languages[i]:
-                    language_requirements[i] = 1;
+                    language_requirements[i] = 1
 
         return language_requirements
 
@@ -82,7 +82,11 @@ class Generator:
 
             skill = random.randint(0, 1)
 
-            self.students.append(Student(id=i, projects=projects, negatives=negatives, skill=skill))
+            program_skills = {}
+            for v in range(len(self.programing_languages)):
+                program_skills[self.programing_languages[v]] = random.randint(0, 3)
+
+            self.students.append(Student(id=i, projects=projects, negatives=negatives, skill=skill, programing_skills=program_skills))
 
     def generate_anonymous_data(self, name, number_negative):
         # parse students
@@ -184,6 +188,7 @@ class Generator:
         pass
 
     def anonymized_data_to_gui_readable(self, name):
+        frame = pd.read_csv("./instances/sep_registrations_1.csv")
         self.generate_anonymous_data(name, 3)
 
         data = []
@@ -198,18 +203,56 @@ class Generator:
 
             project_data = [
                 project.id,
-                "Projekt_" + str(project.id + 1),
+                "Projekt " + str(project.id),
                 project.min,
                 project.opt,
                 project.max,
                 50,
-                languages
+                str(languages).replace("C ", "C")
             ]
 
             data.append(project_data)
 
+
         df = pd.DataFrame(data, columns=["id", "name", "minimum", "optimum", "maximum", "ratio", "language_requirements"])
-        df.to_csv("./instances/gui_readable.csv", sep=',', encoding='utf-8', index=False)
+
+        with open('./instances/gui_readable_projects.csv', 'w') as fp:
+            fp.write(str(self.programing_languages).replace("C ", "C") +"\n")
+            df.to_csv(fp, sep=',', index=False, encoding='utf-8')
+        #buffer = pd.concat([buffer, df], ignore_index=True)
+        #df.to_csv("./instances/gui_readable_projects.csv", sep=',', encoding='utf-8', index=False)
+
+        data = []
+        for student in self.students:
+            name = self.get_name_from_student_id(frame, student.id)
+            projects = ["Projekt " + str(x) for x in student.projects]
+            projects = str(projects)#.replace("[", "").replace("]", "").replace("'", "")
+            negatives = ["Projekt " + str(x) for x in student.negatives]
+            negatives = str(negatives)#.replace("[", "").replace("]", "").replace("'", "")
+            dic = {key: val for key, val in student.programing_skills.items() if val != 0}
+            programing_skills = str(dic).replace("[", "{").replace("]", "}").replace("1", "\"Anfänger\"").replace("2", "\"Fortgeschritten\"").replace("3", "\"Experte\"").replace(" ", "").replace("'", "\"")
+
+            skill = ""
+            if student.skill == 0:
+                skill = "Programmieren"
+            else:
+                skill = "Schreiben"
+
+            student_date = [
+                student.id,
+                name[1],
+                name[0],
+                projects,
+                negatives,
+                skill,
+                programing_skills
+            ]
+            data.append(student_date)
+
+            df = pd.DataFrame(data,
+                              columns=["matrikelnummer", "firstname", "name", "projects", "negatives", "skill", "programing_skills"])
+            df.to_csv("./instances/gui_readable_students.csv", sep=',', encoding='utf-8', index=False)
+
 
     def instance_to_csv(self, original_data_file_name):
         with open("./solution.json") as f:
@@ -241,7 +284,82 @@ class Generator:
                 return [df["Nachname"][line], df["Vorname"][line]]
 
 
+    def random_data_to_gui_readable(self):
+        #frame = pd.read_csv("./instances/sep_registrations_1.csv")
+        #self.generate_anonymous_data(name, 3)
+        self.generate_test_data(number_students=1000, number_courses=60, number_positive=3, number_negative=2,
+                           projects_min_students=10, projects_max_students=20)
+
+        data = []
+
+        for project in self.projects:
+            languages = []
+            counter = 0
+            for i in project.language_requirements:
+                if i:
+                    languages.append(self.programing_languages[counter])
+                counter = counter + 1
+
+            project_data = [
+                project.id,
+                "Projekt " + str(project.id),
+                project.min,
+                project.opt,
+                project.max,
+                50,
+                str(languages).replace("C ", "C")
+            ]
+
+            data.append(project_data)
+
+        df = pd.DataFrame(data,
+                          columns=["id", "name", "minimum", "optimum", "maximum", "ratio", "language_requirements"])
+
+        with open('./instances/gui_readable_1000_projects.csv', 'w') as fp:
+            fp.write(str(self.programing_languages).replace("C ", "C") + "\n")
+            df.to_csv(fp, sep=',', index=False, encoding='utf-8')
+        # buffer = pd.concat([buffer, df], ignore_index=True)
+        # df.to_csv("./instances/gui_readable_projects.csv", sep=',', encoding='utf-8', index=False)
+
+        data = []
+        for student in self.students:
+            name = ["Name", "Firstname"]
+            projects = ["Projekt " + str(x) for x in student.projects]
+            projects = str(projects)  # .replace("[", "").replace("]", "").replace("'", "")
+            negatives = ["Projekt " + str(x) for x in student.negatives]
+            negatives = str(negatives)  # .replace("[", "").replace("]", "").replace("'", "")
+            dic = {key: val for key, val in student.programing_skills.items() if val != 0}
+            programing_skills = str(dic).replace("[", "{").replace("]", "}").replace("1", "\"Anfänger\"").replace("2",
+                                                                                                                  "\"Fortgeschritten\"").replace(
+                "3", "\"Experte\"").replace(" ", "").replace("'", "\"")
+
+            skill = ""
+            if student.skill == 0:
+                skill = "Programmieren"
+            else:
+                skill = "Schreiben"
+
+            student_date = [
+                student.id,
+                name[1],
+                name[0],
+                projects,
+                negatives,
+                skill,
+                programing_skills
+            ]
+            data.append(student_date)
+
+            df = pd.DataFrame(data,
+                              columns=["matrikelnummer", "firstname", "name", "projects", "negatives", "skill",
+                                       "programing_skills"])
+            df.to_csv("./instances/gui_readable_1000_students.csv", sep=',', encoding='utf-8', index=False)
+
+
 
 generator = Generator()
 #generator.anonymized_data_to_gui_readable("./instances/sep_registrations_1.csv")
-generator.instance_to_csv("./instances/sep_registrations_1.csv")
+#generator.generate_test_data(number_students=1000, number_courses=60, number_positive=3, number_negative=2, projects_min_students=10, projects_max_students=20)
+#generator.save_instance("./instances/1000_random_students.json")
+#generator.instance_to_csv("./instances/sep_registrations_1.csv")
+generator.random_data_to_gui_readable()

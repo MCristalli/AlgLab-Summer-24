@@ -1,0 +1,62 @@
+['C', 'C++', 'C#', 'Java', 'HTML/CSS', 'Python', 'JavaScript', 'PHP']
+id,name,minimum,optimum,maximum,ratio,language_requirements
+0,Projekt 0,16,16,16,50,['HTML/CSS']
+1,Projekt 1,15,18,20,50,['C++']
+2,Projekt 2,17,18,19,50,['C']
+3,Projekt 3,12,12,13,50,['HTML/CSS']
+4,Projekt 4,10,10,12,50,"['C#', 'Java', 'PHP']"
+5,Projekt 5,16,16,19,50,"['Python', 'PHP']"
+6,Projekt 6,19,20,20,50,"['C++', 'Java', 'JavaScript', 'PHP']"
+7,Projekt 7,12,15,15,50,['HTML/CSS']
+8,Projekt 8,20,20,20,50,"['C', 'C++', 'Python', 'JavaScript']"
+9,Projekt 9,16,20,20,50,"['C++', 'C#', 'Python', 'PHP']"
+10,Projekt 10,16,16,16,50,"['C++', 'C#', 'JavaScript', 'PHP']"
+11,Projekt 11,14,14,14,50,"['C', 'HTML/CSS', 'JavaScript', 'PHP']"
+12,Projekt 12,15,19,20,50,"['C#', 'Java', 'Python', 'JavaScript']"
+13,Projekt 13,19,19,19,50,"['C++', 'Java']"
+14,Projekt 14,13,14,20,50,"['C', 'C++', 'Java', 'PHP']"
+15,Projekt 15,14,16,19,50,['PHP']
+16,Projekt 16,16,18,18,50,"['C', 'Java', 'PHP']"
+17,Projekt 17,20,20,20,50,['Java']
+18,Projekt 18,13,13,17,50,"['C', 'Python']"
+19,Projekt 19,19,19,19,50,"['HTML/CSS', 'Python', 'PHP']"
+20,Projekt 20,13,13,19,50,"['C++', 'C#', 'JavaScript']"
+21,Projekt 21,20,20,20,50,['C']
+22,Projekt 22,16,16,19,50,"['C++', 'Java', 'HTML/CSS']"
+23,Projekt 23,11,12,14,50,"['C++', 'C#', 'Python', 'JavaScript']"
+24,Projekt 24,20,20,20,50,"['C#', 'PHP']"
+25,Projekt 25,15,18,20,50,['JavaScript']
+26,Projekt 26,18,18,18,50,"['C++', 'C#']"
+27,Projekt 27,18,19,20,50,"['C', 'C#', 'Python', 'JavaScript']"
+28,Projekt 28,19,19,19,50,"['C', 'Python', 'JavaScript']"
+29,Projekt 29,17,17,18,50,"['C++', 'HTML/CSS', 'Python', 'JavaScript']"
+30,Projekt 30,19,19,20,50,['C++']
+31,Projekt 31,12,12,12,50,"['C', 'C++', 'C#', 'Java']"
+32,Projekt 32,19,20,20,50,"['Java', 'HTML/CSS']"
+33,Projekt 33,14,17,18,50,['C']
+34,Projekt 34,10,18,19,50,"['C++', 'C#', 'Java']"
+35,Projekt 35,20,20,20,50,"['Java', 'Python', 'PHP']"
+36,Projekt 36,11,15,17,50,"['C', 'JavaScript']"
+37,Projekt 37,17,17,17,50,"['C++', 'C#']"
+38,Projekt 38,19,19,20,50,"['HTML/CSS', 'JavaScript']"
+39,Projekt 39,16,17,20,50,"['C', 'Java']"
+40,Projekt 40,11,18,19,50,"['C', 'C++', 'HTML/CSS', 'JavaScript']"
+41,Projekt 41,10,11,11,50,['Java']
+42,Projekt 42,16,18,18,50,"['C', 'Java']"
+43,Projekt 43,13,13,13,50,['Java']
+44,Projekt 44,20,20,20,50,"['C++', 'PHP']"
+45,Projekt 45,16,16,16,50,"['C++', 'HTML/CSS']"
+46,Projekt 46,19,19,19,50,['C++']
+47,Projekt 47,20,20,20,50,"['Java', 'JavaScript']"
+48,Projekt 48,20,20,20,50,"['C', 'HTML/CSS', 'Python', 'PHP']"
+49,Projekt 49,13,14,14,50,"['C#', 'HTML/CSS', 'PHP']"
+50,Projekt 50,18,19,19,50,['C']
+51,Projekt 51,16,19,19,50,"['Java', 'PHP']"
+52,Projekt 52,17,17,19,50,"['C', 'C++', 'C#', 'HTML/CSS']"
+53,Projekt 53,18,19,19,50,"['C', 'HTML/CSS']"
+54,Projekt 54,18,18,19,50,['C']
+55,Projekt 55,11,14,20,50,"['C++', 'HTML/CSS', 'PHP']"
+56,Projekt 56,11,11,11,50,"['C++', 'HTML/CSS', 'Python']"
+57,Projekt 57,10,10,13,50,['C']
+58,Projekt 58,19,19,19,50,"['C#', 'Java', 'Python', 'JavaScript']"
+59,Projekt 59,12,20,20,50,['Java']
